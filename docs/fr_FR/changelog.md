@@ -1,3 +1,6 @@
+# 07/09/2024 | v1.24
+* Correction de bugs pour la version debian 12 par vegeta0911
+
 # 04/01/2024 | v1.23
 * Mise à jour du ieee-oui et du ieee-iab
 
