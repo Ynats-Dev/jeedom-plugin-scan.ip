@@ -51,7 +51,7 @@ $('#bt_scan_ip_dev').off('click').on('click', function () {
             handleAjaxError(request, status, error);
         },
         success: function (data) {
-            $('#div_alert').showAlert({message: "Mode développeur : Reset Ok (Penser à réactiver le CRON)", level: 'warning'});
+            $('#div_alert').showAlert({message: "{{Mode développeur : Reset Ok (Penser à réactiver le CRON)}}", level: 'warning'});
         }
     });
 });

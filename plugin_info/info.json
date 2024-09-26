@@ -13,7 +13,11 @@
 		"forum":"https://community.jeedom.com/tag/plugin-scan_ip"
 	},
 	"language" : [
-            "fr_FR"
+            "fr_FR",
+			"en_US",
+			"es_ES",
+			"it_IT",
+			"de_DE"
         ],
 	"compatibility" : [
 			"miniplus",

@@ -181,7 +181,7 @@ class scan_ip_widget_alerte extends eqLogic {
     
     public static function createAlerteWidget($scan_ip, $_version = 'dashboard', $_replace) {
 
-        log::add('scan_ip', 'debug', 'createAlerteWidget :.  Lancement');
+        log::add('scan_ip', 'debug', 'createAlerteWidget :.  ' . __('Lancement', __FILE__));
 
         $replace = $_replace;
         
@@ -191,11 +191,11 @@ class scan_ip_widget_alerte extends eqLogic {
         <thead>
             <tr style="background-color: grey !important; color: white !important;">
                 <th style="padding : 3px 0 3px 15px !important; text-align: center;"></th>
-                <th style="padding : 3px 0 3px 15px !important;">Date</th>
-                <th style="padding : 3px 0 3px 15px !important;">Adresse MAC</th>
-                <th style="padding : 3px 0 3px 15px !important;">Ip</th>
-                <th style="padding : 3px 0 3px 15px !important;">Information</th>
-                <th style="padding : 3px 0 3px 15px !important;">Vu la première fois</th>
+                <th style="padding : 3px 0 3px 15px !important;">' . __('Date', __FILE__) . '</th>
+                <th style="padding : 3px 0 3px 15px !important;">' . __('Adresse MAC', __FILE__) . '</th>
+                <th style="padding : 3px 0 3px 15px !important;">' . __('Ip', __FILE__) . '</th>
+                <th style="padding : 3px 0 3px 15px !important;">' . __('Information', __FILE__) . '</th>
+                <th style="padding : 3px 0 3px 15px !important;">' . __('Vu la première fois', __FILE__) . '</th>
             </tr>
         </thead>
         <tbody>';
@@ -207,7 +207,6 @@ class scan_ip_widget_alerte extends eqLogic {
                 $time = scan_ip_cmd::getCommande("last_".$i."_time", $scan_ip, NULL);
                 $offline_time = $scan_ip->getConfiguration("offline_time", scan_ip::$_defaut_offline_time);
                 
-               
                 if($record != NULL){
                     $record = date("d/m/Y H:i:s", $record);
                 } else {
@@ -216,10 +215,10 @@ class scan_ip_widget_alerte extends eqLogic {
                 
                 if (scan_ip_tools::isOffline($offline_time, $time) == 0) {
                     $element["colorOnLine"] = "#50aa50";
-                    $element["titleOnLine"] = "En ligne";
+                    $element["titleOnLine"] = __('En ligne', __FILE__);
                 } else {
                     $element["colorOnLine"] = "red";
-                    $element["titleOnLine"] = "Hors ligne";
+                    $element["titleOnLine"] = __("Hors ligne", __FILE__);
                 }
                 
                 $replace["#last_unknown_equipement#"] .= '<tr>'

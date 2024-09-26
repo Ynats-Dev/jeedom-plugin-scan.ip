@@ -124,7 +124,7 @@ class scan_ip_tools extends eqLogic {
         echo '  <div class="form-group">
                     <div class="'.$col1.'"></div>
                     <div class="'.$col2.'">
-                           <div style="background-color: #039be5; padding: 2px 5px; color: white; margin: '.$margin.'; font-weight: bold;">'. $_titre .'</div>
+                        <div style="background-color: #039be5; padding: 2px 5px; color: white; margin: '.$margin.'; font-weight: bold;">'. $_titre .'</div>
                     </div>
                 </div>';
     }
@@ -142,17 +142,17 @@ class scan_ip_tools extends eqLogic {
     
     public static function printFileOuiExist(){
         if(@file_exists(scan_ip::$_file_oui) == TRUE){
-            return "<span style='color:green'>oui.txt (Installé)</span>";
+            return "<span style='color:green'>". __('oui.txt (Installé)', __FILE__) ."</span>";
         } else {
-            return '<a class="btn btn-danger btn-sm" onclick= "recordBtMac()" style="position:relative;top:-5px;"><i class="fas fa-paperclip"></i> oui.txt (Manquant)</a>';
+            return '<a class="btn btn-danger btn-sm" onclick= "recordBtMac()" style="position:relative;top:-5px;"><i class="fas fa-paperclip"></i>'. __('oui.txt (Manquant)', __FILE__) .'</a>';
         }
     }
     
     public static function printFileIatExist(){
         if(@file_exists(scan_ip::$_file_iab) == TRUE){
-            return "<span style='color:green'>iab.txt (Installé)</span>";
+            return "<span style='color:green'>". __('iab.txt (Installé)', __FILE__) ."</span>";
         } else {
-            return '<a class="btn btn-danger btn-sm" onclick= "recordBtMac()" style="position:relative;top:-5px;"><i class="fas fa-paperclip"></i> iab.txt (Manquant)</a>';
+            return '<a class="btn btn-danger btn-sm" onclick= "recordBtMac()" style="position:relative;top:-5px;"><i class="fas fa-paperclip"></i>'. __('iab.txt (Manquant)', __FILE__) .'</a>';
         }
     }
     
@@ -222,7 +222,7 @@ class scan_ip_tools extends eqLogic {
     }
     
     public static function printInputSubConfig(){
-        log::add('scan_ip', 'debug', 'printInputSubConfig :. Lancement');
+        log::add('scan_ip', 'debug', 'printInputSubConfig :. ' . __('Lancement', __FILE__));
         $return = "";
         
         $allReseau = scan_ip_shell::scanSubReseau();
@@ -232,7 +232,7 @@ class scan_ip_tools extends eqLogic {
         foreach ($allReseau as $sub) {
             if(self::excludeSubReseau($sub["name"]) == TRUE) {
                 $return .= '<div class="form-group"">';
-                $return .= '<label class="col-sm-4 control-label">{{Scanner le sous-réseau ['.$sub["name"].']}} </label>';
+                $return .= '<label class="col-sm-4 control-label">'. __('Scanner le sous-réseau', __FILE__) . ' ['.$sub["name"].']</label>';
                 $return .= '<div class="col-sm-2">';
                 $return .= '<input type="checkbox" class="configKey" data-l1key="sub_enable_'.md5($sub["name"]).'" style="border: 1px solid var(--link-color) !important;"><span style="font-weight: bold;">'.$sub["ip_v4"].'</span>';
                 $return .= '</div>';

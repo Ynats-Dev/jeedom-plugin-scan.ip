@@ -12,10 +12,10 @@ class scan_ip_scan extends eqLogic {
 
     public static function syncScanIp(){
         log::add('scan_ip', 'debug', '////////////////////////////////////////////////////////////////////');
-        log::add('scan_ip', 'debug', 'syncScanIp :. Lancement du scan du réseau');
+        log::add('scan_ip', 'debug', 'syncScanIp :. ' . __('Lancement du scan du réseau', __FILE__));
         
         if(scan_ip_maj::checkPluginVersionAJour() == FALSE AND scan_ip_dev::modeDeveloppeur() == FALSE){
-            $texteError = "Incident de mise à jour Scan.Ip : Synchronisation annulée car les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.";
+            $texteError = __("Incident de mise à jour Scan.Ip : Synchronisation annulée car les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.", __FILE__);
             log::add('scan_ip', 'info', $texteError);
             scan_ip_tools::unlockProcess();
             ajax::error($texteError);
@@ -39,13 +39,13 @@ class scan_ip_scan extends eqLogic {
             }
         }  
         
-        log::add('scan_ip', 'debug', 'syncScanIp :. Fin du scan du réseau');
+        log::add('scan_ip', 'debug', 'syncScanIp :. ' . __('Fin du scan du réseau', __FILE__));
         log::add('scan_ip', 'debug', '////////////////////////////////////////////////////////////////////');
     }
        
     public static function scanReseau(){
         log::add('scan_ip', 'debug', "////////////////////////////////////////////////////////////////////");
-        log::add('scan_ip', 'debug', 'scanReseau :. Lancement');
+        log::add('scan_ip', 'debug', 'scanReseau :. ' . __('Lancement', __FILE__));
         
         $ipRoute = scan_ip_shell::getIpRoute();  
         $subReseau = scan_ip_shell::getSubReseauEnable($ipRoute);  
@@ -65,11 +65,11 @@ class scan_ip_scan extends eqLogic {
         }
         
         if(count($new) == 0){            
-            log::add('scan_ip', 'error', "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.");
+            log::add('scan_ip', 'error', __("Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.", __FILE__));
             event::add('jeedom::alert', array(
                 'level' => 'warning',
                 'page' => 'scan_ip',
-                'message' => "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations."
+                'message' => __("Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.", __FILE__)
             )); 
         } 
         else {
@@ -91,7 +91,7 @@ class scan_ip_scan extends eqLogic {
 
         scan_ip_json::recordInJson(scan_ip::$_jsonMapping, $nowMapping);
         
-        log::add('scan_ip', 'debug', 'scanReseau :. Fin du scan [' . $nowMapping["infos"]["version_arp"] . ']');
+        log::add('scan_ip', 'debug', 'scanReseau :. ' . __('Fin du scan', __FILE__) . ' [' . $nowMapping["infos"]["version_arp"] . ']');
         log::add('scan_ip', 'debug', "////////////////////////////////////////////////////////////////////");
         
     }

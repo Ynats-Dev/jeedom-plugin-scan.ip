@@ -61,12 +61,12 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
         </div>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Widget Alertes}}
-                <sup><i class="fa fa-question-circle tooltips" title="{{Permet d'afficher le widget des }} <?php echo scan_ip::$_defaut_alerte_new_equipement ?> {{ derniers équipements entrant dans votre réseau}}"></i></sup>
+                <sup><i class="fa fa-question-circle tooltips" title="<?php echo sprintf(__('Permet d\'afficher le widget des %s derniers équipements entrant dans votre réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?>"></i></sup>
             </label>
             <div class="col-lg-5">
                 <select class="configKey form-control" data-l1key="widget_new_equipement">
-                    <option value="1">{{Afficher le widget des }} <?php echo  scan_ip::$_defaut_alerte_new_equipement ?> {{ derniers équipements non enregistrés dans le réseau}}</option>
-                    <option value="0">{{Masquer le widget des }} <?php echo  scan_ip::$_defaut_alerte_new_equipement ?> {{ derniers équipements non enregistrés dans le réseau}}</option>
+                    <option value="1"><?php echo sprintf(__('Afficher le widget des %s derniers équipements non enregistrés dans le réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?></option>
+                    <option value="0"><?php echo sprintf(__('Masquer le widget des %s derniers équipements non enregistrés dans le réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?></option>
                 </select> 
             </div>
         </div>
@@ -98,7 +98,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
 ?>             
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Option Retry}}
-            <sup><i class="fa fa-question-circle tooltips" title="{{Cela conditionne la durée du scan mais permet d'avoir de meilleurs retours sur l'exploration de votre réseau'}}"></i></sup>
+            <sup><i class="fa fa-question-circle tooltips" title="{{Cela conditionne la durée du scan mais permet d'avoir de meilleurs retours sur l'exploration de votre réseau}}"></i></sup>
             </label>
             <div class="col-lg-5">
                 <select class="configKey form-control" data-l1key="add_retry_scan">
@@ -147,22 +147,22 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
         scan_ip_tools::vueSubTitle("{{Check de la version (Mode debug)}}", "config");
 ?>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Vérification des données</label>
+            <label class="col-lg-4 control-label">{{Vérification des données}}</label>
             <div class="col-lg-5"><?php echo scan_ip_maj::printVersionPlugin(); ?>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Vérification du Json commentaires</label>
+            <label class="col-lg-4 control-label">{{Vérification du Json commentaires}}</label>
             <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkJsonCommentaires_v1_1()); ?>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Vérification du Json équipements</label>
+            <label class="col-lg-4 control-label">{{Vérification du Json équipements}}</label>
             <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkJsonEquipements_v1_1()); ?>
             </div>
         </div>      
         <div class="form-group">
-            <label class="col-lg-4 control-label">Vérification des équipements</label>
+            <label class="col-lg-4 control-label">{{Vérification des équipements}}</label>
             <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkAllEquipements_v1_1()); ?>
             </div>
         </div>
@@ -200,7 +200,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Cadence de rafraîchissement}}
-                <sup><i class="fa fa-question-circle tooltips" title="{{Il est recommandé de laisser ce paramètre à }} <?php echo scan_ip::$_defaut_cron_pass ?> {{minute}}"></i></sup>
+                <sup><i class="fa fa-question-circle tooltips" title="<?php echo sprintf(__('Il est recommandé de laisser ce paramètre à %s minute(s)', __FILE__), scan_ip::$_defaut_cron_pass) ?>"></i></sup>
             </label>
             <div class="col-lg-5">
                 <select class="configKey form-control" id="cron_pass" data-l1key="cron_pass">

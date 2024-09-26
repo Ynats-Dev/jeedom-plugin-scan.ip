@@ -75,30 +75,30 @@ $orderBy = scan_ip_widget_network::getConfigOrder($eqLogic);
 <div class="col-md-6">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Votre Jeedom</h3>
+            <h3 class="panel-title">{{Votre Jeedom}}</h3>
         </div>
         <div class="panel-body">
         <?php if($ipsReseau["jeedom"]["name"] != "") { ?>
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Nom : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Nom}} : </label>
                 <div><?php echo $ipsReseau["jeedom"]["name"] ?></div>
             </div>
         <?php } ?>
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">ip : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{ip}} : </label>
                 <div><?php echo $ipsReseau["jeedom"]["ip_v4"] ?></div> 
             </div>
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Adresse MAC : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Adresse MAC}} : </label>
                 <div><?php echo $ipsReseau["jeedom"]["mac"]?></div>
             </div>
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Installation : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Installation}} : </label>
                 <div><?php echo scan_ip_tools::printDate($ipsReseau["jeedom"]["record"]) ?></div> 
             </div>
             <?php if(gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]) != $ipsReseau["jeedom"]["ip_v4"]) { ?>            
                 <div>
-                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Host Name : </label>
+                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Host Name}} : </label>
                     <div><?php echo gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]) ?></div>
                 </div>
             <?php } ?> 
@@ -110,21 +110,21 @@ $orderBy = scan_ip_widget_network::getConfigOrder($eqLogic);
 <div class="col-md-6">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Votre routeur</h3>
+            <h3 class="panel-title">{{Votre routeur}}</h3>
         </div>
         <div class="panel-body">
             <?php if(!empty($ipsReseau["route"]["equipement"])) { ?>            
                 <div>
-                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Nom : </label>
+                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Nom}} : </label>
                     <div><?php echo $ipsReseau["route"]["equipement"] ?></div>
                 </div>
             <?php } ?> 
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">ip : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{ip}} : </label>
                 <div><?php echo $ipsReseau["route"]["ip_v4"] ?></div>
             </div>
             <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">Adresse MAC : </label>
+                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Adresse MAC}} : </label>
                 <div><?php echo $ipsReseau["route"]["mac"] ?></div>
             </div>
         </div>
@@ -135,7 +135,7 @@ $orderBy = scan_ip_widget_network::getConfigOrder($eqLogic);
 <div class="col-md-12">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Les plages ip et adresses MAC du réseau (<?php echo $ipsReseau["infos"]["date"] ?>)
+            <h3 class="panel-title">{{Les plages ip et adresses MAC du réseau}} (<?php echo $ipsReseau["infos"]["date"] ?>)
             <a id="btSaveCommentaires" class="btn btn-success btn-xs pull-right" style="top: -2px !important; right: -6px !important;"><i class="far fa-check-circle icon-white"></i> {{Sauvegarder les commentaires}}</a>
             </h3>
         </div>

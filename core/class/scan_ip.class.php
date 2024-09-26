@@ -59,7 +59,7 @@ class scan_ip extends eqLogic {
     
     public function postInsert() {
         log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-        log::add('scan_ip', 'debug', 'postInsert :. Lancement');
+        log::add('scan_ip', 'debug', 'postInsert :. ' . __('Lancement', __FILE__));
         
         $this->setConfiguration("offline_time", self::$_defaut_offline_time);
         $this->save();
@@ -106,7 +106,7 @@ class scan_ip extends eqLogic {
     public function postUpdate() {
         
         log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-        log::add('scan_ip', 'debug', 'postUpdate :. Mise à jour de : ' . $this->getId());
+        log::add('scan_ip', 'debug', 'postUpdate :. '. __('Mise à jour de', __FILE__) .' : ' . $this->getId());
         
         switch (scan_ip_widgets::getWidgetType($this)) {
             
@@ -128,7 +128,7 @@ class scan_ip extends eqLogic {
     
     public function postSave() {
         log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-        log::add('scan_ip', 'debug', 'postSave :. Refresh Command : ' . $this->getId());
+        log::add('scan_ip', 'debug', 'postSave :. '. __('Rafraichissement de la commande', __FILE__) .' : ' . $this->getId());
                 
         // Mise à jour des données
         scan_ip_cmd::cmdRefresh($this, scan_ip_json::getJson(self::$_jsonMapping));
@@ -138,7 +138,7 @@ class scan_ip extends eqLogic {
    
     public function toHtml($_version = 'dashboard') {
 
-        log::add('scan_ip', 'debug', 'toHtml :.  Lancement');
+        log::add('scan_ip', 'debug', 'toHtml :. ' . __('Lancement', __FILE__));
 
         $replace = $this->preToHtml($_version); //récupère les informations de notre équipement
 
@@ -152,17 +152,17 @@ class scan_ip extends eqLogic {
         $version = jeedom::versionAlias($_version);
         
         if(scan_ip_widgets::getWidgetType($this) == "network"){
-            log::add('scan_ip', 'debug', 'toHtml :.  Création widget Network');
+            log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Network', __FILE__));
             $replace = scan_ip_widget_network::createNetworkWidget($this, $version = 'dashboard', $replace, $reseau);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
             return template_replace($replace, getTemplate('core', $version, 'scan_ip_network', 'scan_ip')); 
         }elseif(scan_ip_widgets::getWidgetType($this) == "new_equipement"){
-            log::add('scan_ip', 'debug', 'toHtml :.  Création widget Alerte');
+            log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Alerte', __FILE__));
             $replace = scan_ip_widget_alerte::createAlerteWidget($this, $version = 'dashboard', $replace);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
             return template_replace($replace, getTemplate('core', $version, 'scan_ip_alerte', 'scan_ip')); 
         } else {
-            log::add('scan_ip', 'debug', 'toHtml :.  Création widget Normal');
+            log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Normal', __FILE__));
             $replace = scan_ip_widget_normal::createSimpleWidget($this, $version = 'dashboard', $replace);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
             return template_replace($replace, getTemplate('core', $version, 'scan_ip', 'scan_ip')); 
@@ -188,26 +188,26 @@ class scan_ip extends eqLogic {
             if(scan_ip_tools::lockProcess() == TRUE){
                 ////////////////////////////////////////////////////////////////////
                 log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
-                log::add('scan_ip', 'debug', 'CRON :. START');
+                log::add('scan_ip', 'debug', 'CRON :. '. __('LANCEMENT', __FILE__));
                 log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
                 
-                log::add('scan_ip', 'debug', 'cron :. Configuration Minute : '. $cronConfig);
+                log::add('scan_ip', 'debug', 'cron :. '. __('Configuration Minute', __FILE__) .' : '. $cronConfig);
                  
                 scan_ip_scan::syncScanIp();
                 scan_ip_tools::unlockProcess();
                 
                 log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
-                log::add('scan_ip', 'debug', 'CRON :. FIN');
+                log::add('scan_ip', 'debug', 'CRON :. '. __('FIN', __FILE__));
                 log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
             } else {
                 log::add('scan_ip', 'debug', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-                log::add('scan_ip', 'debug', '!! cron :. Annulé parce qu\'il y a déjà un processus en cours');
+                log::add('scan_ip', 'debug', '!! cron :. '. __('Annulé parce qu\'il y a déjà un processus en cours', __FILE__));
                 log::add('scan_ip', 'debug', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             } 
             
         } else {
             log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
-            log::add('scan_ip', 'debug', 'cron :. Annulé :. Configuration Minute : '. $cronConfig);
+            log::add('scan_ip', 'debug', 'cron :. '. __('Annulé :. Configuration Minute', __FILE__) .' : '. $cronConfig);
             log::add('scan_ip', 'debug', '_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_');
         }
         
@@ -261,19 +261,19 @@ class scan_ipCmd extends cmd {
 
     public function execute($_options = array()) {
         log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-        log::add('scan_ip', 'debug', 'execute :. Lancement');
+        log::add('scan_ip', 'debug', 'execute :. '. __('Lancement', __FILE__));
         
         $eqlogic = $this->getEqLogic();
         $mapping = scan_ip_json::getJson(scan_ip::$_jsonMapping);
         
         switch ($this->getLogicalId()) { //vérifie le logicalid de la commande 			
             case 'refresh': // LogicalId de la commande rafraîchir que l’on a créé dans la méthode Postsave 
-                log::add('scan_ip', 'debug', 'execute :. Lancement de la commande refresh : #ID#' . $eqlogic->getId());
+                log::add('scan_ip', 'debug', 'execute :. '. __('Lancement de la commande refresh', __FILE__) .' : #ID#' . $eqlogic->getId());
                 scan_ip_cmd::cmdRefresh($eqlogic, $mapping);
                 log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
                 break;
             case 'wol': 
-                log::add('scan_ip', 'debug', 'execute :. Lancement de la commande wol : #ID#' . $eqlogic->getId());
+                log::add('scan_ip', 'debug', 'execute :. '. __('Lancement de la commande wol', __FILE__) .' : #ID#' . $eqlogic->getId());
                 scan_ip_shell::wakeOnLanByCmd(scan_ip_json::getMac($eqlogic->getConfiguration("mac_id"))); 
                 log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
                 break;

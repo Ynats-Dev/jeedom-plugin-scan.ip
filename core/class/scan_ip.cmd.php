@@ -17,7 +17,7 @@ class scan_ip_cmd extends eqLogic {
     
     public static function cmdRefresh($_eqlogic, $_mapping = NULL){
 
-        log::add('scan_ip', 'debug', 'cmdRefresh :. Lancement');
+        log::add('scan_ip', 'debug', 'cmdRefresh :. ' . __('Lancement', __FILE__));
         
         if($_mapping == NULL OR empty($_mapping["sort"])){
             $mapping = scan_ip_json::getJson(scan_ip::$_jsonMapping);

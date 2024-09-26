@@ -22,7 +22,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
             <div class="cursor logoSecondary" id="bt_syncEqLogic">
                 <i class="fas fa-sync-alt"></i>
                 <br>
-                <span>Synchroniser</span>
+                <span>{{Synchroniser}}</span>
             </div>
             <div class="cursor logoSecondary" id="bt_scanIpNetwork">
                 <i class="fas fa-sitemap"></i>
@@ -155,9 +155,9 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                         </div>   
                         <div style="display:none;">
                             <select id="hiden_type_widget" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="type_widget">
-                                <option value="normal">Normal</option>
-                                <option value="network">Network</option>
-                                <option value="new_equipement">Alerte</option>
+                                <option value="normal">{{Normal}}</option>
+                                <option value="network">{{Network}}</option>
+                                <option value="new_equipement">{{Alerte}}</option>
                             </select>
                             
                         </div>
@@ -167,15 +167,15 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                         scan_ip_tools::vueSubTitle("{{A savoir !}}");
 ?>
                             <div class="form-group" >
-                                <label class="col-sm-3 control-label">Attention Widget dédié au plugin</label>
+                                <label class="col-sm-3 control-label">{{Attention Widget dédié au plugin}}</label>
                                 <div class="col-sm-9">
-                                    <span>Cet équipement est géré par Scan.Ip et permet d'afficher l'état de votre réseau dans un widget dédié.</span>
+                                    <span>{{Cet équipement est géré par Scan.Ip et permet d'afficher l'état de votre réseau dans un widget dédié.}}</span>
                                 </div>
                             </div>
                             <div class="form-group" >
                                 <label class="col-sm-3 control-label"></label>
                                 <div class="col-sm-9">
-                                    <span>Pour gérer sa visibilité, vous devez passer par l'espace configuration du plugin. </span>
+                                    <span>{{Pour gérer sa visibilité, vous devez passer par l'espace configuration du plugin.}}</span>
                                 </div>
                             </div>
                             <div class="form-group" >
@@ -225,14 +225,13 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                             <label class="col-sm-3 control-label">{{Rechercher et associer une adresse MAC}}</label>
                             <div class="col-sm-5">
                                 <select id="scan_ip_mac_select" class="form-control">
-                                    <option value="">Sélectionner parmi les adresses Mac non enregistrées</option>
+                                    <option value="">{{Sélectionner parmi les adresses Mac non enregistrées}}</option>
                                     <?php
                                         scan_ip_json::printSelectOptionAdressMac();
                                     ?>
                                 </select>
                             </div>
                         </div>
-     
                         <div class="form-group" style="<?php if(scan_ip::getConfigMode() != "debug"){ echo "display:none;"; } ?>">
                             <label class="col-sm-3 control-label" style="color: red !important;">{{MAC Id (Mode debug)}}</label>
                             <div class="col-sm-5">
@@ -263,13 +262,10 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                                 <input type="text" id="Commentaire" class="form-control" style="color: #039be5 !important;" readonly="">
                             </div>
                         </div>
-                     
-                                  
                     <div id="show_off_line"<?php scan_ip_tools::showEquCadence() ?>>                        
 <?php
-                        scan_ip_tools::vueSubTitle("{{On line ou Off line ? (Mode avancé)}}");
+                        scan_ip_tools::vueSubTitle(__('On line ou Off line ? (Mode avancé)', __FILE__));
 ?>                        
-
                         <div class="form-group" style="margin-bottom: 0;">
                             <div class="col-sm-1"></div>
                             <div class="col-sm-7">
@@ -305,7 +301,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                     </div>
                         
 <?php
-                        scan_ip_tools::vueSubTitle("{{Réveiller votre équipement à distance ?}}");
+                        scan_ip_tools::vueSubTitle(__('Réveiller votre équipement à distance ?', __FILE__));
 ?> 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">{{Wake-on-LAN}} <sup><i class="fa fa-question-circle tooltips" title="{{Vérifiez que votre équipement est compatible et/ou que l'option a bien été activée pour que cela fonctionne}}"></i></sup>
@@ -316,10 +312,9 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                                     <option value="1">{{Activer la commande WoL sur cet équipement}}</option>
                                 </select> 
                             </div>
-                        </div>
-                                             
+                        </div>                                          
 <?php
-                            scan_ip_tools::vueSubTitle("Associer cette adresse MAC à un ou plusieurs bridges (optionnel)");
+                            scan_ip_tools::vueSubTitle(__('Associer cette adresse MAC à un ou plusieurs bridges (optionnel)', __FILE__));
 ?>
                         <div class="form-group" style="margin-bottom: 0;">
                             <div class="col-sm-1"></div>
@@ -330,12 +325,10 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                         </div>
 <?php
                             scan_ip_bridges::bridges_printOptionEquiements();
-?>
-                   
+?>              
                         </div>
                     </fieldset>
                 </form>
- 
             </div>
             <div role="tabpanel" class="tab-pane" id="commandtab">
                 <table id="table_cmd" class="table table-bordered table-condensed">

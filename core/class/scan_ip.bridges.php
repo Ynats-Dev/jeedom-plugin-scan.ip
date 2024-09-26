@@ -21,9 +21,9 @@ class scan_ip_bridges extends eqLogic {
         foreach ($allBridges as $gridge) {      
             if($i > $_start AND $i <= ($_start + $_nb)) {
                 if(self::bridges_pluginExists($gridge)){
-                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:green;'>(Installé)</span></div>";
+                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:green;'>(".__('Installé', __FILE__).")</span></div>";
                 } else {
-                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:orange;'>(Non installé)</span></div>";
+                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:orange;'>(".__('Non installé', __FILE__).")</span></div>";
                 }
             }
             $i++;
@@ -113,10 +113,10 @@ class scan_ip_bridges extends eqLogic {
         if($selection != FALSE){
             for ($index = 1; $index <= self::$_defaut_bridges_by_equipement; $index++) {
                 echo '<div class="form-group">';
-                echo '<label class="col-sm-3 control-label">{{Association '.$index.'}}</label>';
+                echo '<label class="col-sm-3 control-label">'.__('Association', __FILE__).' '.$index.'</label>';
                 echo '<div class="col-sm-5">';
                 echo '<select class="form-control eqLogicAttr plug_element_plugin plug_element_plugin_'.$index.'" onchange="verifEquipement('. self::$_defaut_bridges_by_equipement .'); verifEquipementCore('.$index.');" data-l1key="configuration" data-l2key="plug_element_plugin_'.$index.'">';
-                echo '<option value="">Sélectionnez un élément</option>';
+                echo '<option value="">'.__('Sélectionnez un élément', __FILE__).'</option>';
                 echo $selection;
                 echo '</select>';
                 echo '</div>';
@@ -124,9 +124,9 @@ class scan_ip_bridges extends eqLogic {
             }
         } else {
                 echo '<div class="form-group">';
-                echo '<label class="col-sm-3 control-label">{{Association 1}}</label>';
+                echo '<label class="col-sm-3 control-label">'.__('Association 1', __FILE__).'</label>';
                 echo '<div class="col-sm-5">';
-                echo '<input class="form-control" style="color:var(--al-warning-color) !important;" type="text" value="Aucun élément compatible n\'est associé aux bridges." readonly="">';
+                echo '<input class="form-control" style="color:var(--al-warning-color) !important;" type="text" value="'.__('Aucun élément compatible n\'est associé aux bridges.', __FILE__).'" readonly="">';
                 echo '</div>';
                 echo '</div>';
         }
@@ -134,7 +134,7 @@ class scan_ip_bridges extends eqLogic {
     }
                         
     public static function bridges_getEquiementsById(){
-        log::add('scan_ip', 'debug', 'bridges_getEquiementsById :. Lancement'); 
+        log::add('scan_ip', 'debug', 'bridges_getEquiementsById :. '.__('Lancement', __FILE__)); 
         $all = self::bridges_getElements();
         foreach ($all["array"] as $equipement) { 
             $return[$equipement["id"]]["name"] = $equipement["name"];
@@ -155,7 +155,7 @@ class scan_ip_bridges extends eqLogic {
     }
     
     public static function bridges_getAllAssignEquipement($_ouput = NULL){ 
-        log::add('scan_ip', 'debug', 'bridges_getAllAssignEquipement :. Lancement');
+        log::add('scan_ip', 'debug', 'bridges_getAllAssignEquipement :. '.__('Lancement', __FILE__));
         $eqLogics = eqLogic::byType('scan_ip');
         
         $return = NULL;
@@ -198,14 +198,14 @@ class scan_ip_bridges extends eqLogic {
     public static function bridges_startDeamons($_deamons = NULL){
         if($_deamons != NULL){
             foreach ($_deamons as $deamon) {
-                log::add('scan_ip', 'debug', 'bridges_startDeamons :. Lancement du deamon "'.$deamon.'"');
+                log::add('scan_ip', 'debug', 'bridges_startDeamons :. '.__('Lancement du deamon', __FILE__).' "'.$deamon.'"');
                 $deamon::deamon_start();
             }
         }
     }
     
     public static function majElementsAssocies($_eqlogic, $_device){
-        log::add('scan_ip', 'debug', 'majElementsAssocies :. Lancement');
+        log::add('scan_ip', 'debug', 'majElementsAssocies :. '.__('Lancement', __FILE__));
         $deamons = NULL;
         
         $bridges = self::bridges_getElements();
@@ -230,7 +230,7 @@ class scan_ip_bridges extends eqLogic {
                             $_eqlogic->save();
                         }
                     } else {
-                        log::add('scan_ip', 'debug', 'majElementsAssocies :. Suppression du bridge car le plugin "'.$testBridge[0].'" n\'est pas installé');
+                        log::add('scan_ip', 'debug', 'majElementsAssocies :. '. sprintf(__('Suppression du bridge car le plugin %s n\'est pas installé', __FILE__), $testBridge[0]));
                         $_eqlogic->setConfiguration("plug_element_plugin_".$index, "");
                         $_eqlogic->save();
                     } 

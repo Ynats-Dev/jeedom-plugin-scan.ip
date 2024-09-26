@@ -14,7 +14,7 @@ class scan_ip_api_mac_vendor extends eqLogic {
     public static $_jsonRoulement = 3600 * 7; // 3600 secondes = 1 journée
     
     public static function get_MacVendor($_mac){
-        log::add('scan_ip', 'debug', 'get_MacVendor :. Lancement');
+        log::add('scan_ip', 'debug', 'get_MacVendor :. '.__('Lancement', __FILE__));
         
         $now = time();
         $jsonMajVendorApi = scan_ip_json::getJson(self::$_jsonMajVendorApi);
@@ -45,7 +45,6 @@ class scan_ip_api_mac_vendor extends eqLogic {
                 return "...";
             }
         }
-         
     }
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +52,7 @@ class scan_ip_api_mac_vendor extends eqLogic {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static function get_MacvendorsCom($_mac){
-        log::add('scan_ip', 'debug', 'get_MacvendorsCom :. Lancement de la recherche');
+        log::add('scan_ip', 'debug', 'get_MacvendorsCom :. '.__('Lancement de la recherche', __FILE__));
         sleep(2);
         
         $url = "https://api.macvendors.com/" . $_mac;
@@ -64,21 +63,21 @@ class scan_ip_api_mac_vendor extends eqLogic {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $response = @json_decode(@curl_exec($ch), TRUE);         
             if(!empty($response) AND empty($response["errors"])) {
-                log::add('scan_ip', 'debug', 'get_MacvendorsCom :. Trouvé '.$response);
+                log::add('scan_ip', 'debug', 'get_MacvendorsCom :. '.__('Trouvé', __FILE__).' '.$response);
                 return $response;
             } else {
-                log::add('scan_ip', 'debug', 'get_MacvendorsCom :. Pas Trouvé');
+                log::add('scan_ip', 'debug', 'get_MacvendorsCom :. '.__('Pas Trouvé', __FILE__));
                 return NULL;
             }
         } catch (Exception $exc) {
-            log::add('scan_ip', 'debug', 'get_MacvendorsCom :. Erreur');
+            log::add('scan_ip', 'debug', 'get_MacvendorsCom :. '.__('Erreur', __FILE__));
             return NULL;
         }
         
     } 
     
     public static function get_MacvendorsCo($_mac) {
-        log::add('scan_ip', 'debug', 'get_MacvendorsCo :. Lancement de la recherche');
+        log::add('scan_ip', 'debug', 'get_MacvendorsCo :. '.__('Lancement de la recherche', __FILE__));
         sleep(2);
         
         $url = "https://macvendors.co/api/" . $_mac;
@@ -86,14 +85,14 @@ class scan_ip_api_mac_vendor extends eqLogic {
         try {
             $response = @json_decode(@file_get_contents($url))->result;
             if(!empty($response->company)){
-                log::add('scan_ip', 'debug', 'get_MacvendorsCo :. Trouvé '.$response->company);
+                log::add('scan_ip', 'debug', 'get_MacvendorsCo :. '.__('Trouvé', __FILE__).' '.$response->company);
                 return $response->company;
             } else {
-                log::add('scan_ip', 'debug', 'get_MacvendorsCo :. Pas Trouvé');
+                log::add('scan_ip', 'debug', 'get_MacvendorsCo :. '.__('Pas Trouvé', __FILE__));
                 return NULL;
             }
         } catch (Exception $exc) {
-            log::add('scan_ip', 'debug', 'get_MacvendorsCo :. Erreur');
+            log::add('scan_ip', 'debug', 'get_MacvendorsCo :. '.__('Erreur', __FILE__));
             return NULL;
         }
         

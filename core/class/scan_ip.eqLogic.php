@@ -11,7 +11,7 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 class scan_ip_eqLogic extends eqLogic {
     
     public static function getAlleqLogics(){
-        log::add('scan_ip', 'debug', 'getAlleqLogics :. Lancement');
+        log::add('scan_ip', 'debug', 'getAlleqLogics :. ' . __('Lancement', __FILE__));
         $eqLogics = eqLogic::byType('scan_ip');
         
         foreach ($eqLogics as $scan_ip) {
@@ -55,7 +55,7 @@ class scan_ip_eqLogic extends eqLogic {
     
     public static function showEquipements(){
         log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-        log::add('scan_ip', 'debug', 'showEquipements :. Lancement');
+        log::add('scan_ip', 'debug', 'showEquipements :. ' . __('Lancement', __FILE__));
         
         $allEquipementsBridges = scan_ip_bridges::bridges_getEquiementsById();
         

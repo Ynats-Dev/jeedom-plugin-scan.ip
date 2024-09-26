@@ -35,8 +35,8 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
 <div>
     <div class="col-md-12" id="show_scan_ip_add" style="padding: 15px !important; display:none;">
         <div class="form-group">
-            <a class="btn btn-success pull-right" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> Ajouter les équipements sélectionnés</a>
-            <a class="btn btn-danger pull-right" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> Supprimer les équipements sélectionnés</a>
+            <a class="btn btn-success pull-right" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> {{Ajouter les équipements sélectionnés}}</a>
+            <a class="btn btn-danger pull-right" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> {{Supprimer les équipements sélectionnés}}</a>
         </div>
     </div>
     
@@ -89,11 +89,10 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
             </table>
         </div>
     </div>
-    <div id="div_alert_scan_ip" class="jqAlert alert-success" style="display:none;"><span class="displayError">Vous n'avez aucun équipement non enregistré sur le réseau.</span></div>
+    <div id="div_alert_scan_ip" class="jqAlert alert-success" style="display:none;"><span class="displayError">{{Vous n'avez aucun équipement non enregistré sur le réseau.}}</span></div>
 </div>
 
 <script>
-      
     $("#add_scan_ip_equipement").click(function() {
         addEquipement(<?php echo $list ?>);
     });
@@ -101,7 +100,6 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
     $("#remove_scan_ip_equipement").click(function() {
         removeEquipement(<?php echo $list ?>);
     });
-
 </script>  
 
 <?php include_file('3rdparty', 'stupidtable.min', 'js', 'scan_ip'); ?>

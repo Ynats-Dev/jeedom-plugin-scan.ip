@@ -37,14 +37,14 @@ class scan_ip_maj extends eqLogic {
     }
     
     public static function waitUnlock(){
-        log::add('scan_ip', 'info', '>  Vérification des scans en cours');
+        log::add('scan_ip', 'info', '> ' . __('Vérification des scans en cours', __FILE__));
         
         for ($i = 1; $i <= 100; $i++) {
             if(scan_ip_tools::isLockProcess() == TRUE){
-                log::add('scan_ip', 'info', '>  Un scan est en cours. Attente de 5 secondes.');
+                log::add('scan_ip', 'info', '> ' . __('Un scan est en cours. Attente de 5 secondes.', __FILE__));
                 sleep(5);
             } else {
-                log::add('scan_ip', 'info', '>  Aucun scan en cours.');
+                log::add('scan_ip', 'info', '> ' . __('Aucun scan en cours.', __FILE__));
                 return TRUE;
             }
         }
@@ -56,9 +56,9 @@ class scan_ip_maj extends eqLogic {
     
     public static function activationCron($_active){
         if($_active == 0){ 
-            log::add('scan_ip', 'info', '>  Désactivation du CRON');
+            log::add('scan_ip', 'info', '> ' . __('Désactivation du CRON', __FILE__));
         } else { 
-            log::add('scan_ip', 'info', '>  Réactivation du CRON'); 
+            log::add('scan_ip', 'info', '> ' . __('Réactivation du CRON', __FILE__)); 
         }
         
         config::save('functionality::scan::enable', $_active, 'scan_ip');
@@ -77,22 +77,22 @@ class scan_ip_maj extends eqLogic {
     
     public static function printVersionPlugin(){
         if(self::pluginAJour() == FALSE){
-            return '<a class="btn btn-danger btn-sm" id="reloadMajPlugin" style="position:relative;top:-5px;"><i class="fas fa-exclamation-triangle"></i> Données non compatibles avec la version '.self::$_versionPlugin.' (Cliquez-ici pour corriger le problème)</a>';
+            return '<a class="btn btn-danger btn-sm" id="reloadMajPlugin" style="position:relative;top:-5px;"><i class="fas fa-exclamation-triangle"></i> '. sprintf(__('Données non compatibles avec la version %s (Cliquez-ici pour corriger le problème)', __FILE__), self::$_versionPlugin) .'</a>';
         } else {
-            return "<span style='color:green;'>Compatibles v".self::getVersionPlugin()."</span>";
+            return "<span style='color:green;'>". sprintf(__('Compatibles v%s', __FILE__), self::getVersionPlugin()) ."</span>";
         }
     }
  
     public static function printCheckPlugin($_statut = FALSE){
         if($_statut == FALSE){
-            return "<span style='color:red;'>Pas à jour</span>";
+            return "<span style='color:red;'>" . __('Pas à jour', __FILE__) . "</span>";
         } else {
-            return "<span style='color:green;'>A jour</span>";
+            return "<span style='color:green;'>" . __('Pas à jour', __FILE__) . "</span>";
         }
     }
     
 //    public static function saveAllEquipement(){
-//        log::add('scan_ip', 'info', '>  Mise à jour des équipements');
+//        log::add('scan_ip', 'info', '> ' . __('Mise à jour des équipements', __FILE__));
 //        foreach (eqLogic::byType('scan_ip') as $scan_ip) {
 //            try {
 //                $scan_ip->save();
@@ -101,7 +101,7 @@ class scan_ip_maj extends eqLogic {
 //    }
     
     public static function setConfigBase(){
-        log::add('scan_ip', 'info', '>  Initialisation des configs');
+        log::add('scan_ip', 'info', '> ' . __('Initialisation des configs', __FILE__));
         if (config::byKey('cron_pass', 'scan_ip') == '') {
             config::save('cron_pass', 1, 'scan_ip');
         }
@@ -127,7 +127,7 @@ class scan_ip_maj extends eqLogic {
     
     public static function majJsonCommentaires_v1_1(){
         
-        log::add('scan_ip', 'info', '>  Mise à jour du JSON des commentaires');
+        log::add('scan_ip', 'info', '> ' . __('Mise à jour du JSON des commentaires', __FILE__));
         
         $commentMac = NULL;
         $OldCommentaires = scan_ip_json::getJson(scan_ip::$_jsonCommentairesEquipement);
@@ -151,7 +151,7 @@ class scan_ip_maj extends eqLogic {
     
     public static function majJsonEquipements_v1_1(){
         
-        log::add('scan_ip', 'info', '>  Mise à jour du JSON des équipements');
+        log::add('scan_ip', 'info', '> ' . __('Mise à jour du JSON des équipements', __FILE__));
         
         $array = scan_ip_json::getJson(scan_ip::$_jsonEquipement);
         
@@ -190,11 +190,11 @@ class scan_ip_maj extends eqLogic {
     }
     
     public static function majAllEquipements_v1_1(){
-        log::add('scan_ip', 'info', '>  Mise à jour des équipements');
+        log::add('scan_ip', 'info', '> ' . __('Mise à jour des équipements', __FILE__));
         $i = 0; 
         foreach (eqLogic::byType('scan_ip') as $scan_ip) { 
             if(!empty($scan_ip->getConfiguration("adress_mac")) AND empty($scan_ip->getConfiguration("mac_id")) AND $scan_ip->getConfiguration('type_widget', 'normal') == "normal"){
-                log::add('scan_ip', 'info', '>  Maj ' . $scan_ip->getId());
+                log::add('scan_ip', 'info', '>  ' . __('Mise à jour de ', __FILE__) . ' ' . $scan_ip->getId());
                 $scan_ip->setConfiguration('mac_id', scan_ip_tools::getLastMac($scan_ip->getConfiguration("adress_mac")));  
                 $scan_ip->save();
                 $i++;
@@ -222,7 +222,7 @@ class scan_ip_maj extends eqLogic {
         $return = array();
         foreach ($eqLogics as $scan_ip) {
             if(scan_ip_widgets::getWidgetType($scan_ip) == "normal"){
-                if(empty($scan_ip->getConfiguration('mac_id'))){ $error = "ERROR : MAC Id Vide !"; }
+                if(empty($scan_ip->getConfiguration('mac_id'))){ $error = __('ERROR : MAC Id Vide !', __FILE__); }
                 else { $error = "OK"; }
                 $return[] = array("Id" => $scan_ip->getId(), "Name" => $scan_ip->getName(), "MAC Id" => $scan_ip->getConfiguration('mac_id'), "Analyse" => $error);
             }
@@ -240,14 +240,13 @@ class scan_ip_maj extends eqLogic {
 // Release Beta
     
     public static function cleanAfterUpdate($_path = NULL){ 
-        log::add('scan_ip', 'info', '>  Nettoyage des données Beta');
+        log::add('scan_ip', 'info', '> ' . __('Nettoyage des données Beta', __FILE__));
         
         if($_path == NULL){
-             $resources = __DIR__ . "/../../../../plugins/scan_ip/resources/";
+            $resources = __DIR__ . "/../../../../plugins/scan_ip/resources/";
         } else {
             $resources = $_path."plugins/scan_ip/resources/";
         }
-       
         if(@file_exists($resources . "ieee-oui.txt") == TRUE){
             unlink($resources . "ieee-oui.txt");
         }
@@ -271,7 +270,7 @@ class scan_ip_maj extends eqLogic {
         }
         
         if($_path == NULL){
-             $bridge = __DIR__ . "/../../../../plugins/scan_ip/core/bridges/";
+            $bridge = __DIR__ . "/../../../../plugins/scan_ip/core/bridges/";
         } else {
             $bridge = $_path."plugins/scan_ip/core/bridges/";
         }
@@ -280,7 +279,7 @@ class scan_ip_maj extends eqLogic {
         }
         
         if($_path == NULL){
-             $json = __DIR__ . "/../../../../plugins/scan_ip/core/json/";
+            $json = __DIR__ . "/../../../../plugins/scan_ip/core/json/";
         } else {
             $json = $_path."plugins/scan_ip/core/json/";
         }
@@ -295,7 +294,7 @@ class scan_ip_maj extends eqLogic {
         }
         
         if($_path == NULL){
-             $subPlugs = __DIR__ . "/../../../../plugins/scan_ip/core/subPlugs";
+            $subPlugs = __DIR__ . "/../../../../plugins/scan_ip/core/subPlugs";
         } else {
             $subPlugs = $_path."plugins/scan_ip/core/subPlugs/";
         }

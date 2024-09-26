@@ -11,7 +11,7 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 class scan_ip_json extends eqLogic {
     
     public static function searchByMac($_searchMac, $_mapping = NULL){ 
-        log::add('scan_ip', 'debug', 'searchByMac :. Lancement');
+        log::add('scan_ip', 'debug', 'searchByMac :. ' . __('Lancement', __FILE__));
         
         if($_mapping == NULL){
             $_mapping = self::getJson(scan_ip::$_jsonMapping);
@@ -56,16 +56,16 @@ class scan_ip_json extends eqLogic {
     }
     
     public static function recordInJson($_file, $_data) {
-        log::add('scan_ip', 'debug', 'recordInJson :.  Lancement');
+        log::add('scan_ip', 'debug', 'recordInJson :. ' . __('Lancement', __FILE__));
         
         self::prepareJsonFolder();
         self::createJsonFile($_file, $_data);
 
-        log::add('scan_ip', 'debug', 'recordInJson :. Enregistrement du Json : mapping.json');
+        log::add('scan_ip', 'debug', 'recordInJson :. ' . __('Enregistrement du Json : mapping.json', __FILE__));
     }
     
     public static function getJson($_file) {
-        log::add('scan_ip', 'debug', 'getJson :. Lancement');
+        log::add('scan_ip', 'debug', 'getJson :. ' . __('Lancement', __FILE__));
         
         try {
             $return = @json_decode(@file_get_contents($_file.".json"),true);
@@ -78,15 +78,15 @@ class scan_ip_json extends eqLogic {
     }
     
     public static function prepareJsonFolder(){
-        log::add('scan_ip', 'debug', 'prepareJsonFolder :. Lancement');
+        log::add('scan_ip', 'debug', 'prepareJsonFolder :. ' . __('Lancement', __FILE__));
         if (!is_dir(scan_ip::$_folderJson)) {
-            log::add('scan_ip', 'debug', 'miseEnCacheJson :.  Création du dossier :' . scan_ip::$_folderJson);
+            log::add('scan_ip', 'debug', 'miseEnCacheJson :. ' . __('Création du dossier', __FILE__) . ' :' . scan_ip::$_folderJson);
             mkdir(scan_ip::$_folderJson, 0777);
         }
     }
     
     public static function createAndMergeJsonFile($_file, $_data){
-        log::add('scan_ip', 'debug', 'createAndMergeJsonFile :. Lancement');
+        log::add('scan_ip', 'debug', 'createAndMergeJsonFile :. ' . __('Lancement', __FILE__));
         
         if(file_exists($_file.'.json')){
             $oldData = self::getJson($_file);
@@ -98,7 +98,7 @@ class scan_ip_json extends eqLogic {
     }
     
     public static function createJsonFile($_file, $_data){
-        log::add('scan_ip', 'debug', 'createJsonFile :. Lancement');
+        log::add('scan_ip', 'debug', 'createJsonFile :. ' . __('Lancement', __FILE__));
         
         $fichier = fopen($_file.'.temp', 'w');
         fputs($fichier, json_encode($_data));
@@ -110,7 +110,7 @@ class scan_ip_json extends eqLogic {
     }
     
     public static function printSelectOptionAdressMac($_selected = NULL){
-        log::add('scan_ip', 'debug', 'printSelectOptionAdressMac :. Lancement');
+        log::add('scan_ip', 'debug', 'printSelectOptionAdressMac :. ' . __('Lancement', __FILE__));
         $record = scan_ip_eqLogic::getAlleqLogics();
         $list = self::getJson(scan_ip::$_jsonEquipement);
         $print = "";
@@ -196,7 +196,7 @@ class scan_ip_json extends eqLogic {
             
             $del_byIpv4 = $jsonMapping["sort"][$del_sort]["ip_v4"];
             $del_byTime = $jsonMapping["sort"][$del_sort]["time"].$jsonEquipement[$mac_id]["record"];
-                         
+            
             unset($jsonEquipement[$mac_id]);
             unset($jsonMapping["byId"][$mac_id]);
             unset($jsonMapping["sort"][$del_sort]);

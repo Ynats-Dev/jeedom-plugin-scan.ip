@@ -16,12 +16,12 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function getIpRoute(){
-        log::add('scan_ip', 'debug', 'getIpRoute :. Lancement');
+        log::add('scan_ip', 'debug', 'getIpRoute :. ' . __('Lancement', __FILE__));
         return exec("ip route show default | awk '/default/ {print $3}'");
     }
     
     public static function arpScanShell($_subReseau = NULL){
-        log::add('scan_ip', 'debug', 'scan_ip_shell::arpScanShell :. Lancement');
+        log::add('scan_ip', 'debug', 'scan_ip_shell::arpScanShell :. ' . __('Lancement', __FILE__));
         
         $time = time();
         $return = array();
@@ -49,7 +49,7 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function arpVersion(){
-        log::add('scan_ip', 'debug', 'arpVersion :. Lancement');
+        log::add('scan_ip', 'debug', 'arpVersion :. ' . __('Lancement', __FILE__));
         $exec = exec('sudo arp-scan -V 2>&1',$output, $return_var);
         if($return_var == 0) { 
             foreach ($output as $searchVersion) {
@@ -71,7 +71,7 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function getInfoJeedom($_ipRoute){ 
-        log::add('scan_ip', 'debug', 'getInfoJeedom :. Lancement');
+        log::add('scan_ip', 'debug', 'getInfoJeedom :. ' . __('Lancement', __FILE__));
         
         $plageRouteur = scan_ip_tools::getPlageIp($_ipRoute);
         exec('sudo ip a', $list);
@@ -135,7 +135,7 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function scanSubReseau($_ipRoute = NULL){ 
-        log::add('scan_ip', 'debug', 'scanSubReseau :. Lancement');
+        log::add('scan_ip', 'debug', 'scanSubReseau :. ' . __('Lancement', __FILE__));
         
         if($_ipRoute != NULL){
             $ipRoute = $_ipRoute;
@@ -153,7 +153,7 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function getSubReseauEnable($_ipRoute = NULL) {
-        log::add('scan_ip', 'debug', 'getSubReseauEnable :. Lancement');
+        log::add('scan_ip', 'debug', 'getSubReseauEnable :. ' . __('Lancement', __FILE__));
         
         $a = $return["subReseauEnable"] = 0;
         
@@ -182,10 +182,10 @@ class scan_ip_shell extends eqLogic {
     public static function dependancy_arp_scan(){
         if (exec('which arp-scan | wc -l') == 0 OR exec("dpkg --get-selections | grep -v deinstall | grep -E 'arp-scan' | wc -l") == 0) {
             $return[0] = FALSE;
-            $return[1] = "<span style='color:red'>error</span>";
+            $return[1] = "<span style='color:red'>" . __('En erreur', __FILE__) . "</span>";
         } else {
             $return[0] = TRUE;
-            $return[1] = "<span style='color:green'>OK</span>";
+            $return[1] = "<span style='color:green'>" . __('Validé', __FILE__) . "</span>";
         }
         return $return;
     }
@@ -193,10 +193,10 @@ class scan_ip_shell extends eqLogic {
     public static function dependancy_etherwake(){
         if (exec('which etherwake | wc -l') == 0 OR exec("dpkg --get-selections | grep -v deinstall | grep -E 'etherwake' | wc -l") == 0) {
             $return[0] = FALSE;
-            $return[1] = "<span style='color:red'>error</span>";
+            $return[1] = "<span style='color:red'>" . __('En erreur', __FILE__) . "</span>";
         } else {
             $return[0] = TRUE;
-            $return[1] = "<span style='color:green'>OK</span>";
+            $return[1] = "<span style='color:green'>" . __('Validé', __FILE__) . "</span>";
         }
         return $return;
     }
@@ -204,10 +204,10 @@ class scan_ip_shell extends eqLogic {
     public static function dependancy_wakeonlan(){
         if (exec('which wakeonlan | wc -l') == 0 OR exec("dpkg --get-selections | grep -v deinstall | grep -E 'wakeonlan' | wc -l") == 0) {
             $return[0] = FALSE;
-            $return[1] = "<span style='color:red'>error</span>";
+            $return[1] = "<span style='color:red'>" . __('En erreur', __FILE__) . "</span>";
         } else {
             $return[0] = TRUE;
-            $return[1] = "<span style='color:green'>OK</span>";
+            $return[1] = "<span style='color:green'>" . __('Validé', __FILE__) . "</span>";
         }
         return $return;
     }
@@ -215,10 +215,10 @@ class scan_ip_shell extends eqLogic {
     public static function dependancy_net_tools(){
         if (exec('which ifconfig | wc -l') == 0 OR exec("dpkg --get-selections | grep -v deinstall | grep -E 'net-tools' | wc -l") == 0) {
             $return[0] = FALSE;
-            $return[1] = "<span style='color:red'>error</span>";
+            $return[1] = "<span style='color:red'>" . __('En erreur', __FILE__) . "</span>";
         } else {
             $return[0] = TRUE;
-            $return[1] = "<span style='color:green'>OK</span>";
+            $return[1] = "<span style='color:green'>" . __('Validé', __FILE__) . "</span>";
         }
         return $return;
     }
@@ -226,10 +226,10 @@ class scan_ip_shell extends eqLogic {
     public static function dependancy_iproute2(){
         if (exec('which ip | wc -l') == 0 OR exec("dpkg --get-selections | grep -v deinstall | grep -E 'iproute2' | wc -l") == 0) {
             $return[0] = FALSE;
-            $return[1] = "<span style='color:red'>error</span>";
+            $return[1] = "<span style='color:red'>" . __('En erreur', __FILE__) . "</span>";
         } else {
             $return[0] = TRUE;
-            $return[1] = "<span style='color:green'>OK</span>";
+            $return[1] = "<span style='color:green'>" . __('Validé', __FILE__) . "</span>";
         }
         return $return;
     }
@@ -249,7 +249,7 @@ class scan_ip_shell extends eqLogic {
     }
     
     public static function wakeOnLanByCmd($_mac){ 
-        log::add('scan_ip', 'debug', 'wakeOnLanByCmd :. Lancement');
+        log::add('scan_ip', 'debug', 'wakeOnLanByCmd :. ' . __('Lancement', __FILE__));
         if(preg_match(scan_ip_tools::getRegex("mac"), $_mac)){
             self::wakeOnLan($_mac);
         }
