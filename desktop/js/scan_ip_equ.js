@@ -156,7 +156,7 @@ function verifEquipement(nb) {
 
         $.each(red, function (index1, value1) {
             if (value1 > 1) {
-                valueEquipement += "{{Attention, cet équipement est associé " + value1 + " fois au plugin <span style='font-weight: bold;'>" + index1 + "</span>.<br />}}";
+                valueEquipement += "{{Attention, cet équipement est déjà associé plusieurs fois au plugin}} <span style='font-weight: bold;'>" + index1 + "</span>.<br />";
             } 
         });
         

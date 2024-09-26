@@ -176,7 +176,7 @@
     "plugins\/scan_ip\/desktop\/js\/scan_ip_equ.js": {
         "Si vous validez cette configuration, il est possible que certains de vos équipements soient indiqués comme hors-ligne alors qu'ils ne le sont pas.": "If you validate this configuration, it is possible that some of your devices may be marked as offline when they are not.",
         "La cadence de rafraichissement se fait toutes les %s minute(s)": "The refresh rate occurs every %s minute(s)",
-        "Attention, cet équipement est associé %s fois au plugin <span style='font-weight: bold;'>%s</span>.<br />": "Warning, this equipment is associated %s times with the plugin <span style='font-weight: bold;'>%s</span>.<br />",
+        "Attention, cet équipement est déjà associé plusieurs fois au plugin": "Warning, this device is already associated multiple times with the plugin",
         "Il est possible que cela génère des conflits s'il s'agit d'une erreur de votre part.": "It is possible that this may cause conflicts if it is a mistake on your part.",
         "Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core</span> de votre Jeedom !<br />Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br />Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.": "Warning, this equipment is associated with the <span style='font-weight: bold;'>core</span> bridge of your Jeedom!<br />This means that Scan.Ip can modify your Jeedom configuration.<br />This association is intended for advanced users as it may cause errors in your global configuration or affect the proper functioning of other plugins.",
         "Tester": "Test"
