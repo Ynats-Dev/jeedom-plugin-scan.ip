@@ -1,14 +1,14 @@
 {
 	"id" : "scan_ip",
 	"name" : "Scan.Ip",
-	"description" : "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.",
+	"description" : "{{Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.}}",
 	"licence" : "AGPL",
 	"author" : "Ynats",
         "require" : "3.3",
         "hasDependency": true,
 	"category" : "monitoring",
-	"changelog" : "https://ynats.github.io\/jeedom-plugin-scan.ip\/#language#/changelog",
-	"documentation" : "https:\/\/ynats.github.io\/jeedom-plugin-scan.ip\/#language#/",
+	"changelog" : "https://ynats-dev.github.io\/jeedom-plugin-scan.ip\/#language#/changelog",
+	"documentation" : "https:\/\/ynats-dev.github.io\/jeedom-plugin-scan.ip\/#language#/",
 	"link" : {
 		"forum":"https://community.jeedom.com/tag/plugin-scan_ip"
 	},

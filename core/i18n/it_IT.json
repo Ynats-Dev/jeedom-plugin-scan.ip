@@ -300,5 +300,8 @@
         "Trouvé": "Trovato",
         "Pas Trouvé": "Non trovato",
         "Erreur": "Errore"
+    },
+    "info.json": {
+        "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.": "Questo plugin consente di scansionare una rete, tracciare gli elementi della rete tramite indirizzo MAC, aggiornare i cambiamenti di IP sui plugin con l'aiuto di bridge, riattivare un dispositivo (WoL) e ricevere avvisi di un nuovo elemento che entra nella rete."
     }
 }

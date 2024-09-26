@@ -1,3 +1,6 @@
+# 26/09/2024 | v1.5
+* Mise en place des traduction EN, DE, ES et IT
+
 # 07/09/2024 | v1.24
 * Correction de bugs pour la version debian 12 par vegeta0911
 
@@ -22,7 +25,7 @@
 * Fixe Ajout de la colonne On Line equipement offline
 * Amélioration hauteur tableaux équipement
 
-# 04/02/2022 | v1.4
+# 04/02/2022 | v1.1
 * Correction état de connexion sur la popin Network
 
 # 01/02/2022

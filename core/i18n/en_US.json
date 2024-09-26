@@ -300,5 +300,8 @@
         "Trouvé": "Trouvé",
         "Pas Trouvé": "Pas Trouvé",
         "Erreur": "Erreur"
+    },
+    "info.json": {
+        "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.": "This plugin allows scanning a network, tracking network elements by MAC address, updating IP changes on plugins with the help of bridges, waking up a device (WoL), and being alerted of a new element entering the network."
     }
 }

@@ -300,5 +300,8 @@
         "Trouvé": "Encontrado",
         "Pas Trouvé": "No encontrado",
         "Erreur": "Error"
+    },
+    "info.json": {
+        "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.": "Este plugin permite escanear una red, rastrear los elementos de la red por dirección MAC, actualizar los cambios de IP en los plugins con la ayuda de bridges, despertar un dispositivo (WoL) y recibir alertas de un nuevo elemento que ingresa a la red."
     }
 }
