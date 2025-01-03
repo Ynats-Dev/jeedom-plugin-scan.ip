@@ -1,3 +1,6 @@
+# 02/01/2025 | v1.5.1
+* Añadidos 2 puentes: "mirobot" y "sshmanager" por Flobul
+
 # 26/09/2024 | v1.5
 * Implementación de las traducciones para EN, DE, ES y IT
 
