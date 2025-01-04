@@ -44,7 +44,7 @@ class scan_ip_sshmanager {
                     $return[$idEqLogic.$cmdId]["plugin"] = self::$plug;
                     $return[$idEqLogic.$cmdId]["plugin_print"] = self::$plug . " :: " . $eqName . " :: " . $cmd->getName();
                     $return[$idEqLogic.$cmdId]["name"] = $cmd->getName();
-                    $return[$idEqLogic.$cmdId]["id"] = $idEqLogic;
+                    $return[$idEqLogic.$cmdId]["id"] = $cmd->getId();
                     $return[$idEqLogic.$cmdId]["champ"] = $cmdId; // champ est égal à l'id de la commande
                     $return[$idEqLogic.$cmdId]["ip_v4"] = $match[0];
                 }
@@ -64,14 +64,13 @@ class scan_ip_sshmanager {
     public function majIpElement($_array){
         
         $eqLogics = eqLogic::byType(self::$plug); 
-        $return = false;
         foreach ($eqLogics as $eqLogic) {
             if ($eqLogic->getId() == $_array["id"]) { 
                 if($eqLogic->getConfiguration(self::$ip) != $_array["ip"]){
                     $eqLogic->setConfiguration(self::$ip, $_array["ip"]);
                     $eqLogic->save(); 
                     // Si besoin de relancer un deamon on retourne self::$plug
-                    $return = true;
+                    return NULL;
                 }   
             }
             foreach ($eqLogic->getCmd() as $cmd) {
@@ -87,12 +86,11 @@ class scan_ip_sshmanager {
                                  log::add('scan_ip', 'error', 'Erreur lors de la sauvegarde du script : '.$cmd->getName().' ('.$_array["champ"]. ').');
                             }                             
                         }
-                        $return = true;
+                        return NULL;
                     }
                 }
             }
         }
-        if ($return) return NULL;
     }
     
 }
