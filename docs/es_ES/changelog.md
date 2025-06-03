@@ -1,3 +1,6 @@
+# 03/06/2025 | v1.5.2
+* Puente "tydom" añadido por Flobul
+
 # 02/01/2025 | v1.5.1
 * Añadidos 2 puentes: "mirobot" y "sshmanager" por Flobul
 
