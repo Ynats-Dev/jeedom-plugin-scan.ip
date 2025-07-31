@@ -46,7 +46,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_mac');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' MAC', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' MAC', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_mac');
@@ -57,7 +57,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_time');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' Time', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' Time', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_time');
@@ -68,7 +68,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_date');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' Date', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' Date', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_date');
@@ -79,7 +79,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_ip_v4');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' IpV4', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' IpV4', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_ip_v4');
@@ -90,7 +90,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_equipement');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' Equipement', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' Equipement', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_equipement');
@@ -101,7 +101,7 @@ class scan_ip_widget_alerte extends eqLogic {
             $info = $_scanIp->getCmd(null, 'last_'.$i.'_record');
             if (!is_object($info)) {
                 $info = new scan_ipCmd();
-                $info->setName(__('Connexion '.$i.' Création', __FILE__));
+                $info->setName(__('Connexion ', __FILE__).$i.__(' Création', __FILE__));
             }
             $info->setEqLogic_id($_scanIp->getId());
             $info->setLogicalId('last_'.$i.'_record');
