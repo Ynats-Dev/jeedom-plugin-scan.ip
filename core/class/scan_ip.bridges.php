@@ -45,25 +45,33 @@ class scan_ip_bridges extends eqLogic {
         return $Get->getAllElements();
     }
     
+    private static $_cachedBridges = null;
     public static function bridges_getElements(){
-        $array = NULL;
+        if (self::$_cachedBridges !== null) return self::$_cachedBridges;
+        
+        $installedPlugins = [];
+        $installedPlugins['core'] = true;
+        foreach (plugin::listPlugin() as $p) {
+            $installedPlugins[$p->getId()] = true;
+        }
+
+        $allElements = [];
         $i = 0; 
-        foreach (self::getJsonBridges() as $bridges) {
-            if(self::bridges_pluginExists($bridges) == TRUE){
-                $mergeArray = self::bridges_getPlugsElements($bridges);
+
+        foreach (self::getJsonBridges() as $bridgeId) {
+            if (isset($installedPlugins[$bridgeId])) {
+                $mergeArray = self::bridges_getPlugsElements($bridgeId);
                 if(is_array($mergeArray)){
                     $i++;
-                    $array = scan_ip_tools::arrayCompose($array, $mergeArray);
+                    $allElements[] = $mergeArray;
                 }
             }
         }
-        if(!is_array($array) AND $array != NULL){
-            return FALSE;
-        } else {
-            $return["array"] = $array;
-            $return["nb"] = $i;
-            return $return;
-        }
+
+        $finalArray = (count($allElements) > 0) ? array_merge(...$allElements) : NULL;
+
+        self::$_cachedBridges = [ "array" => $finalArray, "nb" => $i ];
+    	return self::$_cachedBridges;
     }
     
     public static function bridges_majElement($_ip, $_element){
