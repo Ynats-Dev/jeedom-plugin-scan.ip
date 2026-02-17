@@ -28,7 +28,7 @@ class scan_ip_shell extends eqLogic {
         
         $retry = config::byKey('add_retry_scan', 'scan_ip', 3);
         
-        exec('sudo arp-scan --nodns --retry=' . $retry .  ' --interval=2 --timeout=300 --interface=' . $_subReseau . ' --localnet --ouifile=' . scan_ip::$_file_oui, $output);        
+        exec('sudo arp-scan --numeric --retry=' . $retry .  ' --interval=2 --timeout=300 --interface=' . $_subReseau . ' --localnet --ouifile=' . scan_ip::$_file_oui, $output);        
         
         foreach ($output as $scanLine) {
             if (preg_match(scan_ip_tools::getRegex("ip_v4"), $scanLine)) {     
