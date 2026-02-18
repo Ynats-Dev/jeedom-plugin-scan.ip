@@ -14,4 +14,5 @@
     require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.api_mac_vendor.php";
     require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.maj.php";
     require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.developpement.php";
+    require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.profiler.php";
 ?>
