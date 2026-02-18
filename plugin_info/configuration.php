@@ -102,6 +102,8 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
             </label>
             <div class="col-lg-5">
                 <select class="configKey form-control" data-l1key="add_retry_scan">
+                    <option value="1">{{1 tentatives}}</option>
+                    <option value="2">{{2 tentatives}}</option>
                     <option value="3">{{3 tentatives (à defaut)}}</option>
                     <option value="4">{{4 tentatives}}</option>
                     <option value="5">{{5 tentatives}}</option>
