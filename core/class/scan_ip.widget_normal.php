@@ -11,6 +11,7 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 class scan_ip_widget_normal extends eqLogic {
     
     public static function cmdRefreshWidgetNormal($_eqlogic, $_mapping = NULL){
+        // 1. Récupération des données de l'appareil
         $device = scan_ip_json::searchByMac($_eqlogic->getConfiguration("mac_id"), $_mapping);
         $offline_time = $_eqlogic->getConfiguration("offline_time", scan_ip::$_defaut_offline_time);
         $isOnline = (!empty($device["time"]) && scan_ip_tools::isOffline($offline_time, $device["time"]) == 0);
@@ -42,14 +43,13 @@ class scan_ip_widget_normal extends eqLogic {
             }
         }
 
-        // 4. Gestion des dates (CIBLE DE L'OPTIMISATION)
+        // 4. Gestion des dates uniquement si l'appareil est Online et que la date de dernière communication est disponible
         if ($isOnline && !empty($device["time"])) {
             $oldIp = $_eqlogic->getConfiguration('last_ip_v4');
 
             // CONDITION : On ne met à jour la date que si :
             // - L'appareil vient de passer Online ($hasChangedStatus)
             // - OU l'IP a changé ($oldIp != $device["ip_v4"])
-            // - OU on est à une minute ronde (ex: :00) pour garder une trace en base
             if ($hasChangedStatus || $oldIp != $device["ip_v4"]) {
                 if (isset($cmdCache['update_time'])) {
                     $cmdCache['update_time']->event($device["time"]);
