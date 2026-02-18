@@ -11,52 +11,65 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 class scan_ip_widget_normal extends eqLogic {
     
     public static function cmdRefreshWidgetNormal($_eqlogic, $_mapping = NULL){
-        
         $device = scan_ip_json::searchByMac($_eqlogic->getConfiguration("mac_id"), $_mapping);
         $offline_time = $_eqlogic->getConfiguration("offline_time", scan_ip::$_defaut_offline_time);
+        $isOnline = (!empty($device["time"]) && scan_ip_tools::isOffline($offline_time, $device["time"]) == 0);
 
-        if(!empty($device["time"]) AND scan_ip_tools::isOffline($offline_time, $device["time"]) == 0){
-            $_eqlogic->checkAndUpdateCmd('ip_v4', $device["ip_v4"]); 
-            $last_ip_v4 = scan_ip_cmd::getCommande('last_ip_v4', $_eqlogic);
-            if($last_ip_v4 == "") { $_eqlogic->checkAndUpdateCmd('last_ip_v4', $device["ip_v4"]); }
-            $_eqlogic->checkAndUpdateCmd('on_line', 1); 
-            $_eqlogic->checkAndUpdateCmd('mac', $device["mac"]); 
-        } else {
-            $_eqlogic->checkAndUpdateCmd('on_line', 0);
-            $_eqlogic->checkAndUpdateCmd('ip_v4', NULL);
-            
-            if(!empty($device["mac"])){
-                $_eqlogic->checkAndUpdateCmd('mac', $device["mac"]);
-            } else {
-                $_eqlogic->checkAndUpdateCmd('mac', NULL);
-            }
-            
-            if(!empty($device["ip_v4"])){
-                $_eqlogic->checkAndUpdateCmd('last_ip_v4', $device["ip_v4"]);
-            } else {
-                $_eqlogic->checkAndUpdateCmd('last_ip_v4', NULL);
-            }
-            
+        // 2. Récupération groupée
+        $cmds = $_eqlogic->getCmd();
+        $cmdCache = [];
+        foreach($cmds as $c) {
+            $cmdCache[$c->getLogicalId()] = $c;
         }
 
-        ///////////////////////////////////////////
-        // Mise à jour de l'élément associé
-
-        scan_ip_bridges::majElementsAssocies($_eqlogic, $device);
-
-        // Mise à jour de l'élément associé
-        ///////////////////////////////////////////
-
-        if(!empty($device["time"])) {
-            $_eqlogic->checkAndUpdateCmd('update_time', $device["time"]);
-            $_eqlogic->checkAndUpdateCmd('update_date', date("d/m/Y H:i:s", $device["time"]));
+        // 3. Mise à jour des commandes
+        $hasChangedStatus = false;
+        if ($isOnline){
+	        $_eqlogic->setStatus(array('lastCommunication' => date('Y-m-d H:i:s'), 'timeout' => 0));
+            if (isset($cmdCache['on_line']) && $cmdCache['on_line']->execCmd() != 1) {
+                $cmdCache['on_line']->event(1);
+                $hasChangedStatus = true; // L'appareil vient d'apparaître
+            }
+            if (isset($cmdCache['ip_v4']) && $cmdCache['ip_v4']->execCmd() != $device["ip_v4"]) {
+                $cmdCache['ip_v4']->event($device["ip_v4"]);
+            }
         } else {
-            $_eqlogic->checkAndUpdateCmd('update_time', NULL);
-            $_eqlogic->checkAndUpdateCmd('update_date', NULL);
+            if (isset($cmdCache['on_line']) && $cmdCache['on_line']->execCmd() != 0) {
+                $cmdCache['on_line']->event(0);
+            }
+            if (isset($cmdCache['ip_v4']) && $cmdCache['ip_v4']->execCmd() != "") {
+                $cmdCache['ip_v4']->event(NULL);
+            }
         }
- 
+
+        // 4. Gestion des dates (CIBLE DE L'OPTIMISATION)
+        if ($isOnline && !empty($device["time"])) {
+            $oldIp = $_eqlogic->getConfiguration('last_ip_v4');
+
+            // CONDITION : On ne met à jour la date que si :
+            // - L'appareil vient de passer Online ($hasChangedStatus)
+            // - OU l'IP a changé ($oldIp != $device["ip_v4"])
+            // - OU on est à une minute ronde (ex: :00) pour garder une trace en base
+            if ($hasChangedStatus || $oldIp != $device["ip_v4"]) {
+                if (isset($cmdCache['update_time'])) {
+                    $cmdCache['update_time']->event($device["time"]);
+                }
+                $newDate = date("d/m/Y H:i:s", $device["time"]);
+                if (isset($cmdCache['update_date'])) {
+                    $cmdCache['update_date']->event($newDate);
+                }
+            }
+        }
+
+        // 5. Gestion des Bridges et de la Config uniquement si l'ip a changé pour éviter les traitements inutiles
+        $oldIp = $_eqlogic->getConfiguration('last_ip_v4');
+        if ($device["ip_v4"] != "" && $oldIp != $device["ip_v4"]) {
+            $_eqlogic->setConfiguration('last_ip_v4', $device["ip_v4"]);
+            $_eqlogic->save();
+            scan_ip_bridges::majElementsAssocies($_eqlogic, $device);
+        }
     }
-    
+
     public static function getIdWidgetSpeciaux(){
         $return = NULL;
         $widgetDetect = 0;
