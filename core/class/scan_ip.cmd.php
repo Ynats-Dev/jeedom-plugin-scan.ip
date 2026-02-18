@@ -33,9 +33,6 @@ class scan_ip_cmd extends eqLogic {
                 scan_ip_widget_alerte::cmdRefreshWidgetAlerte($_eqlogic, $mapping);
                 break;
         }
-        
-        $_eqlogic->toHtml('dashboard');
-        $_eqlogic->refreshWidget();
     }
     
 }
