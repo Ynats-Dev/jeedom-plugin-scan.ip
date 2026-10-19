@@ -65,7 +65,7 @@ class scan_ip_widget_normal extends eqLogic {
         $oldIp = $_eqlogic->getConfiguration('last_ip_v4');
         if ($device["ip_v4"] != "" && $oldIp != $device["ip_v4"]) {
             $_eqlogic->setConfiguration('last_ip_v4', $device["ip_v4"]);
-            $_eqlogic->save();
+            $_eqlogic->save(true);
             scan_ip_bridges::majElementsAssocies($_eqlogic, $device);
         }
     }
@@ -190,7 +190,7 @@ class scan_ip_widget_normal extends eqLogic {
         
     }
 
-    public static function createSimpleWidget($scan_ip, $_version = "dashboard", $_replace) {
+    public static function createSimpleWidget($scan_ip, $_replace) {
 
         log::add('scan_ip', 'debug', 'createSimpleWidget :.  Lancement');
 

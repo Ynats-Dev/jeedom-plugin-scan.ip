@@ -148,24 +148,22 @@ class scan_ip extends eqLogic {
         
         $reseau = scan_ip_json::getJson(scan_ip::$_jsonMapping);
 
-        $this->emptyCacheWidget(); //vide le cache. Pratique pour le développement
-        $version = jeedom::versionAlias($_version);
         
         if(scan_ip_widgets::getWidgetType($this) == "network"){
             log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Network', __FILE__));
-            $replace = scan_ip_widget_network::createNetworkWidget($this, $version = 'dashboard', $replace, $reseau);
+            $replace = scan_ip_widget_network::createNetworkWidget($this, $replace, $reseau);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-            return template_replace($replace, getTemplate('core', $version, 'scan_ip_network', 'scan_ip')); 
+            return template_replace($replace, getTemplate('core', 'dashboard', 'scan_ip_network', 'scan_ip')); 
         }elseif(scan_ip_widgets::getWidgetType($this) == "new_equipement"){
             log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Alerte', __FILE__));
-            $replace = scan_ip_widget_alerte::createAlerteWidget($this, $version = 'dashboard', $replace);
+            $replace = scan_ip_widget_alerte::createAlerteWidget($this, $replace);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-            return template_replace($replace, getTemplate('core', $version, 'scan_ip_alerte', 'scan_ip')); 
+            return template_replace($replace, getTemplate('core', 'dashboard', 'scan_ip_alerte', 'scan_ip')); 
         } else {
             log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Normal', __FILE__));
-            $replace = scan_ip_widget_normal::createSimpleWidget($this, $version = 'dashboard', $replace);
+            $replace = scan_ip_widget_normal::createSimpleWidget($this, $replace);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
-            return template_replace($replace, getTemplate('core', $version, 'scan_ip', 'scan_ip')); 
+            return template_replace($replace, getTemplate('core', 'dashboard', 'scan_ip', 'scan_ip')); 
         }
         
     }
