@@ -179,7 +179,7 @@ class scan_ip_widget_alerte extends eqLogic {
         
     }
     
-    public static function createAlerteWidget($scan_ip, $_version = 'dashboard', $_replace) {
+    public static function createAlerteWidget($scan_ip, $_replace) {
 
         log::add('scan_ip', 'debug', 'createAlerteWidget :.  ' . __('Lancement', __FILE__));
 

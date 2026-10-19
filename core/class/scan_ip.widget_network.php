@@ -56,7 +56,7 @@ class scan_ip_widget_network extends eqLogic {
         
     }
     
-    public static function createNetworkWidget($_this, $_version = 'dashboard', $_replace, $_reseau) {
+    public static function createNetworkWidget($_this, $_replace, $_reseau) {
 
         log::add('scan_ip', 'debug', 'createNetworkWidget :. ' . __('Lancement', __FILE__));
 

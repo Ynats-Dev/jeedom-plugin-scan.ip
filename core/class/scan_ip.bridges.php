@@ -235,12 +235,12 @@ class scan_ip_bridges extends eqLogic {
                             }
                         } else {
                             $_eqlogic->setConfiguration("plug_element_plugin_".$index, "");
-                            $_eqlogic->save();
+                            $_eqlogic->save(true);
                         }
                     } else {
                         log::add('scan_ip', 'debug', 'majElementsAssocies :. '. sprintf(__('Suppression du bridge car le plugin %s n\'est pas installé', __FILE__), $testBridge[0]));
                         $_eqlogic->setConfiguration("plug_element_plugin_".$index, "");
-                        $_eqlogic->save();
+                        $_eqlogic->save(true);
                     } 
                 }
                 
