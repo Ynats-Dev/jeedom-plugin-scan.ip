@@ -52,12 +52,19 @@ function scan_ip_install() {
         log::add('scan_ip', 'info', '>  Initialisation le Widget Alerte');
         scan_ip_widget_alerte::getWidgetAlerteNewEquipement();
         
+        // Enregistre la version installée si les données sont compatibles, sinon les scans restent suspendus
+        if(scan_ip_maj::pluginAJour() == TRUE){
+            log::add('scan_ip', 'info', '>  Version des données : v'.scan_ip_maj::$_versionPlugin);
+        } else {
+            log::add('scan_ip', 'info', '>  Données non compatibles avec la version v'.scan_ip_maj::$_versionPlugin.' : correction possible depuis la configuration du plugin');
+        }
+        
         scan_ip_maj::activationCron(1);
         
         log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'info', '>  Installation :. Fin');
         
-    } catch (Exception $exc) {
+    } catch (Throwable $exc) {
         log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'info', '>  Installation :. ERROR : ' . $exc);
     }
@@ -93,9 +100,11 @@ function scan_ip_update() {
         $cron->save();
         $cron->stop();
         foreach(eqLogic::byType('scan_ip') as $eqLogic){
-            $ping = $eqLogic->getCmd(null, 'ping');	
-            $ping->setConfiguration('repeatEventManagement','never');
-            $ping->save();
+            $ping = $eqLogic->getCmd(null, 'ping');
+            if (is_object($ping)) {
+                $ping->setConfiguration('repeatEventManagement','never');
+                $ping->save();
+            }
         }
         
         scan_ip_maj::waitUnlock();
@@ -108,7 +117,7 @@ function scan_ip_update() {
         scan_ip_maj::setConfigBase(); 
         scan_ip_maj::cleanAfterUpdate(dirname(__FILE__) . '/../../../');
         
-        if(scan_ip_maj::getVersionPlugin() === 1){ // Mise à jour sépcifique au passage de la version 1 à 1.*
+        if((string) scan_ip_maj::getVersionPlugin() === "1"){ // Migration v1 -> v1.1 (comparaison stricte de chaînes : en PHP 7, "1.5.2" == 1 est vrai)
             scan_ip_maj::backUpJson();
             scan_ip_maj::majJsonCommentaires_v1_1();
             scan_ip_maj::majJsonEquipements_v1_1();
@@ -121,12 +130,19 @@ function scan_ip_update() {
         log::add('scan_ip', 'info', '>  Initialisation le Widget Alerte');
         scan_ip_widget_alerte::getWidgetAlerteNewEquipement();
         
+        // Enregistre la version installée si les données sont compatibles, sinon les scans restent suspendus
+        if(scan_ip_maj::pluginAJour() == TRUE){
+            log::add('scan_ip', 'info', '>  Version des données : v'.scan_ip_maj::$_versionPlugin);
+        } else {
+            log::add('scan_ip', 'info', '>  Données non compatibles avec la version v'.scan_ip_maj::$_versionPlugin.' : correction possible depuis la configuration du plugin');
+        }
+        
         scan_ip_maj::activationCron(1);
         
         log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'info', '>  Mise à jour :. Fin v'.scan_ip_maj::$_versionPlugin);
 
-    } catch (Exception $exc) {
+    } catch (Throwable $exc) {
         log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'info', '|  Mise à jour :. ERROR : ' . $exc);
     }

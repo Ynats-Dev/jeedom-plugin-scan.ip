@@ -4,7 +4,7 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 
 class scan_ip_maj extends eqLogic {
     
-    public static $_versionPlugin = "1.5.2";
+    public static $_versionPlugin = "1.6.0";
     
     public static function checkPluginVersionAJour(){
         if(self::getVersionPlugin() == self::$_versionPlugin){
@@ -111,9 +111,11 @@ class scan_ip_maj extends eqLogic {
     }
     
     public static function backUpJson(){
-        self::createJsonBackup(scan_ip::$_jsonEquipement, file_get_contents(scan_ip::$_jsonEquipement.".json"));
-        self::createJsonBackup(scan_ip::$_jsonCommentairesEquipement, file_get_contents(scan_ip::$_jsonCommentairesEquipement.".json"));
-        self::createJsonBackup(scan_ip::$_jsonMapping, file_get_contents(scan_ip::$_jsonMapping.".json"));
+        foreach (array(scan_ip::$_jsonEquipement, scan_ip::$_jsonCommentairesEquipement, scan_ip::$_jsonMapping) as $file) {
+            if(is_file($file.".json")){
+                self::createJsonBackup($file, file_get_contents($file.".json"));
+            }
+        }
     }
     
     public static function createJsonBackup($_file, $_data){

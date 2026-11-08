@@ -1,3 +1,13 @@
+# 08/11/2026 | v1.6.0
+* Added "tvremote" and "tvByOrange" bridges
+* Updated ieee-oui (40,458 entries, +5,578) and ieee-iab vendor files
+* Optimized arp-scan (no DNS resolution, shorter timeouts) and added a setting to choose the number of retries (1 or 2)
+* Scan performance improvements: commands loaded at once, updated only when the value changes, saves and tile refreshes limited to what is necessary
+* More reliable online vendor lookup: lookup based on the MAC address OUI, maximum delay per request and at most 3 lookups per scan so the cron is no longer blocked
+* Fixed the name of the device linked by a bridge not being displayed in the device list
+* Fixed the plugin update stopping with an error, and the version is now saved automatically so scans are no longer suspended after an update
+* PHP 8 compatibility fixes and code cleanup
+
 # 03/06/2025 | v1.5.2
 * Bridge "tydom" added by Flobul
 

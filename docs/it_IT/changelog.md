@@ -1,3 +1,13 @@
+# 08/11/2026 | v1.6.0
+* Aggiunti i bridge "tvremote" e "tvByOrange"
+* Aggiornamento dei file dei produttori ieee-oui (40.458 voci, +5.578) e ieee-iab
+* Ottimizzazione di arp-scan (nessuna risoluzione DNS, tempi di attesa ridotti) e scelta del numero di tentativi (1 o 2) nella configurazione
+* Miglioramento delle prestazioni della scansione: comandi caricati in una sola volta, aggiornati solo quando il valore cambia, salvataggi e aggiornamenti del widget limitati allo stretto necessario
+* Ricerca online del produttore più affidabile: ricerca tramite l'OUI dell'indirizzo MAC, tempo massimo per richiesta e al massimo 3 ricerche per scansione per non bloccare più il cron
+* Correzione del nome del dispositivo associato tramite un bridge che non veniva visualizzato nell'elenco dei dispositivi
+* Correzione dell'aggiornamento del plugin che si interrompeva con un errore; la versione viene ora salvata automaticamente affinché le scansioni non restino più sospese dopo un aggiornamento
+* Correzioni di compatibilità con PHP 8 e pulizia del codice
+
 # 03/06/2025 | v1.5.2
 * Ponte "tydom" aggiunto da Flobul
 
