@@ -143,7 +143,11 @@ class scan_ip_bridges extends eqLogic {
                         
     public static function bridges_getEquiementsById(){
         log::add('scan_ip', 'debug', 'bridges_getEquiementsById :. '.__('Lancement', __FILE__)); 
+        $return = array();
         $all = self::bridges_getElements();
+        if(empty($all["array"])){
+            return $return;
+        }
         foreach ($all["array"] as $equipement) { 
             $return[$equipement["id"]]["name"] = $equipement["name"];
             $return[$equipement["id"]]["ip_v4"] = $equipement["ip_v4"];

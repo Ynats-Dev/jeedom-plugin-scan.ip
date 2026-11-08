@@ -146,15 +146,16 @@ class scan_ip extends eqLogic {
             return $replace;
         }
         
-        $reseau = scan_ip_json::getJson(scan_ip::$_jsonMapping);
-
+        $typeWidget = scan_ip_widgets::getWidgetType($this);
         
-        if(scan_ip_widgets::getWidgetType($this) == "network"){
+        if($typeWidget == "network"){
             log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Network', __FILE__));
+            // Le mapping n'est lu que pour le widget Network (seul à l'utiliser)
+            $reseau = scan_ip_json::getJson(scan_ip::$_jsonMapping);
             $replace = scan_ip_widget_network::createNetworkWidget($this, $replace, $reseau);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');
             return template_replace($replace, getTemplate('core', 'dashboard', 'scan_ip_network', 'scan_ip')); 
-        }elseif(scan_ip_widgets::getWidgetType($this) == "new_equipement"){
+        }elseif($typeWidget == "new_equipement"){
             log::add('scan_ip', 'debug', 'toHtml :. '. __('Création widget Alerte', __FILE__));
             $replace = scan_ip_widget_alerte::createAlerteWidget($this, $replace);
             log::add('scan_ip', 'debug', '---------------------------------------------------------------------------------------');

@@ -109,8 +109,8 @@ class scan_ip_eqLogic extends eqLogic {
                     for ($index = 1; $index <= scan_ip_bridges::$_defaut_bridges_by_equipement; $index++) {
                         if(!empty($scan_ip->getConfiguration("plug_element_plugin_".$index))){
                             $split = explode("|", $scan_ip->getConfiguration("plug_element_plugin_".$index));
-                            if(!empty($allEquipementsPlugs[$split[1]]["name"])){
-                                $equipement = $allEquipementsPlugs[$split[1]]["name"];
+                            if(!empty($allEquipementsBridges[$split[1]]["name"])){
+                                $equipement = $allEquipementsBridges[$split[1]]["name"];
                             } else {
                                 $equipement = "";
                             }

@@ -63,33 +63,13 @@ class scan_ip_widget_normal extends eqLogic {
 
         // 5. Gestion des Bridges et de la Config uniquement si l'ip a changé pour éviter les traitements inutiles
         $oldIp = $_eqlogic->getConfiguration('last_ip_v4');
-        if ($device["ip_v4"] != "" && $oldIp != $device["ip_v4"]) {
+        if (!empty($device["ip_v4"]) && $oldIp != $device["ip_v4"]) {
             $_eqlogic->setConfiguration('last_ip_v4', $device["ip_v4"]);
             $_eqlogic->save(true);
             scan_ip_bridges::majElementsAssocies($_eqlogic, $device);
         }
     }
 
-    public static function getIdWidgetSpeciaux(){
-        $return = NULL;
-        $widgetDetect = 0;
-        $widgetMax = 2;
-        foreach ($eqLogics as $eqLogic) {
-            if($eqLogic->getConfiguration('type_widget', 'normal') == "network"){
-                $return["network"] = $eqLogic->getId();
-                $widgetDetect++;
-            } 
-            elseif($eqLogic->getConfiguration('type_widget', 'normal') == "new_equipement"){
-                $return["new_equipement"] = $eqLogic->getId();
-                $widgetDetect++;
-            }
-            if($widgetDetect >= $widgetMax){
-                break;
-            }
-        }
-        return $return;
-    }
-    
     public static function setCmdWidgetNormal($_scanIp){
         
         $info = $_scanIp->getCmd(null, 'ip_v4');
@@ -184,7 +164,6 @@ class scan_ip_widget_normal extends eqLogic {
         } else {
             if (is_object($wol)) {
                 $wol->remove();
-                ajax::success(utils::o2a($_scanIp));
             } 
         }  
         

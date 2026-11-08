@@ -67,11 +67,8 @@ class scan_ip_json extends eqLogic {
     public static function getJson($_file) {
         log::add('scan_ip', 'debug', 'getJson :. ' . __('Lancement', __FILE__));
         
-        try {
-            $return = @json_decode(@file_get_contents($_file.".json"),true);
-        } catch (Exception $e) {
-            $rerurn = NULL;
-        }
+        $content = @file_get_contents($_file.".json");
+        $return = ($content === FALSE) ? NULL : json_decode($content, true);
         
         log::add('scan_ip', 'debug', 'getJson :. ' . $_file . ".json");
         return $return;

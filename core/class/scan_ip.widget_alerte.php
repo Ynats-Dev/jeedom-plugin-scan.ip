@@ -12,6 +12,7 @@ class scan_ip_widget_alerte extends eqLogic {
 
     public static function getWidgetAlerteNewEquipement(){
         $eqLogics = eqLogic::byType('scan_ip');
+        $exist = 0;
         foreach ($eqLogics as $scan_ip) {
             if(scan_ip_widgets::getWidgetType($scan_ip) == 'new_equipement') {
                 $exist = 1;
@@ -124,57 +125,52 @@ class scan_ip_widget_alerte extends eqLogic {
     
     public static function cmdRefreshWidgetAlerte($_eqlogic, $_mapping = NULL){
         
-        $temp = array();
-        
         $mac_id = scan_ip_eqLogic::getEquipementsbyId();
         
-        if($mac_id != NULL){
+        if($mac_id == NULL OR empty($_mapping["byTime"])){
+            return;
+        }
+        
+        // Recherche par clé (O(1)) au lieu de in_array
+        $knownMac = array_flip($mac_id);
+        $nbAlertes = scan_ip::$_defaut_alerte_new_equipement;
+        
+        // byTime est déjà trié du plus récent au plus ancien : on s'arrête dès qu'on a assez d'éléments
+        $temp = array();
+        foreach ($_mapping["byTime"] as $allElement) { 
+            foreach ($allElement as $element) { 
+                if(!isset($knownMac[$element["mac_id"]])){
+                    $temp[] = $element;
+                    if(count($temp) >= $nbAlertes){
+                        break 2;
+                    }
+                }  
+            }
+        }
+        
+        // Récupération groupée des commandes (une seule requête au lieu d'une par checkAndUpdateCmd)
+        $cmdCache = array();
+        foreach ($_eqlogic->getCmd('info') as $cmd) {
+            $cmdCache[$cmd->getLogicalId()] = $cmd;
+        }
+
+        for ($i = 0; $i < $nbAlertes; $i++) {
+            $time = !empty($temp[$i]["time"]) ? $temp[$i]["time"] : NULL;
+            $values = array(
+                'record' => !empty($temp[$i]["record"]) ? $temp[$i]["record"] : NULL,
+                'mac' => !empty($temp[$i]["mac"]) ? $temp[$i]["mac"] : NULL,
+                'time' => $time,
+                'date' => ($time != NULL) ? scan_ip_tools::printDate($time) : NULL,
+                'equipement' => !empty($temp[$i]["equipement"]) ? $temp[$i]["equipement"] : NULL,
+                'ip_v4' => !empty($temp[$i]["ip_v4"]) ? $temp[$i]["ip_v4"] : NULL,
+            );
             
-            foreach ($_mapping["byTime"] as $allElement) { 
-                foreach ($allElement as $element) { 
-                    if(!in_array($element["mac_id"], $mac_id)){
-                        $temp[] = array(
-                            "time" => $element["time"], 
-                            "record" => $element["record"],
-                            "mac" => $element["mac"], 
-                            "ip_v4" => $element["ip_v4"],
-                            "equipement" => $element["equipement"]
-                        );   
-                    }  
+            foreach ($values as $suffix => $value) {
+                $logicalId = 'last_'.$i.'_'.$suffix;
+                if(isset($cmdCache[$logicalId])){
+                    $_eqlogic->checkAndUpdateCmd($cmdCache[$logicalId], $value);
                 }
             }
-
-            for ($i = 0; $i <= (scan_ip::$_defaut_alerte_new_equipement -1); $i++) {
-
-                if(!empty($temp[$i]["record"])){
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_record', $temp[$i]["record"]);
-                } else {
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_record', NULL);
-                }
-                if(!empty($temp[$i]["mac"])){
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_mac', $temp[$i]["mac"]);
-                } else {
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_mac', NULL);
-                }
-                if(!empty($temp[$i]["time"])){
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_time', $temp[$i]["time"]);
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_date', scan_ip_tools::printDate($temp[$i]["time"]));
-                } else {
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_time', NULL);
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_date', NULL);
-                }
-                if(!empty($temp[$i]["equipement"])){
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_equipement', $temp[$i]["equipement"]);
-                } else {
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_equipement', NULL);
-                }
-                if(!empty($temp[$i]["ip_v4"])){
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_ip_v4', $temp[$i]["ip_v4"]);
-                } else {
-                    $_eqlogic->checkAndUpdateCmd('last_'.$i.'_ip_v4', NULL);
-                }
-            }
-            
         }
         
     }

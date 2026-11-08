@@ -14,24 +14,5 @@ class scan_ip_widgets extends eqLogic {
         return $_eq->getConfiguration('type_widget', 'normal');
     }
     
-    public static function getIdWidgetSpeciaux(){
-        $return = NULL;
-        $widgetDetect = 0;
-        $widgetMax = 2;
-        foreach ($eqLogics as $eqLogic) {
-            if($eqLogic->getConfiguration('type_widget', 'normal') == "network"){
-                $return["network"] = $eqLogic->getId();
-                $widgetDetect++;
-            } 
-            elseif($eqLogic->getConfiguration('type_widget', 'normal') == "new_equipement"){
-                $return["new_equipement"] = $eqLogic->getId();
-                $widgetDetect++;
-            }
-            if($widgetDetect >= $widgetMax){
-                break;
-            }
-        }
-        return $return;
-    }
 
 }

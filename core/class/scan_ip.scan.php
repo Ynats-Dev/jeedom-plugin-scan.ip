@@ -119,7 +119,8 @@ class scan_ip_scan extends eqLogic {
                 else { $return[$macId]["record"] = $old[$macId]["record"]; }
                 
                 if(empty($old[$macId]["equipement"]) AND empty($_new[$macId]["equipement"]) OR ((!empty($old[$macId]["equipement"]) AND $old[$macId]["equipement"] == "...") AND (!empty($_new[$macId]["equipement"]) AND $_new[$macId]["equipement"] == "..."))){
-                    $return[$macId]["equipement"] = scan_ip_api_mac_vendor::get_MacVendor($macId);
+                    $fullMac = !empty($_new[$macId]["mac"]) ? $_new[$macId]["mac"] : (!empty($old[$macId]["mac"]) ? $old[$macId]["mac"] : NULL);
+                    $return[$macId]["equipement"] = scan_ip_api_mac_vendor::get_MacVendor($fullMac);
                 }
                 elseif(!empty($_new[$macId]["equipement"]) and $_new[$macId]["equipement"] != "..."){
                     $return[$macId]["equipement"] = $_new[$macId]["equipement"];

@@ -12,6 +12,7 @@ class scan_ip_widget_network extends eqLogic {
     
     public static function getWidgetNetwork(){
         $eqLogics = eqLogic::byType('scan_ip');
+        $exist = 0;
         foreach ($eqLogics as $scan_ip) {
             if(scan_ip_widgets::getWidgetType($scan_ip) == 'network') {
                 $exist = 1;
