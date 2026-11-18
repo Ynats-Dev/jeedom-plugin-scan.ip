@@ -217,7 +217,15 @@
         "2 tentatives": "2 intentos",
         "Afficher aussi les plugins non installés": "Mostrar también los plugins no instalados",
         "Aucun plugin compatible n'est installé.": "No hay ningún plugin compatible instalado.",
-        "Cadence de rafraîchissement": "Frecuencia de actualización"
+        "Cadence de rafraîchissement": "Frecuencia de actualización",
+        "Mettre à jour oui.txt et iab.txt": "Actualizar oui.txt e iab.txt",
+        "Fichiers constructeurs oui.txt et iab.txt (Mode avancé)": "Archivos de fabricantes oui.txt e iab.txt (Modo avanzado)",
+        "Mise à jour automatique": "Actualización automática",
+        "Télécharge les registres de l'IEEE pour identifier les constructeurs des nouveaux appareils. En cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain.": "Descarga los registros del IEEE para identificar a los fabricantes de los nuevos dispositivos. Si falla, se conservan los archivos existentes y se vuelve a intentar al día siguiente.",
+        "Désactivée": "Desactivada",
+        "Toutes les semaines": "Cada semana",
+        "Tous les mois": "Cada mes",
+        "Dernière mise à jour": "Última actualización"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip.js": {
         "Afficher le Réseau": "Mostrar la Red",
@@ -286,7 +294,14 @@
         "Scanner le sous-réseau": "Escanear la subred",
         "Sélectionnez un élément": "Seleccione un elemento",
         "Date": "Fecha",
-        "Cliquer pour filtrer le tableau": "Haga clic para filtrar la tabla"
+        "Cliquer pour filtrer le tableau": "Haga clic para filtrar la tabla",
+        "Installé": "Instalado",
+        "Manquant": "Falta",
+        "Téléchargement impossible": "Descarga imposible",
+        "Fichier reçu incomplet, ancien fichier conservé": "Archivo recibido incompleto, se conserva el anterior",
+        "entrées seulement, ancien fichier conservé": "entradas solamente, se conserva el anterior",
+        "Écriture du fichier impossible": "No se puede escribir el archivo",
+        "entrées": "entradas"
     },
     "plugins\/scan_ip\/core\/class\/scan_ip.shell.php": {
         "Lancement": "Inicio",
@@ -365,7 +380,8 @@
         "Annulé parce qu'il y a déjà un processus en cours": "Cancelado porque ya hay un proceso en curso",
         "Annulé :. Configuration Minute": "Cancelado: Configuración Minuto",
         "Lancement de la commande refresh": "Inicio del comando de actualización",
-        "Lancement de la commande wol": "Inicio del comando wol"
+        "Lancement de la commande wol": "Inicio del comando wol",
+        "Mise à jour automatique des fichiers oui.txt et iab.txt": "Actualización automática de los archivos oui.txt e iab.txt"
     },
     "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php": {
         "Lancement": "Inicio",
@@ -404,7 +420,10 @@
         "Aucune méthode correspondante à : ": "Ningún método corresponde a: "
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_configuration.js": {
-        "installés": "instalados"
+        "installés": "instalados",
+        "Téléchargement en cours, cela peut prendre une minute...": "Descarga en curso, puede tardar un minuto...",
+        "Installé": "Instalado",
+        "entrées": "entradas"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_network.js": {
         "Commentaires sauvegardés": "Comentarios guardados"

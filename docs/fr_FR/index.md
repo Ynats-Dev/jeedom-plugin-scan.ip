@@ -92,6 +92,12 @@ Règle le nombre de tentatives lors des scans du réseau. Tous les équipements 
 
 Sur Safari, le masquage des options dans les menus de sélection (qui sert à n'afficher que les bridges non utilisés) ne fonctionne pas. En activant cette option, les éléments déjà utilisés sont désactivés au lieu d'être masqués. N'activez cette option que si vous rencontrez le problème sous Safari.
 
+### Mise à jour automatique des fichiers constructeurs
+
+Les fichiers oui.txt et iab.txt permettent d'identifier le constructeur d'un appareil à partir de son adresse MAC. Cette option les met à jour automatiquement depuis le site de l'IEEE, toutes les semaines ou tous les mois (désactivée par défaut). En cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain. La date de la dernière mise à jour est affichée juste en dessous.
+
+> Une mise à jour manuelle reste possible à tout moment depuis le mode debug (bouton « Mettre à jour oui.txt et iab.txt »).
+
 ### Spécifier des plages réseau à scanner
 
 Lorsque vous avez plusieurs cartes réseau ou des sous-réseaux, cochez le ou les sous-réseaux à scanner. Seules les interfaces qui possèdent une adresse IPv4 sont proposées (les interfaces virtuelles Docker ou les cartes non connectées ne sont pas listées).
@@ -109,6 +115,8 @@ Lorsque vous avez plusieurs cartes réseau ou des sous-réseaux, cochez le ou le
 Vérifie la présence des fichiers oui.txt et iab.txt ainsi que leurs dates de mise à jour.
 
 > Ces deux fichiers font le lien entre une adresse MAC et un constructeur.
+
+Le bouton « Mettre à jour oui.txt et iab.txt » télécharge la dernière version des registres sur le site de l'IEEE et régénère les deux fichiers. En cas d'échec (pas d'accès à Internet, fichier reçu incomplet), les fichiers existants sont conservés.
 
 ### Vérification de la version
 

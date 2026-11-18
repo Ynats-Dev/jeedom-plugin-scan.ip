@@ -17,26 +17,53 @@ function showVersion(){
     $("#span_plugin_install_date").append( "v" + versionPlugin + " ("+giveVersionByJeedom+")");
 }
 
-function recordBtMac() {
+// Mise à jour des fichiers constructeurs (oui.txt / iab.txt) depuis le site de l'IEEE
+function scanIpUpdateVendorFiles() {
+    var $bt = $('#bt_scanIpUpdateVendorFiles');
+    if ($bt.hasClass('disabled')) {
+        return;
+    }
+    $bt.addClass('disabled').find('i, svg').first().attr('class', 'fas fa-spinner fa-spin');
+    $('#scan_ip_vendor_files_status').text("{{Téléchargement en cours, cela peut prendre une minute...}}");
+
     $.ajax({
         type: "POST",
         url: "plugins/scan_ip/core/ajax/scan_ip.ajax.php",
-        data: {
-            action: "recordMacBouton",
-        },
+        data: {action: "updateVendorFiles"},
         dataType: 'json',
+        global: false,
+        timeout: 420000,
         error: function (request, status, error) {
+            $bt.removeClass('disabled').find('i, svg').first().attr('class', 'fas fa-download');
+            $('#scan_ip_vendor_files_status').text('');
             handleAjaxError(request, status, error);
         },
         success: function (data) {
+            $bt.removeClass('disabled').find('i, svg').first().attr('class', 'fas fa-download');
             if (data.state != 'ok') {
+                $('#scan_ip_vendor_files_status').text('');
                 $('#div_alert').showAlert({message: data.result, level: 'danger'});
                 return;
             }
-            window.location.reload();
+            var messages = [];
+            var allOk = true;
+            $.each(data.result, function (name, res) {
+                var $status = $('.scanip-vendor-file[data-file="' + name + '"]');
+                if (res.ok) {
+                    $status.css('color', 'green').text(name + ' ({{Installé}} · ' + res.date + ')');
+                    messages.push(name + ' : ' + res.count + ' {{entrées}}');
+                } else {
+                    allOk = false;
+                    messages.push(name + ' : ' + res.message);
+                }
+            });
+            $('#scan_ip_vendor_files_status').text(messages.join(' · '));
+            $('#div_alert').showAlert({message: messages.join(' · '), level: allOk ? 'success' : 'warning'});
         }
     });
 }
+
+$('#bt_scanIpUpdateVendorFiles').off('click').on('click', scanIpUpdateVendorFiles);
 
 function scan_ip_mode_plugin() { 
     var mode = $( "#scan_ip_mode" ).val();
@@ -45,6 +72,11 @@ function scan_ip_mode_plugin() {
         mode = "normal";
         $( "#scan_ip_mode" ).val(mode);
     }
+    // Mise à jour automatique des fichiers constructeurs : désactivée tant qu'aucune valeur n'est enregistrée
+    if (!$('#scan_ip_vendor_auto').val()) {
+        $('#scan_ip_vendor_auto').val('0');
+    }
+
     // Éléments de la page du plugin dépendant du mode : mis à jour sans recharger la page
     $('#bt_scanIpDebug').toggle(mode == "debug");
     $('#scan_ip_debug_macid').toggle(mode == "debug");

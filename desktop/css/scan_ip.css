@@ -502,3 +502,40 @@ table.scanip-table input.scanip-comment-error {
     border-color: var(--scanip-off) !important;
     box-shadow: 0 0 0 2px rgba(229, 72, 77, 0.25);
 }
+
+/* ---------- Éléments de plugins associés (modale Équipements enregistrés) ---------- */
+.scanip-assocs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+}
+a.scanip-assoc {
+    display: inline-flex;
+    align-items: stretch;
+    max-width: 100%;
+    border: 1px solid var(--scanip-border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.9em;
+    line-height: 1.6;
+    text-decoration: none !important;
+    color: inherit;
+    transition: border-color 0.15s ease;
+}
+a.scanip-assoc:hover {
+    border-color: var(--scanip-accent);
+}
+.scanip-assoc-plugin {
+    padding: 0 7px;
+    background: var(--scanip-soft-strong);
+    font-size: 0.85em;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.scanip-assoc-name {
+    padding: 0 8px;
+    color: var(--scanip-accent);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

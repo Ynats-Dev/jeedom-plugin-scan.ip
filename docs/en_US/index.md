@@ -92,6 +92,12 @@ Sets the number of attempts during network scans. Not every device answers the f
 
 On Safari, hiding options in selection menus (used to show only the unused bridges) does not work. With this option enabled, the elements already in use are disabled instead of hidden. Only enable this option if you run into the problem with Safari.
 
+### Automatic update of the vendor files
+
+The oui.txt and iab.txt files identify a device's manufacturer from its MAC address. This option updates them automatically from the IEEE website, every week or every month (disabled by default). If it fails, the existing files are kept and a new attempt is made the next day. The date of the last update is shown just below.
+
+> A manual update is still possible at any time from debug mode ("Update oui.txt and iab.txt" button).
+
 ### Specify network ranges to scan
 
 When you have several network cards or subnets, tick the subnet(s) to scan. Only interfaces with an IPv4 address are offered (Docker virtual interfaces or disconnected cards are not listed).
@@ -109,6 +115,8 @@ When you have several network cards or subnets, tick the subnet(s) to scan. Only
 Checks that the oui.txt and iab.txt files are present, along with their update dates.
 
 > These two files link a MAC address to a manufacturer.
+
+The "Update oui.txt and iab.txt" button downloads the latest version of the registries from the IEEE website and regenerates both files. If it fails (no Internet access, incomplete file received), the existing files are kept.
 
 ### Version check
 

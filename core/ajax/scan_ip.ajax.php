@@ -55,6 +55,15 @@ try {
         
     }
     
+    elseif (init('action') == 'updateVendorFiles') {
+
+        // Téléchargement long : on libère la session pour ne pas bloquer l'interface
+        @session_write_close();
+        @set_time_limit(400);
+        ajax::success(scan_ip_tools::updateVendorFiles());
+
+    }
+
     elseif (init('action') == 'addEquipementFromNetwork') {
 
         $mac = trim(init('mac'));

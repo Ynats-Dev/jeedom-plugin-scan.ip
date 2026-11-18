@@ -1,3 +1,9 @@
+# 18/11/2026 | v1.7.1
+* Nuevo botón para actualizar los archivos de fabricantes oui.txt e iab.txt desde el sitio del IEEE (configuración, modo debug), conservando los archivos anteriores en caso de fallo
+* Actualización automática de los archivos oui.txt e iab.txt, cada semana o cada mes (configuración, modo avanzado)
+* Elementos de plugins asociados mostrados como etiquetas (plugin + dispositivo) en la ventana de dispositivos registrados, sin duplicados
+* Se corrige el botón de descarga de los archivos oui.txt e iab.txt que faltaban, que no funcionaba
+
 # 18/11/2026 | v1.7.0
 * Añadido el puente "vigipool"
 * Modernización de la interfaz: nueva hoja de estilos compatible con los temas claro y oscuro de Jeedom, títulos de sección con iconos, un icono distinto para cada acción y contadores de dispositivos

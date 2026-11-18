@@ -217,7 +217,15 @@
         "2 tentatives": "2 attempts",
         "Afficher aussi les plugins non installés": "Also show plugins that are not installed",
         "Aucun plugin compatible n'est installé.": "No compatible plugin is installed.",
-        "Cadence de rafraîchissement": "Refresh rate"
+        "Cadence de rafraîchissement": "Refresh rate",
+        "Mettre à jour oui.txt et iab.txt": "Update oui.txt and iab.txt",
+        "Fichiers constructeurs oui.txt et iab.txt (Mode avancé)": "Vendor files oui.txt and iab.txt (Advanced mode)",
+        "Mise à jour automatique": "Automatic update",
+        "Télécharge les registres de l'IEEE pour identifier les constructeurs des nouveaux appareils. En cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain.": "Downloads the IEEE registries to identify the manufacturers of new devices. If it fails, the existing files are kept and a new attempt is made the next day.",
+        "Désactivée": "Disabled",
+        "Toutes les semaines": "Every week",
+        "Tous les mois": "Every month",
+        "Dernière mise à jour": "Last update"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip.js": {
         "Afficher le Réseau": "Display Network",
@@ -286,7 +294,14 @@
         "Scanner le sous-réseau": "Scan the subnet",
         "Sélectionnez un élément": "Select an element",
         "Date": "Date",
-        "Cliquer pour filtrer le tableau": "Click to filter the table"
+        "Cliquer pour filtrer le tableau": "Click to filter the table",
+        "Installé": "Installed",
+        "Manquant": "Missing",
+        "Téléchargement impossible": "Download failed",
+        "Fichier reçu incomplet, ancien fichier conservé": "Incomplete file received, previous file kept",
+        "entrées seulement, ancien fichier conservé": "entries only, previous file kept",
+        "Écriture du fichier impossible": "Unable to write the file",
+        "entrées": "entries"
     },
     "plugins\/scan_ip\/core\/class\/scan_ip.shell.php": {
         "Lancement": "Starting",
@@ -365,7 +380,8 @@
         "Annulé parce qu'il y a déjà un processus en cours": "Annulé parce qu'il y a déjà un processus en cours",
         "Annulé :. Configuration Minute": "Annulé :. Configuration Minute",
         "Lancement de la commande refresh": "Lancement de la commande refresh",
-        "Lancement de la commande wol": "Lancement de la commande wol"
+        "Lancement de la commande wol": "Lancement de la commande wol",
+        "Mise à jour automatique des fichiers oui.txt et iab.txt": "Automatic update of the oui.txt and iab.txt files"
     },
     "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php": {
         "Lancement": "Lancement",
@@ -404,7 +420,10 @@
         "Aucune méthode correspondante à : ": "No method matching: "
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_configuration.js": {
-        "installés": "installed"
+        "installés": "installed",
+        "Téléchargement en cours, cela peut prendre une minute...": "Downloading, this may take a minute...",
+        "Installé": "Installed",
+        "entrées": "entries"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_network.js": {
         "Commentaires sauvegardés": "Comments saved"

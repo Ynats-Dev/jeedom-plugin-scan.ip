@@ -108,20 +108,35 @@ class scan_ip_eqLogic extends eqLogic {
                 }
 
                 if($bridge != FALSE){
+                    $seen = array();
                     for ($index = 1; $index <= scan_ip_bridges::$_defaut_bridges_by_equipement; $index++) {
                         if(!empty($scan_ip->getConfiguration("plug_element_plugin_".$index))){
                             $split = explode("|", $scan_ip->getConfiguration("plug_element_plugin_".$index));
+                            $key = $split[0] . "|" . (isset($split[1]) ? $split[1] : "");
+                            if (isset($seen[$key])) { continue; } // même élément associé plusieurs fois : affiché une seule fois
+                            $seen[$key] = TRUE;
+                            
                             if(!empty($allEquipementsBridges[$split[1]]["name"])){
                                 $equipement = $allEquipementsBridges[$split[1]]["name"];
                             } else {
                                 $equipement = "";
                             }
                             if($split[0] == 'core') {
-                                $return[$a]["plug_element_plugin"] .= "<div><a href='index.php?v=d&p=administration#".$split[1]."' target='_blank'>#".$split[2]." (".$split[0].") ".$equipement."</a></div>";
+                                $id = isset($split[2]) ? $split[2] : $split[1];
+                                $url = "index.php?v=d&p=administration#" . $split[1];
                             } else {
-                                $return[$a]["plug_element_plugin"] .= "<div><a href='/index.php?v=d&m=".$split[0]."&p=".$split[0]."&id=".$split[1]."' target='_blank'>#".$split[1]." (".$split[0].") ".$equipement."</a></div>";
+                                $id = $split[1];
+                                $url = "index.php?v=d&m=" . $split[0] . "&p=" . $split[0] . "&id=" . $split[1];
                             }
+                            $label = ($equipement != "") ? $equipement : "#" . $id;
+                            $return[$a]["plug_element_plugin"] .= "<a class='scanip-assoc' href='" . scan_ip_tools::escape($url) . "' target='_blank' title='" . scan_ip_tools::escape($split[0] . " #" . $id) . "'>"
+                                . "<span class='scanip-assoc-plugin'>" . scan_ip_tools::escape($split[0]) . "</span>"
+                                . "<span class='scanip-assoc-name'>" . scan_ip_tools::escape($label) . "</span>"
+                                . "</a>";
                         } 
+                    }
+                    if ($return[$a]["plug_element_plugin"] != "") {
+                        $return[$a]["plug_element_plugin"] = "<div class='scanip-assocs'>" . $return[$a]["plug_element_plugin"] . "</div>";
                     }
                 }
                 $a++;

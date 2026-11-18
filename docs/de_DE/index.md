@@ -92,6 +92,12 @@ Legt die Anzahl der Versuche bei den Netzwerkscans fest. Nicht alle Geräte antw
 
 Unter Safari funktioniert das Ausblenden von Optionen in Auswahlmenüs (mit dem nur die nicht verwendeten Bridges angezeigt werden) nicht. Mit dieser Option werden bereits verwendete Elemente deaktiviert statt ausgeblendet. Aktivieren Sie diese Option nur, wenn das Problem unter Safari auftritt.
 
+### Automatische Aktualisierung der Herstellerdateien
+
+Die Dateien oui.txt und iab.txt ermitteln den Hersteller eines Geräts anhand seiner MAC-Adresse. Diese Option aktualisiert sie automatisch von der IEEE-Website, jede Woche oder jeden Monat (standardmäßig deaktiviert). Bei einem Fehler bleiben die vorhandenen Dateien erhalten und am nächsten Tag erfolgt ein neuer Versuch. Das Datum der letzten Aktualisierung wird direkt darunter angezeigt.
+
+> Eine manuelle Aktualisierung ist jederzeit im Debug-Modus möglich (Schaltfläche „oui.txt und iab.txt aktualisieren“).
+
 ### Zu scannende Netzwerkbereiche festlegen
 
 Wenn Sie mehrere Netzwerkkarten oder Subnetze haben, aktivieren Sie das oder die zu scannenden Subnetze. Es werden nur Schnittstellen mit einer IPv4-Adresse angeboten (virtuelle Docker-Schnittstellen oder nicht verbundene Karten werden nicht aufgeführt).
@@ -109,6 +115,8 @@ Wenn Sie mehrere Netzwerkkarten oder Subnetze haben, aktivieren Sie das oder die
 Prüft, ob die Dateien oui.txt und iab.txt vorhanden sind, sowie ihr Aktualisierungsdatum.
 
 > Diese beiden Dateien ordnen eine MAC-Adresse einem Hersteller zu.
+
+Die Schaltfläche „oui.txt und iab.txt aktualisieren“ lädt die neueste Version der Register von der IEEE-Website herunter und erzeugt beide Dateien neu. Schlägt dies fehl (kein Internetzugang, unvollständige Datei), werden die vorhandenen Dateien beibehalten.
 
 ### Versionsprüfung
 

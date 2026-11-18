@@ -177,6 +177,25 @@ class scan_ip extends eqLogic {
 # TACHES CRON
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
+    // Mise à jour automatique des fichiers constructeurs (oui.txt / iab.txt) selon la périodicité choisie
+    public static function cronDaily() {
+        $period = config::byKey('vendor_files_auto_update', 'scan_ip', '0');
+        if ($period != 'weekly' AND $period != 'monthly') {
+            return;
+        }
+        $days = ($period == 'weekly') ? 7 : 30;
+        $last = intval(config::byKey('vendor_files_last_update', 'scan_ip', 0));
+        if ($last == 0 AND @file_exists(self::$_file_oui)) {
+            $last = filemtime(self::$_file_oui);
+        }
+        // Marge d'une heure pour que l'heure exacte du cron quotidien ne décale pas la mise à jour d'un jour
+        if (time() - $last < ($days * 86400) - 3600) {
+            return;
+        }
+        log::add('scan_ip', 'info', 'cronDaily :. ' . __('Mise à jour automatique des fichiers oui.txt et iab.txt', __FILE__));
+        scan_ip_tools::updateVendorFiles();
+    }
+    
     public static function scan() {
   
         $cronConfig = config::byKey('cron_pass', 'scan_ip', 1);

@@ -123,6 +123,27 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
                 </select> 
             </div>
         </div>
+<?php
+        scan_ip_tools::vueSubTitle("{{Fichiers constructeurs oui.txt et iab.txt (Mode avancé)}}", "config", "fa-database");
+?>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">{{Mise à jour automatique}}
+                <sup><i class="fa fa-question-circle tooltips" title="{{Télécharge les registres de l'IEEE pour identifier les constructeurs des nouveaux appareils. En cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain.}}"></i></sup>
+            </label>
+            <div class="col-lg-5">
+                <select class="configKey form-control" data-l1key="vendor_files_auto_update" id="scan_ip_vendor_auto">
+                    <option value="0">{{Désactivée}}</option>
+                    <option value="weekly">{{Toutes les semaines}}</option>
+                    <option value="monthly">{{Tous les mois}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">{{Dernière mise à jour}}</label>
+            <div class="col-lg-5" style="padding-top:7px;">
+                <?php echo (scan_ip_tools::getDateFile(scan_ip::$_file_oui) != NULL) ? scan_ip_tools::getDateFile(scan_ip::$_file_oui) : "…"; ?>
+            </div>
+        </div>
             
     </div> 
            
@@ -140,6 +161,13 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
         <div class="form-group">
             <label class="col-lg-4 control-label"></label>
             <div class="col-lg-5"><?php echo scan_ip_tools::printFileIatExist() ?> <sup><i class="fa fa-question-circle tooltips" title="{{Mise à jour le}} <?php echo scan_ip_tools::getDateFile(scan_ip::$_file_iab) ?>"></i></sup>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label"></label>
+            <div class="col-lg-5">
+                <a class="btn btn-default btn-sm" id="bt_scanIpUpdateVendorFiles"><i class="fas fa-download"></i> {{Mettre à jour oui.txt et iab.txt}}</a>
+                <span class="scanip-meta" id="scan_ip_vendor_files_status" style="margin-left:8px;"></span>
             </div>
         </div>
 <?php

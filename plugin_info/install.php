@@ -24,6 +24,9 @@ function scan_ip_defaultConfig() {
     if (config::byKey('mode_plugin', 'scan_ip', '') == '') {
         config::save('mode_plugin', 'normal', 'scan_ip');
     }
+    if (config::byKey('vendor_files_auto_update', 'scan_ip', '') == '') {
+        config::save('vendor_files_auto_update', '0', 'scan_ip');
+    }
 }
 
 function scan_ip_install() {

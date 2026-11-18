@@ -92,6 +92,12 @@ Ajusta el número de intentos durante los escaneos de la red. No todos los dispo
 
 En Safari, la ocultación de opciones en los menús de selección (que sirve para mostrar solo los bridges no utilizados) no funciona. Con esta opción activada, los elementos ya utilizados se desactivan en lugar de ocultarse. Active esta opción solo si tiene el problema en Safari.
 
+### Actualización automática de los archivos de fabricantes
+
+Los archivos oui.txt e iab.txt identifican al fabricante de un dispositivo a partir de su dirección MAC. Esta opción los actualiza automáticamente desde el sitio del IEEE, cada semana o cada mes (desactivada por defecto). Si falla, se conservan los archivos existentes y se vuelve a intentar al día siguiente. La fecha de la última actualización se muestra justo debajo.
+
+> Siempre es posible actualizarlos manualmente desde el modo debug (botón «Actualizar oui.txt e iab.txt»).
+
 ### Especificar los rangos de red a escanear
 
 Si tiene varias tarjetas de red o subredes, marque la subred o subredes a escanear. Solo se proponen las interfaces que tienen una dirección IPv4 (las interfaces virtuales de Docker o las tarjetas no conectadas no aparecen).
@@ -109,6 +115,8 @@ Si tiene varias tarjetas de red o subredes, marque la subred o subredes a escane
 Comprueba la presencia de los archivos oui.txt e iab.txt, así como su fecha de actualización.
 
 > Estos dos archivos relacionan una dirección MAC con un fabricante.
+
+El botón «Actualizar oui.txt e iab.txt» descarga la última versión de los registros desde el sitio del IEEE y regenera ambos archivos. Si falla (sin acceso a Internet, archivo recibido incompleto), se conservan los archivos existentes.
 
 ### Verificación de la versión
 
