@@ -45,16 +45,39 @@ class scan_ip_tools extends eqLogic {
     public static function lockProcess(){
         if(file_exists(scan_ip::$_file_lock)) {
             if((time() - filemtime (scan_ip::$_file_lock)) > 180){
+                // Verrou périmé : on le remplace par un nouveau
                 self::unlockProcess();
             } else {
                return FALSE; 
             }
-        } else {
-            fopen(scan_ip::$_file_lock, "w");
-            chmod(scan_ip::$_file_lock, 0777);
-            return TRUE;
-        } 
+        }
+        fopen(scan_ip::$_file_lock, "w");
+        chmod(scan_ip::$_file_lock, 0777);
         return TRUE;
+    }
+    
+    // Avancement du scan, lu par l'interface pendant la synchronisation
+    public static function setScanProgress($_percent, $_label, $_state = "running"){
+        $previous = self::getScanProgress();
+        $start = ($_percent == 0 OR empty($previous["start"])) ? time() : $previous["start"];
+        $progress = array(
+            "percent" => max(0, min(100, intval($_percent))),
+            "label" => $_label,
+            "state" => $_state,
+            "start" => $start,
+            "time" => time(),
+        );
+        cache::set('scan_ip::scanProgress', json_encode($progress), 900);
+    }
+    
+    public static function getScanProgress(){
+        $progress = json_decode(cache::byKey('scan_ip::scanProgress')->getValue(''), true);
+        if (!is_array($progress)) {
+            $progress = array("percent" => 0, "label" => "", "state" => "idle", "start" => 0, "time" => 0);
+        }
+        $progress["locked"] = self::isLockProcess();
+        $progress["now"] = time();
+        return $progress;
     }
     
     public static function unlockProcess(){
@@ -128,6 +151,15 @@ class scan_ip_tools extends eqLogic {
                         <div class="scanip-section'.$extra.'">'. $icon . '<span>'. $_titre .'</span></div>
                     </div>
                 </div>';
+    }
+    
+    // Compteur de la barre d'outils des modales : rien n'est affiché quand il vaut 0
+    public static function getStat($_nb, $_icon, $_label, $_class = ""){
+        if (intval($_nb) <= 0) {
+            return "";
+        }
+        $class = ($_class != "") ? " " . $_class : "";
+        return '<span class="scanip-stat' . $class . '">' . $_icon . ' <b>' . intval($_nb) . '</b> ' . $_label . '</span>';
     }
     
     public static function getStatusDot($_online, $_title = ""){

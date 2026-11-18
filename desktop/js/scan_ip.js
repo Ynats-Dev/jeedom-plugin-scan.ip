@@ -33,6 +33,104 @@ function scanIpFilterTable(input, tableId) {
     });
 }
 
+// Lance un scan et affiche son avancement dans $target, puis appelle onDone()
+function scanIpStartScan($target, onDone) {
+    var finished = false;
+    var followOnly = false; // true quand un autre scan (cron) tournait déjà
+    var poll = null;
+
+    $target.html(
+        '<div class="scanip-progress">'
+        + '<div class="scanip-progress-head">'
+        + '<i class="fas fa-circle-notch fa-spin"></i>'
+        + '<span class="scanip-progress-label">{{Démarrage du scan}}</span>'
+        + '<span class="scanip-progress-pct">0 %</span>'
+        + '</div>'
+        + '<div class="scanip-progress-bar"><div></div></div>'
+        + '<div class="scanip-meta scanip-progress-elapsed"></div>'
+        + '</div>'
+    ).show();
+
+    function render(p) {
+        var pct = parseInt(p.percent || 0, 10);
+        $target.find('.scanip-progress-bar > div').css('width', pct + '%');
+        $target.find('.scanip-progress-pct').text(pct + ' %');
+        if (p.label) {
+            $target.find('.scanip-progress-label').text(p.label);
+        }
+        if (p.start && p.now) {
+            $target.find('.scanip-progress-elapsed').text('{{Temps écoulé}} : ' + Math.max(0, p.now - p.start) + ' s');
+        }
+        if (p.state == 'error') {
+            $target.find('.scanip-progress').addClass('is-error');
+            $target.find('.scanip-progress-head i').attr('class', 'fas fa-exclamation-triangle');
+        }
+    }
+
+    function finish() {
+        if (finished) {
+            return;
+        }
+        finished = true;
+        clearInterval(poll);
+        render({percent: 100, label: "{{Scan terminé}}"});
+        $target.find('.scanip-progress-head i').attr('class', 'fas fa-check-circle');
+        setTimeout(onDone, 400);
+    }
+
+    function check() {
+        $.ajax({
+            type: "POST",
+            url: "plugins/scan_ip/core/ajax/scan_ip.ajax.php",
+            data: {action: "getScanProgress"},
+            dataType: 'json',
+            global: false,
+            success: function (data) {
+                if (finished || data.state != 'ok') {
+                    return;
+                }
+                render(data.result);
+                // Scan lancé ailleurs (cron) : on s'arrête quand le verrou est levé
+                if (data.result.state == 'error') {
+                    finished = true;
+                    clearInterval(poll);
+                } else if (followOnly && !data.result.locked) {
+                    finish();
+                }
+            }
+        });
+    }
+
+    poll = setInterval(check, 1000);
+
+    $.ajax({
+        type: "POST",
+        url: "plugins/scan_ip/core/ajax/scan_ip.ajax.php",
+        data: {action: "syncEqLogicWithOpenScanId"},
+        dataType: 'json',
+        global: false,
+        error: function (request, status, error) {
+            clearInterval(poll);
+            finished = true;
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                clearInterval(poll);
+                finished = true;
+                render({percent: 100, label: data.result, state: 'error'});
+                return;
+            }
+            // Si un scan tournait déjà, le suivi continue jusqu'à sa fin
+            if (data.result && data.result.alreadyRunning) {
+                followOnly = true;
+            } else {
+                finish();
+            }
+        }
+    });
+}
+
 // Sur la partie NetWork
 $('#bt_scanIpNetwork').off('click').on('click', function () {
     $('#md_modal').dialog({title: "{{Afficher le Réseau}}"});

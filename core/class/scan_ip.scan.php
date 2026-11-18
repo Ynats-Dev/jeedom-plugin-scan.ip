@@ -14,7 +14,10 @@ class scan_ip_scan extends eqLogic {
         log::add('scan_ip', 'debug', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'debug', 'syncScanIp :. ' . __('Lancement du scan du réseau', __FILE__));
         
+        scan_ip_tools::setScanProgress(0, __("Démarrage du scan", __FILE__));
+        
         if(scan_ip_maj::checkPluginVersionAJour() == FALSE AND scan_ip_dev::modeDeveloppeur() == FALSE){
+            scan_ip_tools::setScanProgress(100, __("Scan annulé : les données ne sont pas au format de la version installée", __FILE__), "error");
             $texteError = __("Incident de mise à jour Scan.Ip : Synchronisation annulée car les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.", __FILE__);
             log::add('scan_ip', 'info', $texteError);
             scan_ip_tools::unlockProcess();
@@ -32,12 +35,18 @@ class scan_ip_scan extends eqLogic {
         $jsonMapping = scan_ip_json::getJson(scan_ip::$_jsonMapping);
         
         $eqLogics = eqLogic::byType('scan_ip');
+        $nbEqLogics = count($eqLogics);
+        $index = 0;
         foreach ($eqLogics as $scan_ip) {
+            $index++;
             if ($scan_ip->getIsEnable() == 1) {
+                scan_ip_tools::setScanProgress(90 + (9 * $index / max(1, $nbEqLogics)), sprintf(__("Mise à jour des équipements (%s/%s)", __FILE__), $index, $nbEqLogics));
                 log::add('scan_ip', 'debug', 'syncScanIp :. cmdRefresh('.$scan_ip->getId().')');
                 scan_ip_cmd::cmdRefresh($scan_ip, $jsonMapping);
             }
         }  
+        
+        scan_ip_tools::setScanProgress(100, __("Scan terminé", __FILE__), "done");
         
         log::add('scan_ip', 'debug', 'syncScanIp :. ' . __('Fin du scan du réseau', __FILE__));
         log::add('scan_ip', 'debug', '////////////////////////////////////////////////////////////////////');
@@ -47,6 +56,7 @@ class scan_ip_scan extends eqLogic {
         log::add('scan_ip', 'debug', "////////////////////////////////////////////////////////////////////");
         log::add('scan_ip', 'debug', 'scanReseau :. ' . __('Lancement', __FILE__));
         
+        scan_ip_tools::setScanProgress(3, __("Lecture de la configuration réseau", __FILE__));
         $ipRoute = scan_ip_shell::getIpRoute();  
         $subReseau = scan_ip_shell::getSubReseauEnable($ipRoute);  
         $infoJeedom = scan_ip_shell::getInfoJeedom($ipRoute);
@@ -57,8 +67,15 @@ class scan_ip_scan extends eqLogic {
         }
 
         $new = array();
+        $nbSub = 0;
+        foreach ($subReseau["subReseau"] as $sub) { 
+            if($sub["enable"] == 1){ $nbSub++; }
+        }
+        $indexSub = 0;
         foreach ($subReseau["subReseau"] as $sub) { 
             if($sub["enable"] == 1){
+                scan_ip_tools::setScanProgress(10 + (60 * $indexSub / max(1, $nbSub)), sprintf(__("Scan du sous-réseau %s (%s/%s)", __FILE__), $sub["name"], $indexSub + 1, $nbSub));
+                $indexSub++;
                 $scanResult = scan_ip_shell::arpScanShell($sub["name"]);
                 $new = scan_ip_tools::arrayCompose($new, $scanResult);
             }
@@ -78,6 +95,7 @@ class scan_ip_scan extends eqLogic {
                 $new = scan_ip_tools::arrayCompose($new, self::createEquipementJeedom($infoJeedom));
             } 
             
+            scan_ip_tools::setScanProgress(72, sprintf(__("Identification des appareils (%s trouvés)", __FILE__), count($new)));
             $equipement = self::createArchiveEquipement($new);
             $now = scan_ip_tools::arrayCompose($equipement, $new);       
             $now = scan_ip_tools::cleanArrayEquipement($now); 
@@ -89,6 +107,7 @@ class scan_ip_scan extends eqLogic {
         $nowMapping["infos"]["time"] = time();
         $nowMapping["infos"]["date"] = date("d/m/Y H:i:s", $nowMapping["infos"]["time"]);
 
+        scan_ip_tools::setScanProgress(85, __("Enregistrement des résultats", __FILE__));
         scan_ip_json::recordInJson(scan_ip::$_jsonMapping, $nowMapping);
         
         log::add('scan_ip', 'debug', 'scanReseau :. ' . __('Fin du scan', __FILE__) . ' [' . $nowMapping["infos"]["version_arp"] . ']');

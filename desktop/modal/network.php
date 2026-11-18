@@ -23,9 +23,20 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
 
 $ipsReseau = scan_ip_json::getJson(scan_ip::$_jsonMapping);
 
-if (empty($ipsReseau)) {
-    if(scan_ip_maj::checkPluginVersionAJour() == TRUE){ scan_ip_scan::syncScanIp(); }
-    $ipsReseau = scan_ip_json::getJson(scan_ip::$_jsonMapping);
+if (empty($ipsReseau) OR empty($ipsReseau["sort"])) {
+    include_file('desktop', 'scan_ip', 'css', 'scan_ip');
+    echo '<div class="scanip-modal">';
+    if (init('noscan') == 1) {
+        // Le scan vient de tourner sans rien trouver : pas de nouvelle tentative automatique
+        echo '<div class="scanip-empty"><i class="fas fa-network-wired"></i>{{Aucun appareil n\'a été trouvé sur vos réseaux. Vérifiez la configuration du plugin (sous-réseaux à scanner) puis relancez une synchronisation.}}</div>';
+    } elseif (scan_ip_maj::checkPluginVersionAJour() == FALSE) {
+        echo '<div class="scanip-empty"><i class="fas fa-exclamation-triangle"></i>{{Les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.}}</div>';
+    } else {
+        echo '<div id="scan_ip_network_progress"></div>';
+        echo '<script>scanIpStartScan($("#scan_ip_network_progress"), function () { $("#md_modal").load("index.php?v=d&plugin=scan_ip&modal=network&noscan=1"); });</script>';
+    }
+    echo '</div>';
+    return;
 }
 
 $savingMac = scan_ip_eqLogic::getAlleqLogics();
@@ -81,6 +92,8 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
 
 <div class="scanip-modal">
 
+    <div id="scan_ip_network_progress" style="display:none;"></div>
+
     <div class="scanip-cards">
         <div class="scanip-card">
             <div class="scanip-card-title"><i class="fas fa-server"></i> {{Votre Jeedom}}</div>
@@ -114,12 +127,17 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
             <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_network')">
         </div>
         <div class="scanip-stats">
-            <span class="scanip-stat"><i class="fas fa-network-wired"></i> <b><?php echo $nbTotal ?></b> {{appareils}}</span>
-            <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
-            <span class="scanip-stat"><i class="fas fa-clipboard-check scanip-icon-on"></i> <b><?php echo $nbSaved ?></b> {{enregistrés}}</span>
+<?php
+            echo scan_ip_tools::getStat($nbTotal, '<i class="fas fa-network-wired"></i>', '{{appareils}}');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
+            echo scan_ip_tools::getStat($nbTotal - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
+            echo scan_ip_tools::getStat($nbSaved, '<i class="fas fa-clipboard-check scanip-icon-on"></i>', '{{enregistrés}}');
+            echo scan_ip_tools::getStat($nbTotal - $nbSaved, '<i class="fas fa-question-circle scanip-icon-none"></i>', '{{non enregistrés}}');
+?>
         </div>
         <span class="scanip-spacer"></span>
         <span class="scanip-meta"><i class="far fa-clock"></i> <?php echo $ipsReseau["infos"]["date"] ?></span>
+        <a id="bt_scanIpRescan" class="btn btn-default btn-sm" title="{{Relancer un scan du réseau}}"><i class="fas fa-sync-alt"></i> {{Scanner}}</a>
         <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>
     </div>
 
@@ -147,6 +165,13 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
 <script>
     $("#btSaveCommentaires").click(function() {
         btSaveCommentaires(<?php echo $list ?>);
+    });
+
+    $("#bt_scanIpRescan").click(function() {
+        $(this).addClass('disabled');
+        scanIpStartScan($("#scan_ip_network_progress"), function () {
+            $("#md_modal").load("index.php?v=d&plugin=scan_ip&modal=network&noscan=1");
+        });
     });
 
     $(document).ready(function ($) {

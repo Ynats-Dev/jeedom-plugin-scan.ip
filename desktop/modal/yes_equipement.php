@@ -81,11 +81,12 @@ if (!empty($allEquipements)) {
             <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, plugin...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_equipement')">
         </div>
         <div class="scanip-stats">
-            <span class="scanip-stat"><i class="fas fa-clipboard-check"></i> <b><?php echo count($allEquipements) ?></b> {{enregistrés}}</span>
-            <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
-        <?php if ($nbChanged > 0) { ?>
-            <span class="scanip-stat scanip-text-warn"><i class="fas fa-exchange-alt"></i> <b><?php echo $nbChanged ?></b> {{changement(s) d'ip}}</span>
-        <?php } ?>
+<?php
+            echo scan_ip_tools::getStat(count($allEquipements), '<i class="fas fa-clipboard-check"></i>', '{{enregistrés}}');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
+            echo scan_ip_tools::getStat(count($allEquipements) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
+            echo scan_ip_tools::getStat($nbChanged, '<i class="fas fa-exchange-alt"></i>', "{{changement(s) d'ip}}", 'scanip-text-warn');
+?>
         </div>
     </div>
 

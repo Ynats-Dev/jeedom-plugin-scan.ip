@@ -58,8 +58,11 @@ if (!empty($allNoEquipement)) {
             <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_no_equipement')">
         </div>
         <div class="scanip-stats">
-            <span class="scanip-stat"><i class="fas fa-question-circle"></i> <b><?php echo count($allNoEquipement) ?></b> {{non enregistrés}}</span>
-            <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
+<?php
+            echo scan_ip_tools::getStat(count($allNoEquipement), '<i class="fas fa-question-circle"></i>', '{{non enregistrés}}');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
+            echo scan_ip_tools::getStat(count($allNoEquipement) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
+?>
         </div>
         <span class="scanip-spacer"></span>
         <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>

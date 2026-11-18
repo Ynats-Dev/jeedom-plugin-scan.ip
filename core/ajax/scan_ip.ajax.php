@@ -28,20 +28,24 @@ try {
     
     ajax::init();
     
-    if (init('action') == 'syncEqLogicWithOpenScanId') {
+    if (init('action') == 'getScanProgress') {
+
+        ajax::success(scan_ip_tools::getScanProgress());
+
+    }
+
+    elseif (init('action') == 'syncEqLogicWithOpenScanId') {
+        
+        // Libère la session pour que l'interface puisse suivre l'avancement pendant le scan
+        @session_write_close();
         
         if(scan_ip_tools::lockProcess() == TRUE){
             scan_ip_scan::syncScanIp();
             scan_ip_tools::unlockProcess();  
+            ajax::success(array('alreadyRunning' => false));
         } else {
-            event::add('jeedom::alert', array(
-                'level' => 'warning',
-                'page' => 'scan_ip',
-                'message' => 'Action annulée : Une synchronisation est déjà en cours.'
-            ));
+            ajax::success(array('alreadyRunning' => true));
         }
-                
-        ajax::success();
     }
     
     elseif (init('action') == 'recordCommentaires') {

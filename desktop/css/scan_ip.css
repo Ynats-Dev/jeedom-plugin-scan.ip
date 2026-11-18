@@ -409,3 +409,67 @@ tr.scanip-row-muted td:not(.scanip-keep) {
 .scanip-bridges-toolbar .checkbox-inline {
     padding-top: 0;
 }
+
+/* ---------- Avancement du scan ---------- */
+.scanip-progress {
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    border: 1px solid var(--scanip-border);
+    border-left: 3px solid var(--scanip-accent);
+    border-radius: var(--scanip-radius);
+    background: var(--scanip-soft);
+}
+.scanip-progress-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.scanip-progress-head i,
+.scanip-progress-head svg {
+    color: var(--scanip-accent);
+}
+.scanip-progress-label {
+    flex: 1 1 auto;
+}
+.scanip-progress-pct {
+    font-variant-numeric: tabular-nums;
+}
+.scanip-progress-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--scanip-soft-strong);
+    overflow: hidden;
+}
+.scanip-progress-bar > div {
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: var(--scanip-accent);
+    background-image: linear-gradient(45deg, rgba(255,255,255,.18) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.18) 50%, rgba(255,255,255,.18) 75%, transparent 75%, transparent);
+    background-size: 16px 16px;
+    animation: scanip-stripes 1s linear infinite;
+    transition: width 0.4s ease;
+}
+.scanip-progress-elapsed {
+    margin-top: 6px;
+}
+.scanip-progress.is-error {
+    border-left-color: var(--scanip-off);
+}
+.scanip-progress.is-error .scanip-progress-head i,
+.scanip-progress.is-error .scanip-progress-head svg {
+    color: var(--scanip-off);
+}
+.scanip-progress.is-error .scanip-progress-bar > div {
+    background-color: var(--scanip-off);
+    animation: none;
+}
+@keyframes scanip-stripes {
+    from { background-position: 0 0; }
+    to { background-position: 16px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .scanip-progress-bar > div { animation: none; transition: none; }
+}

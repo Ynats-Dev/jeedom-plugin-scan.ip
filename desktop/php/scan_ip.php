@@ -69,6 +69,8 @@ foreach ($eqLogics as $eqLogic) {
 <?php  }  ?>
         </div>
 
+        <div id="scan_ip_sync_progress" style="display:none;"></div>
+
         <div class="input-group scanip-search">
             <input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
             <div class="input-group-btn">
