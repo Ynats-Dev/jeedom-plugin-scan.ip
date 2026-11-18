@@ -26,9 +26,6 @@ if (!isConnect()) {
 require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.bridges.php";
 require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.tools.php";
 
-// Brigde affachés par paquet de ...
-$paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
-
 ?>
 <form class="form-horizontal">
     
@@ -46,7 +43,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
     
     <fieldset>
 <?php
-        scan_ip_tools::vueSubTitle("{{Widgets dédiés à Scan.Ip}}", "config");
+        scan_ip_tools::vueSubTitle("{{Widgets dédiés à Scan.Ip}}", "config", "fa-th-large");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Widget Network}}
@@ -73,7 +70,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
         
         <div id="show_avance" style="display:none;">   
 <?php
-        scan_ip_tools::vueSubTitle("{{Votre réseau (Mode avancé)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Votre réseau (Mode avancé)}}", "config", "fa-network-wired");
 ?>     
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Routeur}}</label>
@@ -94,7 +91,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
             </div>
         </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Nombre d'essaie lors des scans (Mode avancé)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Nombre d'essaie lors des scans (Mode avancé)}}", "config", "fa-redo");
 ?>             
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Option Retry}}
@@ -113,7 +110,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
         </div>
                       
 <?php
-        scan_ip_tools::vueSubTitle("{{Compatibilité avec le navigateur Safari (Mode avancé)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Compatibilité avec le navigateur Safari (Mode avancé)}}", "config", "fa-compass");
 ?>             
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Option à n'activer que si vous utilisez Safari}}
@@ -131,7 +128,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
            
     <div id="show_debug" style="display:none;">        
 <?php
-        scan_ip_tools::vueSubTitle("{{Base de données OUI (Mode debug)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Base de données OUI (Mode debug)}}", "config", "fa-database");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Fichiers présents}}
@@ -146,7 +143,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
             </div>
         </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Check de la version (Mode debug)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Check de la version (Mode debug)}}", "config", "fa-clipboard-check");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Vérification des données}}</label>
@@ -169,7 +166,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
             </div>
         </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Dépendances (Mode debug)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Dépendances (Mode debug)}}", "config", "fa-cubes");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">iproute2</label>
@@ -198,7 +195,7 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
         </div>
     </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Cadence de rafraichissement}}", "config");
+        scan_ip_tools::vueSubTitle("{{Cadence de rafraichissement}}", "config", "fa-clock");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Cadence de rafraîchissement}}
@@ -215,27 +212,24 @@ $paquetBridges = ceil(count(scan_ip_bridges::getJsonBridges())/3);
     
     <div id="show_sous_reseau" style="display:none;">     
     <?php
-        scan_ip_tools::vueSubTitle("{{Spécifier des plages à scanner (Mode avancé)}}", "config");
+        scan_ip_tools::vueSubTitle("{{Spécifier des plages à scanner (Mode avancé)}}", "config", "fa-sitemap");
         echo scan_ip_tools::printInputSubConfig(); 
     ?> 
     </div>
     <?php
-        scan_ip_tools::vueSubTitle("{{Bridges : Plugins compatibles}}", "config");
+        scan_ip_tools::vueSubTitle("{{Bridges : Plugins compatibles}}", "config", "fa-project-diagram");
     ?> 
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Liste des Plugins pris en compte}}</label>
-            <div class="col-lg-2">
-                <?php echo scan_ip_bridges::bridges_printPlugs($paquetBridges, 0); ?>
-            </div>
-            <div class="col-lg-2">
-                <?php echo scan_ip_bridges::bridges_printPlugs($paquetBridges, $paquetBridges); ?>
-            </div>
-            <div class="col-lg-2">
-                <?php echo scan_ip_bridges::bridges_printPlugs($paquetBridges, ($paquetBridges*2)); ?>
+            <div class="col-lg-6">
+                <div class="scanip-bridges">
+                    <?php scan_ip_bridges::bridges_printPlugs(); ?>
+                </div>
             </div>
         </div>
     </fieldset>
     <br />
 </form>
 
+<?php include_file('desktop', 'scan_ip', 'css', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip_configuration', 'js', 'scan_ip'); ?>

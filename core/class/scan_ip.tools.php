@@ -116,17 +116,23 @@ class scan_ip_tools extends eqLogic {
         else { return TRUE; }
     }
     
-    public static function vueSubTitle($_titre, $_from = "devices"){
+    public static function vueSubTitle($_titre, $_from = "devices", $_icon = NULL){
         
-        if($_from == "devices"){ $col1 = "col-sm-3"; $col2 = "col-sm-5"; $margin = "20px 0"; } 
-        elseif ($_from == "config"){ $col1 = "col-sm-4"; $col2 = "col-sm-5"; $margin = "10px 0"; } 
+        if ($_from == "config") { $cols = "col-lg-offset-1 col-lg-9"; $extra = " scanip-section--config"; }
+        else { $cols = "col-sm-offset-1 col-sm-8"; $extra = ""; }
+        
+        $icon = ($_icon != NULL) ? '<i class="fas '.$_icon.'"></i> ' : '';
         
         echo '  <div class="form-group">
-                    <div class="'.$col1.'"></div>
-                    <div class="'.$col2.'">
-                        <div style="background-color: #039be5; padding: 2px 5px; color: white; margin: '.$margin.'; font-weight: bold;">'. $_titre .'</div>
+                    <div class="'.$cols.'">
+                        <div class="scanip-section'.$extra.'">'. $icon . '<span>'. $_titre .'</span></div>
                     </div>
                 </div>';
+    }
+    
+    public static function getStatusDot($_online, $_title = ""){
+        $class = ($_online == 1) ? "is-on" : "is-off";
+        return '<span class="scanip-dot '.$class.'" title="'.$_title.'"></span>';
     }
     
     public static function getCycle($_width, $_color){

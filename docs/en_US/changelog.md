@@ -1,3 +1,11 @@
+# 18/11/2026 | v1.7.0
+* Added "vigipool" bridge
+* Modernized interface: new stylesheet compatible with Jeedom light and dark themes, section titles with icons, a distinct icon for each action and device counters
+* Redesigned Network and Devices modals: Jeedom / router cards, instant filter, counters, sticky table header, status badges and a "Select all" checkbox
+* Confirmation shown after saving comments
+* Configuration: bridges displayed as badges (installed / not installed)
+* Fixed a false "IP change" shown for devices with no known last IP
+
 # 08/11/2026 | v1.6.0
 * Added "tvremote" and "tvByOrange" bridges
 * Updated ieee-oui (40,458 entries, +5,578) and ieee-iab vendor files

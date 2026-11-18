@@ -10,9 +10,18 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
 
 ?>
 
+<?php
+$eqLogicsMac = array();
+$eqLogicsWidget = array();
+foreach ($eqLogics as $eqLogic) {
+    if ($eqLogic->getConfiguration('type_widget', 'normal') == "normal") { $eqLogicsMac[] = $eqLogic; }
+    else { $eqLogicsWidget[] = $eqLogic; }
+}
+?>
+
 <div class="row row-overflow">
     <div class="col-xs-12 eqLogicThumbnailDisplay">
-        <legend><i class="fas fa-cog"></i>  {{Gestion}}</legend>
+        <legend><i class="fas fa-cog"></i> {{Gestion}}</legend>
         <div class="eqLogicThumbnailContainer">
             <div class="cursor eqLogicAction logoPrimary" data-action="add">
                 <i class="fas fa-plus-circle"></i>
@@ -25,17 +34,17 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                 <span>{{Synchroniser}}</span>
             </div>
             <div class="cursor logoSecondary" id="bt_scanIpNetwork">
-                <i class="fas fa-sitemap"></i>
+                <i class="fas fa-network-wired"></i>
                 <br>
                 <span>{{Réseau}}</span>
             </div>
             <div class="cursor logoSecondary" id="bt_scanIpEquipementYes">
-                <i class="fas fa-sitemap"></i>
+                <i class="fas fa-clipboard-check"></i>
                 <br>
                 <span>{{Equipements enregistrés}}</span>
             </div>
             <div class="cursor logoSecondary" id="bt_scanIpEquipementNo">
-                <i class="fas fa-sitemap"></i>
+                <i class="fas fa-question-circle"></i>
                 <br>
                 <span>{{Equipements non enregistrés}}</span>
             </div>
@@ -53,50 +62,53 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
             </div>
 <?php if(scan_ip_dev::modeDeveloppeur() == TRUE){ ?>
             <div class="cursor logoSecondary" id="bt_scan_ip_dev">
-                <i class="fas fa-magic" style="color:red;"></i>
+                <i class="fas fa-magic" style="color:var(--al-danger-color, red);"></i>
                 <br>
-                <span style="color:red;">{{Reset (Dev)}}</span>
+                <span style="color:var(--al-danger-color, red);">{{Reset (Dev)}}</span>
             </div>
 <?php  }  ?>
         </div>
-        <legend><i class="fas fa-table"></i> {{Mes configurations}}</legend>
-        <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
-        
-        <legend><i class="fas fa-sitemap"></i>  {{Vos équipements MAC}}</legend>
+
+        <div class="input-group scanip-search">
+            <input class="form-control roundedLeft" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
+            <div class="input-group-btn">
+                <a id="bt_scanIpResetSearch" class="btn roundedRight" title="{{Effacer}}"><i class="fas fa-times"></i></a>
+            </div>
+        </div>
+
+        <legend><i class="fas fa-laptop"></i> {{Vos équipements MAC}} <span class="scanip-count"><?php echo count($eqLogicsMac) ?></span></legend>
         <div class="eqLogicThumbnailContainer">
             <?php
-            foreach ($eqLogics as $eqLogic) {
-                if($eqLogic->getConfiguration('type_widget', 'normal') == "normal"){
-                    $online_cmd = $eqLogic->getCmd('info', 'on_line');
-                    $color = (is_object($online_cmd) && $online_cmd->execCmd()) ? "green" : "red";
-                    $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-                    echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
-                    echo '<i class="status-circle fas fa-circle" style="font-size:1em !important;position:absolute;margin-top:22px;margin-left:55px;color:' . $color . '"></i>';
-                    echo '<img src="' . scan_ip::$_pngIconMac . '"/>';
-                    echo '<br>';
-                    echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
-                    echo '</div>';
-                }
+            foreach ($eqLogicsMac as $eqLogic) {
+                $online_cmd = $eqLogic->getCmd('info', 'on_line');
+                $isOnline = (is_object($online_cmd) && $online_cmd->execCmd());
+                $status = $isOnline ? 'is-on' : 'is-off';
+                $statusTitle = $isOnline ? __('En ligne', __FILE__) : __('Hors ligne', __FILE__);
+                $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+                echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
+                echo '<span class="scanip-card-status ' . $status . '" title="' . $statusTitle . '"></span>';
+                echo '<img src="' . scan_ip::$_pngIconMac . '"/>';
+                echo '<br>';
+                echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+                echo '</div>';
             }
             ?>
         </div>
-        
-        <legend><i class="fas fa-cogs"></i>  {{Widgets dédiés et gérés par Scan.Ip}}</legend>
+
+        <legend><i class="fas fa-th-large"></i> {{Widgets dédiés et gérés par Scan.Ip}} <span class="scanip-count"><?php echo count($eqLogicsWidget) ?></span></legend>
         <div class="eqLogicThumbnailContainer">
             <?php
-            foreach ($eqLogics as $eqLogic) {
-                if($eqLogic->getConfiguration('type_widget', 'normal') != "normal"){
-                    $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
-                    echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
-                    echo '<img src="' . scan_ip::$_pngIconWidget . '"/>';
-                    echo '<br>';
-                    echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
-                    echo '</div>';
-                }
+            foreach ($eqLogicsWidget as $eqLogic) {
+                $opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
+                echo '<div class="eqLogicDisplayCard cursor ' . $opacity . '" data-eqLogic_id="' . $eqLogic->getId() . '">';
+                echo '<img src="' . scan_ip::$_pngIconWidget . '"/>';
+                echo '<br>';
+                echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
+                echo '</div>';
             }
             ?>
         </div>
-        
+
     </div>
 
     <div class="col-xs-12 eqLogic" style="display: none;">
@@ -162,35 +174,25 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                             
                         </div>
                         <div id="scan_ip_info_widget" style="display:none;">
-                            <br />
-<?php    
-                        scan_ip_tools::vueSubTitle("{{A savoir !}}");
-?>
-                            <div class="form-group" >
-                                <label class="col-sm-3 control-label">{{Attention Widget dédié au plugin}}</label>
-                                <div class="col-sm-9">
-                                    <span>{{Cet équipement est géré par Scan.Ip et permet d'afficher l'état de votre réseau dans un widget dédié.}}</span>
-                                </div>
-                            </div>
-                            <div class="form-group" >
-                                <label class="col-sm-3 control-label"></label>
-                                <div class="col-sm-9">
-                                    <span>{{Pour gérer sa visibilité, vous devez passer par l'espace configuration du plugin.}}</span>
-                                </div>
-                            </div>
-                            <div class="form-group" >
-                                <label class="col-sm-3 control-label"></label>
-                                <div class="cursor eqLogicAction col-sm-9" data-action="gotoPluginConf" style="color:green;">
-                                    <i class="fas fa-wrench"></i>
-                                    <span>{{Cliquez ici pour ouvrir la configuration}}</span>
+                            <div class="form-group">
+                                <div class="col-sm-offset-1 col-sm-8">
+                                    <div class="scanip-callout">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div>
+                                            <p><strong>{{Attention Widget dédié au plugin}}</strong></p>
+                                            <p>{{Cet équipement est géré par Scan.Ip et permet d'afficher l'état de votre réseau dans un widget dédié.}}</p>
+                                            <p>{{Pour gérer sa visibilité, vous devez passer par l'espace configuration du plugin.}}</p>
+                                            <a class="eqLogicAction" data-action="gotoPluginConf"><i class="fas fa-wrench"></i> {{Cliquez ici pour ouvrir la configuration}}</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <div id="scan_ip_widget_network_parametre" style="display:none;">
 <?php    
-                        scan_ip_tools::vueSubTitle("{{Paramètres du Widget}}");
+                        scan_ip_tools::vueSubTitle("{{Paramètres du Widget}}", "devices", "fa-sliders-h");
 ?> 
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">{{Ordre d'affichage du Widget}}</sup>
+                            <label class="col-lg-3 control-label">{{Ordre d'affichage du Widget}}
                             </label>
                             <div class="col-lg-5">
                                 <select class="eqLogicAttr form-control" id="saveOrderColonWidegetNetwork" data-l1key="configuration" data-l2key="saveOrderColonWidegetNetwork">
@@ -219,7 +221,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                             </div>
                         </div>                        
 <?php    
-                        scan_ip_tools::vueSubTitle("{{Associer une adresse MAC}}");
+                        scan_ip_tools::vueSubTitle("{{Associer une adresse MAC}}", "devices", "fa-link");
 ?>                   
                         <div class="form-group">
                             <label class="col-sm-3 control-label">{{Rechercher et associer une adresse MAC}}</label>
@@ -233,38 +235,38 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                             </div>
                         </div>
                         <div class="form-group" style="<?php if(scan_ip::getConfigMode() != "debug"){ echo "display:none;"; } ?>">
-                            <label class="col-sm-3 control-label" style="color: red !important;">{{MAC Id (Mode debug)}}</label>
+                            <label class="col-sm-3 control-label" style="color: var(--al-danger-color, red) !important;">{{MAC Id (Mode debug)}}</label>
                             <div class="col-sm-5">
-                                <input type="text" maxlength="17" onchange="<?php scan_ip_eqLogic::hideSelect() ?>(<?php echo scan_ip_bridges::$_defaut_bridges_by_equipement ?>);" id="mac_id" class="form-control eqLogicAttr" data-l1key="configuration"  data-l2key="mac_id" style="color: #039be5 !important;" readonly="" />
+                                <input type="text" maxlength="17" onchange="<?php scan_ip_eqLogic::hideSelect() ?>(<?php echo scan_ip_bridges::$_defaut_bridges_by_equipement ?>);" id="mac_id" class="form-control eqLogicAttr scanip-readonly" data-l1key="configuration"  data-l2key="mac_id" readonly="" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">{{Adresse MAC}}</label>
                             <div class="col-sm-5">
-                                <input type="text" maxlength="17" id="LastMAC" class="form-control eqLogicAttr" style="color: #039be5 !important;" readonly="" />
+                                <input type="text" maxlength="17" id="LastMAC" class="form-control eqLogicAttr scanip-readonly" readonly="" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">{{Dernière Ip}}</label>
                             <div class="col-sm-5">
-                                <input type="text" maxlength="17" id="LastIp" class="form-control eqLogicAttr" style="color: #039be5 !important;" readonly="" />
+                                <input type="text" maxlength="17" id="LastIp" class="form-control eqLogicAttr scanip-readonly" readonly="" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">{{Constructeur}}</label>
                             <div class="col-lg-5">
-                                <input type="text" id="ConstrunctorMac" class="form-control" style="color: #039be5 !important;" readonly="">
+                                <input type="text" id="ConstrunctorMac" class="form-control scanip-readonly" readonly="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">{{Commentaire}}</label>
                             <div class="col-lg-5">
-                                <input type="text" id="Commentaire" class="form-control" style="color: #039be5 !important;" readonly="">
+                                <input type="text" id="Commentaire" class="form-control scanip-readonly" readonly="">
                             </div>
                         </div>
                     <div id="show_off_line"<?php scan_ip_tools::showEquCadence() ?>>                        
 <?php
-                        scan_ip_tools::vueSubTitle(__('On line ou Off line ? (Mode avancé)', __FILE__));
+                        scan_ip_tools::vueSubTitle(__('On line ou Off line ? (Mode avancé)', __FILE__), "devices", "fa-signal");
 ?>                        
                         <div class="form-group" style="margin-bottom: 0;">
                             <div class="col-sm-1"></div>
@@ -276,7 +278,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                         <div class="form-group">
                             <label class="col-lg-3 control-label">{{Rappel "Configuration"}} <sup><i class="fa fa-question-circle tooltips" title="{{Il est conseillé d'avoir un rafraîchissements au moins toutes les 2 minutes}}"></i></sup></label>
                             <div class="col-lg-5">
-                                <input type="text" id="cronPass" data-cron="" class="form-control" style="color: #039be5 !important;" readonly="">
+                                <input type="text" id="cronPass" data-cron="" class="form-control scanip-readonly" readonly="">
                             </div>
                         </div>
                         
@@ -301,7 +303,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                     </div>
                         
 <?php
-                        scan_ip_tools::vueSubTitle(__('Réveiller votre équipement à distance ?', __FILE__));
+                        scan_ip_tools::vueSubTitle(__('Réveiller votre équipement à distance ?', __FILE__), "devices", "fa-power-off");
 ?> 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">{{Wake-on-LAN}} <sup><i class="fa fa-question-circle tooltips" title="{{Vérifiez que votre équipement est compatible et/ou que l'option a bien été activée pour que cela fonctionne}}"></i></sup>
@@ -314,7 +316,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
                             </div>
                         </div>                                          
 <?php
-                            scan_ip_tools::vueSubTitle(__('Associer cette adresse MAC à un ou plusieurs bridges (optionnel)', __FILE__));
+                            scan_ip_tools::vueSubTitle(__('Associer cette adresse MAC à un ou plusieurs bridges (optionnel)', __FILE__), "devices", "fa-project-diagram");
 ?>
                         <div class="form-group" style="margin-bottom: 0;">
                             <div class="col-sm-1"></div>
@@ -346,6 +348,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
     </div>
 </div>
 
+<?php include_file('desktop', 'scan_ip', 'css', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip', 'js', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip_equ', 'js', 'scan_ip'); ?>
 <?php include_file('core', 'plugin.template', 'js'); ?>

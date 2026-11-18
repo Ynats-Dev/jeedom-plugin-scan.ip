@@ -15,6 +15,24 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Recherche : bouton d'effacement
+$('#bt_scanIpResetSearch').off('click').on('click', function () {
+    $('#in_searchEqlogic').val('').keyup().focus();
+});
+
+// Filtre texte des tableaux dans les modales (ligne masquée si aucune cellule ne correspond)
+function scanIpFilterTable(input, tableId) {
+    var search = $(input).val().toLowerCase().trim();
+    $('#' + tableId + ' tbody tr').each(function () {
+        var $tr = $(this);
+        var text = $tr.find('td').map(function () {
+            var $input = $(this).find('input[type="text"]');
+            return $(this).text() + ' ' + ($input.length ? $input.val() : '');
+        }).get().join(' ').toLowerCase();
+        $tr.toggle(search === '' || text.indexOf(search) !== -1);
+    });
+}
+
 // Sur la partie NetWork
 $('#bt_scanIpNetwork').off('click').on('click', function () {
     $('#md_modal').dialog({title: "{{Afficher le Réseau}}"});

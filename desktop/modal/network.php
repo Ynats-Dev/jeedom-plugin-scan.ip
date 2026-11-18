@@ -36,160 +36,118 @@ $orderBy = scan_ip_widget_network::getConfigOrder($eqLogic);
 
 ?>
 
-<style>
-    .scanTd{
-        padding : 3px 0 3px 15px !important;
-    }
-    .scanHender{
-        cursor: pointer !important;
-        width: 100%;
-    }
-    .macPresentActif{
-        color: green;
-    }
-    .macPresentInactif{
-        color: #FF4500;
-    }
-    .macAbsent{
-        color: grey;
-    }
-    .spanScanIp{
-        display: block;
-        width: 78x !important;
-        padding : 2px 5px;
-        color : white;
-        text-align: center;
-    }
-    .EnableScanIp{
-        color: green;
-    }
-    .DisableScanIp{
-        color: #FF4500;
-    }
-    .NoneScanIp{
-        color: grey;
-    }
-    
-</style>
+<?php
+$nbTotal = 0;
+$nbOnline = 0;
+$nbSaved = 0;
+$rows = '';
+$list = 1;
+$iconsEquipement = array(
+    2 => '<i class="fas fa-check-circle scanip-icon-on"></i>',
+    1 => '<i class="fas fa-exclamation-circle scanip-icon-off"></i>',
+    0 => '<i class="far fa-circle scanip-icon-none"></i>',
+);
 
-<div class="col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{Votre Jeedom}}</h3>
-        </div>
-        <div class="panel-body">
-        <?php if($ipsReseau["jeedom"]["name"] != "") { ?>
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Nom}} : </label>
-                <div><?php echo $ipsReseau["jeedom"]["name"] ?></div>
-            </div>
-        <?php } ?>
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{ip}} : </label>
-                <div><?php echo $ipsReseau["jeedom"]["ip_v4"] ?></div> 
-            </div>
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Adresse MAC}} : </label>
-                <div><?php echo $ipsReseau["jeedom"]["mac"]?></div>
-            </div>
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Installation}} : </label>
-                <div><?php echo scan_ip_tools::printDate($ipsReseau["jeedom"]["record"]) ?></div> 
-            </div>
-            <?php if(gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]) != $ipsReseau["jeedom"]["ip_v4"]) { ?>            
-                <div>
-                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Host Name}} : </label>
-                    <div><?php echo gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]) ?></div>
-                </div>
-            <?php } ?> 
-        </div>
-        <br />
-    </div>
-</div>
+foreach ($ipsReseau["sort"] as $device) {
 
-<div class="col-md-6">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{Votre routeur}}</h3>
-        </div>
-        <div class="panel-body">
-            <?php if(!empty($ipsReseau["route"]["equipement"])) { ?>            
-                <div>
-                    <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Nom}} : </label>
-                    <div><?php echo $ipsReseau["route"]["equipement"] ?></div>
-                </div>
-            <?php } ?> 
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{ip}} : </label>
-                <div><?php echo $ipsReseau["route"]["ip_v4"] ?></div>
-            </div>
-            <div>
-                <label style="width:130px; text-align: right; margin: 0px 5px 0 0; float:left;">{{Adresse MAC}} : </label>
-                <div><?php echo $ipsReseau["route"]["mac"] ?></div>
-            </div>
-        </div>
-        <br />
-    </div>
-</div>
+    $element = scan_ip_widget_network::getElementVueNetwork($device, $savingMac, $commentMac);
 
-<div class="col-md-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{Les plages ip et adresses MAC du réseau}} (<?php echo $ipsReseau["infos"]["date"] ?>)
-            <a id="btSaveCommentaires" class="btn btn-success btn-xs pull-right" style="top: -2px !important; right: -6px !important;"><i class="far fa-check-circle icon-white"></i> {{Sauvegarder les commentaires}}</a>
-            </h3>
-        </div>
-        <div class="panel-body">
-            <table class="table-bordered table-condensed" style="width: 100%; margin: -5px -5px 10px 5px;" id="scan_ip_network">
-                <thead>
-                    <tr style="background-color: grey !important; color: white !important;">
-                        <th data-sort="string" class="scanTd" style="text-align: center; width:30px;" class="scanTd"><span class="scanHender"><b class="caret"></b></span></th>
-                        <th data-sort="int" style="text-align: center; width:30px;" class="scanTd"><span class="scanHender"><b class="caret"></b></span></th>
-                        <th data-sort="string" style="width:130px;" class="scanTd"><span class="scanHender"><b class="caret"></b> {{Adresse MAC}}</span></th>
-                        <th data-sort="int" class="scanTd" style="width:110px;"><span class="scanHender"><b class="caret"></b> {{ip}}</span></th>
-                        <th data-sort="string" class="scanTd" style="width:375px;"><span class="scanHender"><b class="caret"></b> {{Nom}}</span></th>
-                        <th data-sort="string" class="scanTd"><span class="scanHender"><b class="caret"></b> {{Commentaire}}</span></th>
-                        <th data-sort="int" class="scanTd" style="width:170px;"><span class="scanHender"><b class="caret"></b> {{Date de mise à jour}}</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-<?php         
-                    $list = 1;
-                    foreach ($ipsReseau["sort"] as $device) {
-                        
-                        $element = scan_ip_widget_network::getElementVueNetwork($device, $savingMac, $commentMac);
+    $nbTotal++;
+    if ($element["lineSortOnline"] == 1) { $nbOnline++; }
+    if ($element["lineSortEquipement"] > 0) { $nbSaved++; }
 
-                        echo '<tr>'
-                                . '<td class="scanTd" title="' . $element["titleOnLine"] .'"><span style="display:none;">' . $element["lineSortOnline"] . '</span>' . scan_ip_tools::getCycle("15px", $element["colorOnLine"]) . '</td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '" style="style="text-align:center !important;" title="' . $element["titleEquipement"] .'"><span style="display:none;">' . $element["lineSortEquipement"] . '</span><span class="' . $element["classSuivi"] . '">' . $element["textPresent"] . '</span></td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '">' . $device["mac"] . '</td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . $device["ip_v4"] . '</td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '" style="text-overflow: ellipsis;"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($element["name"], "string") . '</span>' . $element["name"] . '</td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($element["printComment"], "string") . '</span><input type="text" id="input_' . $list++ . '" data-id="' . $device["mac_id"] . '" value="' . $element["printComment"] . '" class="form-control input-sm" style="width:100%;"></td>'
-                                . '<td class="scanTd ' . $element["classPresent"] . '"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' .  scan_ip_tools::printDate($device["time"]) . '</td>'
-                                . '</tr>';
-                    }
+    $rowClass = ($element["lineSortEquipement"] == 0) ? ' class="scanip-row-muted"' : '';
+
+    $rows .= '<tr' . $rowClass . '>'
+        . '<td class="scanip-center scanip-keep"><span class="scanip-sort-key">' . $element["lineSortOnline"] . '</span>' . scan_ip_tools::getStatusDot($element["lineSortOnline"], $element["titleOnLine"]) . '</td>'
+        . '<td class="scanip-center scanip-keep" title="' . $element["titleEquipement"] . '"><span class="scanip-sort-key">' . $element["lineSortEquipement"] . '</span>' . $iconsEquipement[$element["lineSortEquipement"]] . '</td>'
+        . '<td class="scanip-mono">' . $device["mac"] . '</td>'
+        . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . $device["ip_v4"] . '</td>'
+        . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["name"], "string") . '</span>' . $element["name"] . '</td>'
+        . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["printComment"], "string") . '</span><input type="text" id="input_' . $list++ . '" data-id="' . $device["mac_id"] . '" value="' . $element["printComment"] . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
+        . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
+        . '</tr>';
+}
+
+$hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
 ?>
-                </tbody>
-            </table>
+
+<div class="scanip-modal">
+
+    <div class="scanip-cards">
+        <div class="scanip-card">
+            <div class="scanip-card-title"><i class="fas fa-server"></i> {{Votre Jeedom}}</div>
+            <dl class="scanip-kv">
+            <?php if($ipsReseau["jeedom"]["name"] != "") { ?>
+                <dt>{{Nom}}</dt><dd><?php echo $ipsReseau["jeedom"]["name"] ?></dd>
+            <?php } ?>
+                <dt>{{ip}}</dt><dd><?php echo $ipsReseau["jeedom"]["ip_v4"] ?></dd>
+                <dt>{{Adresse MAC}}</dt><dd><?php echo $ipsReseau["jeedom"]["mac"] ?></dd>
+                <dt>{{Installation}}</dt><dd><?php echo scan_ip_tools::printDate($ipsReseau["jeedom"]["record"]) ?></dd>
+            <?php if($hostName != $ipsReseau["jeedom"]["ip_v4"]) { ?>
+                <dt>{{Host Name}}</dt><dd><?php echo $hostName ?></dd>
+            <?php } ?>
+            </dl>
         </div>
+        <div class="scanip-card">
+            <div class="scanip-card-title"><i class="fas fa-route"></i> {{Votre routeur}}</div>
+            <dl class="scanip-kv">
+            <?php if(!empty($ipsReseau["route"]["equipement"])) { ?>
+                <dt>{{Nom}}</dt><dd><?php echo $ipsReseau["route"]["equipement"] ?></dd>
+            <?php } ?>
+                <dt>{{ip}}</dt><dd><?php echo $ipsReseau["route"]["ip_v4"] ?></dd>
+                <dt>{{Adresse MAC}}</dt><dd><?php echo $ipsReseau["route"]["mac"] ?></dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="scanip-toolbar">
+        <div class="scanip-filter">
+            <i class="fas fa-search"></i>
+            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_network')">
+        </div>
+        <div class="scanip-stats">
+            <span class="scanip-stat"><i class="fas fa-network-wired"></i> <b><?php echo $nbTotal ?></b> {{appareils}}</span>
+            <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
+            <span class="scanip-stat"><i class="fas fa-check-circle scanip-icon-on"></i> <b><?php echo $nbSaved ?></b> {{enregistrés}}</span>
+        </div>
+        <span class="scanip-spacer"></span>
+        <span class="scanip-meta"><i class="far fa-clock"></i> <?php echo $ipsReseau["infos"]["date"] ?></span>
+        <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>
+    </div>
+
+    <div class="scanip-table-wrap">
+        <table class="scanip-table" id="scan_ip_network">
+            <thead>
+                <tr>
+                    <th data-sort="string" class="scanip-center" title="{{En ligne}}"><i class="fas fa-signal"></i></th>
+                    <th data-sort="int" class="scanip-center" title="{{Elément enregistré}}"><i class="fas fa-bookmark"></i></th>
+                    <th data-sort="string">{{Adresse MAC}}</th>
+                    <th data-sort="int">{{ip}}</th>
+                    <th data-sort="string">{{Nom}}</th>
+                    <th data-sort="string">{{Commentaire}}</th>
+                    <th data-sort="int">{{Date de mise à jour}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php echo $rows ?>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <script>
-    
     $("#btSaveCommentaires").click(function() {
         btSaveCommentaires(<?php echo $list ?>);
     });
-    
+
     $(document).ready(function ($) {
-    var $table = $("#scan_ip_network").stupidtable(); 
-    var $th_to_sort = $table.find("thead th").eq("<?php echo scan_ip_widget_network::getOrderBy($orderBy) ?>"); 
-    $th_to_sort.stupidsort();
-
-});
-
+        var $table = $("#scan_ip_network").stupidtable();
+        var $th_to_sort = $table.find("thead th").eq("<?php echo scan_ip_widget_network::getOrderBy($orderBy) ?>");
+        $th_to_sort.stupidsort();
+    });
 </script>
 
+<?php include_file('desktop', 'scan_ip', 'css', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip_network', 'js', 'scan_ip'); ?>
 <?php include_file('3rdparty', 'stupidtable.min', 'js', 'scan_ip'); ?>

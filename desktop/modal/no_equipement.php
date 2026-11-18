@@ -23,84 +23,92 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
 
 ?>
 
-<style>
-    .scanTd{
-        padding : 3px 0 !important;
-    }
-    .scanHender{
-        cursor: pointer !important;
-        width: 100%;
-    }
-</style>
-<div>
-    <div class="col-md-12" id="show_scan_ip_add" style="padding: 15px !important; display:none;">
-        <div class="form-group">
-            <a class="btn btn-success pull-right" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> {{Ajouter les équipements sélectionnés}}</a>
-            <a class="btn btn-danger pull-right" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> {{Supprimer les équipements sélectionnés}}</a>
-        </div>
-    </div>
-    
-    <div class="panel panel-primary" id="div_scan_ip_equipement_no">
-        <div class="panel-body">
-            <table class="table-bordered table-condensed" style="width: 100%; margin: -5px -5px 10px 5px;" id="scan_ip_no_equipement">
-                <thead>
-                    <tr style="background-color: grey !important; color: white !important;">
-                        <th style="text-align: center; width:30px;"></th>
-                        <th style="text-align: center; width:30px;"></th>
-                        <th data-sort="string" style="width:375px;;" class="scanTd"><span class="scanHender"><b class="caret"></b> {{Nom}}</span></th>
-                        <th data-sort="string" style="width:375px;"><span class="scanHender"><b class="caret"></b> {{Commentaire}}</span></th>
-                        <th data-sort="string" style="width:130px;" class="scanTd"><span class="scanHender"><b class="caret"></b> {{Adresse MAC}}</span></th>
-                        <th data-sort="int" style="width:110px;"><span class="scanHender"><b class="caret"></b> {{ip}}</span></th>
-                        <th data-sort="string" class="scanTd" style="width:170px;"><span class="scanHender"><b class="caret"></b> {{Enregistrement}}</span></th>
-                        <th data-sort="string" class="scanTd" style="width:170px;"><span class="scanHender"><b class="caret"></b> {{Date de mise à jour}}</span></th>
-                    </tr>
-                </thead>
-                <tbody>
 <?php
-                    $list = 1;
-                    $allNoEquipement = scan_ip_json::showNoEquipements();
-                    
-                    if(!empty($allNoEquipement)){
-                    
-                        foreach ($allNoEquipement as $equipement) { 
-                            
-                            if($equipement["online"] == 0){ 
-                                $color = "red"; 
-                            } else { 
-                                $color = "#50aa50"; 
-                            }
-                            
-                            echo '<tr>'
-                                . '<td style="text-align:center; height:34px !important;"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++  . '" data-mac="' . $equipement["mac"] . '" style="border: 1px solid var(--link-color) !important;" class="form-control add_element_scan_ip"></td>'
-                                . '<td class="scanTd">' . scan_ip_tools::getCycle("15px", $color) . '</td>'
-                                . '<td class="scanTd">' . $equipement["name"] . '</td>'
-                                . '<td class="scanTd""><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($equipement["comment"]) . '</span>' . $equipement["comment"] . '</td>'
-                                . '<td class="scanTd">' . $equipement["mac"] . '</td>'
-                                . '<td class="scanTd"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . $equipement["ip_v4"] . '</td>'
-                                . '<td class="scanTd"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($equipement["record"]) . '</span>' . scan_ip_tools::printDate($equipement["record"]) . '</td>'
-                                . '<td class="scanTd"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($equipement["time"]) . '</span>' . scan_ip_tools::printDate($equipement["time"]) . '</td>'
-                                . '</tr>';
-                        }
-                    } else {
-                        echo "<script>$('#div_scan_ip_equipement_no').hide();$('#div_alert_scan_ip').show();</script>";
-                    }    
+$allNoEquipement = scan_ip_json::showNoEquipements();
+$list = 1;
+$nbOnline = 0;
+$rows = '';
+
+if (!empty($allNoEquipement)) {
+    foreach ($allNoEquipement as $equipement) {
+        $online = ($equipement["online"] == 0) ? 0 : 1;
+        if ($online == 1) { $nbOnline++; }
+        $title = ($online == 1) ? __('En ligne', __FILE__) : __('Hors ligne', __FILE__);
+
+        $rows .= '<tr>'
+            . '<td class="scanip-center"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++ . '" data-mac="' . $equipement["mac"] . '" class="add_element_scan_ip"></td>'
+            . '<td class="scanip-center"><span class="scanip-sort-key">' . $online . '</span>' . scan_ip_tools::getStatusDot($online, $title) . '</td>'
+            . '<td>' . $equipement["name"] . '</td>'
+            . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["comment"]) . '</span>' . $equipement["comment"] . '</td>'
+            . '<td class="scanip-mono">' . $equipement["mac"] . '</td>'
+            . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . $equipement["ip_v4"] . '</td>'
+            . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["record"]) . '</span>' . scan_ip_tools::printDate($equipement["record"]) . '</td>'
+            . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["time"]) . '</span>' . scan_ip_tools::printDate($equipement["time"]) . '</td>'
+            . '</tr>';
+    }
+}
 ?>
-                </tbody>
-            </table>
+
+<div class="scanip-modal">
+<?php if (!empty($allNoEquipement)) { ?>
+    <div class="scanip-toolbar">
+        <div class="scanip-filter">
+            <i class="fas fa-search"></i>
+            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_no_equipement')">
         </div>
+        <div class="scanip-stats">
+            <span class="scanip-stat"><i class="fas fa-question-circle"></i> <b><?php echo count($allNoEquipement) ?></b> {{non enregistrés}}</span>
+            <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
+        </div>
+        <span class="scanip-spacer"></span>
+        <span id="show_scan_ip_add" style="display:none;">
+            <a class="btn btn-success btn-sm" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> {{Ajouter les équipements sélectionnés}}</a>
+            <a class="btn btn-danger btn-sm" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> {{Supprimer les équipements sélectionnés}}</a>
+        </span>
     </div>
-    <div id="div_alert_scan_ip" class="jqAlert alert-success" style="display:none;"><span class="displayError">{{Vous n'avez aucun équipement non enregistré sur le réseau.}}</span></div>
+
+    <div class="scanip-table-wrap" id="div_scan_ip_equipement_no">
+        <table class="scanip-table" id="scan_ip_no_equipement">
+            <thead>
+                <tr>
+                    <th class="scanip-center"><input type="checkbox" id="scan_ip_check_all" title="{{Tout sélectionner}}"></th>
+                    <th data-sort="int" class="scanip-center" title="{{En ligne}}"><i class="fas fa-signal"></i></th>
+                    <th data-sort="string">{{Nom}}</th>
+                    <th data-sort="string">{{Commentaire}}</th>
+                    <th data-sort="string">{{Adresse MAC}}</th>
+                    <th data-sort="int">{{ip}}</th>
+                    <th data-sort="string">{{Enregistrement}}</th>
+                    <th data-sort="string">{{Date de mise à jour}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php echo $rows ?>
+            </tbody>
+        </table>
+    </div>
+<?php } else { ?>
+    <div class="scanip-empty" id="div_alert_scan_ip">
+        <i class="fas fa-check-circle"></i>
+        {{Vous n'avez aucun équipement non enregistré sur le réseau.}}
+    </div>
+<?php } ?>
 </div>
 
 <script>
     $("#add_scan_ip_equipement").click(function() {
         addEquipement(<?php echo $list ?>);
     });
-    
+
     $("#remove_scan_ip_equipement").click(function() {
         removeEquipement(<?php echo $list ?>);
     });
-</script>  
 
+    $("#scan_ip_check_all").click(function() {
+        $(".add_element_scan_ip:visible").prop('checked', $(this).is(':checked'));
+        is_checked_scan_ip();
+    });
+</script>
+
+<?php include_file('desktop', 'scan_ip', 'css', 'scan_ip'); ?>
 <?php include_file('3rdparty', 'stupidtable.min', 'js', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip_no_equipements', 'js', 'scan_ip'); ?>

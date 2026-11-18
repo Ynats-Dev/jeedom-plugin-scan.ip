@@ -31,6 +31,7 @@ function btSaveCommentaires(nb){
                     $('#div_alert').showAlert({message: data.result, level: 'danger'});
                     return;
                 }
+                $('#div_alert').showAlert({message: "{{Commentaires sauvegardés}}", level: 'success'});
             }
         });
     }

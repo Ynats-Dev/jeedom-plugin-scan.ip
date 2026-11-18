@@ -1,3 +1,11 @@
+# 18/11/2026 | v1.7.0
+* Añadido el puente "vigipool"
+* Modernización de la interfaz: nueva hoja de estilos compatible con los temas claro y oscuro de Jeedom, títulos de sección con iconos, un icono distinto para cada acción y contadores de dispositivos
+* Ventanas Red y Dispositivos rediseñadas: tarjetas Jeedom / router, filtro instantáneo, contadores, cabecera de tabla fija, insignias de estado y casilla «Seleccionar todo»
+* Confirmación mostrada tras guardar los comentarios
+* Configuración: puentes mostrados como insignias (instalado / no instalado)
+* Se corrige un falso «Cambio de IP» mostrado para dispositivos sin última IP conocida
+
 # 08/11/2026 | v1.6.0
 * Añadidos los puentes "tvremote" y "tvByOrange"
 * Actualización de los archivos de fabricantes ieee-oui (40.458 entradas, +5.578) e ieee-iab

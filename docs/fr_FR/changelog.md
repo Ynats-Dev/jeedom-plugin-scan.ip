@@ -1,3 +1,11 @@
+# 18/11/2026 | v1.7.0
+* Ajout du bridge "vigipool"
+* Modernisation de l'interface : nouvelle feuille de style compatible avec les thèmes clair et sombre de Jeedom, titres de section avec icônes, une icône distincte par action et compteurs d'équipements
+* Modales Réseau et Équipements revues : cartes Jeedom / routeur, filtre instantané, compteurs, en-tête de tableau fixe, badges d'état et case « Tout sélectionner »
+* Confirmation affichée après la sauvegarde des commentaires
+* Configuration : bridges affichés sous forme de pastilles (installé / non installé)
+* Correction d'un faux « Changement d'Ip » affiché pour les équipements sans dernière IP connue
+
 # 08/11/2026 | v1.6.0
 * Ajout des bridges "tvremote" et "tvByOrange"
 * Mise à jour des fichiers fabricants ieee-oui (40 458 entrées, +5 578) et ieee-iab

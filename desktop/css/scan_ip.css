@@ -1,0 +1,373 @@
+/* Scan.Ip — styles de l'interface d'administration
+ * S'appuie sur les variables CSS du thème Jeedom (clair / sombre) avec des valeurs de repli.
+ */
+
+:root {
+    --scanip-accent: var(--link-color, #039be5);
+    --scanip-on: #2fa84f;
+    --scanip-off: #e5484d;
+    --scanip-warn: #f0a020;
+    --scanip-muted: #8a949e;
+    --scanip-radius: 8px;
+    --scanip-border: rgba(127, 127, 127, 0.22);
+    --scanip-soft: rgba(127, 127, 127, 0.07);
+    --scanip-soft-strong: rgba(127, 127, 127, 0.13);
+}
+
+/* ---------- Titres de section ---------- */
+.scanip-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 22px 0 12px;
+    padding: 0 0 6px 10px;
+    border-left: 3px solid var(--scanip-accent);
+    border-bottom: 1px solid var(--scanip-border);
+    font-weight: 600;
+    font-size: 1.05em;
+    letter-spacing: 0.01em;
+}
+.scanip-section i {
+    color: var(--scanip-accent);
+}
+.scanip-section--config {
+    margin: 14px 0 10px;
+}
+
+/* ---------- Page principale : vignettes ---------- */
+.eqLogicThumbnailContainer .eqLogicDisplayCard {
+    position: relative;
+}
+.scanip-card-status {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--scanip-muted);
+    box-shadow: 0 0 0 3px rgba(127, 127, 127, 0.18);
+}
+.scanip-card-status.is-on {
+    background: var(--scanip-on);
+    box-shadow: 0 0 0 3px rgba(47, 168, 79, 0.25);
+}
+.scanip-card-status.is-off {
+    background: var(--scanip-off);
+    box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.22);
+}
+.scanip-count {
+    display: inline-block;
+    min-width: 22px;
+    margin-left: 6px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: var(--scanip-soft-strong);
+    font-size: 0.8em;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+.scanip-search {
+    margin: 4px 0 12px;
+}
+
+/* ---------- Formulaire équipement ---------- */
+.scanip-readonly.form-control[readonly] {
+    color: var(--scanip-accent) !important;
+    font-family: Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.95em;
+    cursor: default;
+}
+.scanip-callout {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin: 10px 0 18px;
+    padding: 12px 14px;
+    border-radius: var(--scanip-radius);
+    border: 1px solid var(--scanip-border);
+    border-left: 3px solid var(--scanip-accent);
+    background: var(--scanip-soft);
+}
+.scanip-callout > i {
+    margin-top: 2px;
+    font-size: 1.3em;
+    color: var(--scanip-accent);
+}
+.scanip-callout p {
+    margin: 0 0 6px;
+}
+.scanip-callout a {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* ---------- Modales : barre d'outils ---------- */
+.scanip-modal {
+    padding: 4px 2px;
+}
+.scanip-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.scanip-toolbar .scanip-filter {
+    flex: 1 1 260px;
+    max-width: 420px;
+    position: relative;
+}
+.scanip-toolbar .scanip-filter i {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    pointer-events: none;
+}
+.scanip-toolbar .scanip-filter input {
+    padding-left: 32px;
+    border-radius: 999px !important;
+}
+.scanip-toolbar .scanip-spacer {
+    flex: 1 1 auto;
+}
+.scanip-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.scanip-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--scanip-soft-strong);
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+.scanip-stat b {
+    font-weight: 700;
+}
+.scanip-meta {
+    opacity: 0.7;
+    font-size: 0.9em;
+}
+
+/* ---------- Modales : cartes d'information ---------- */
+.scanip-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+}
+.scanip-card {
+    border: 1px solid var(--scanip-border);
+    border-radius: var(--scanip-radius);
+    background: var(--scanip-soft);
+    padding: 14px 16px;
+}
+.scanip-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 10px;
+    font-size: 1.05em;
+    font-weight: 600;
+}
+.scanip-card-title i {
+    color: var(--scanip-accent);
+}
+.scanip-kv {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 4px 12px;
+    margin: 0;
+}
+.scanip-kv dt {
+    font-weight: normal;
+    opacity: 0.65;
+}
+.scanip-kv dd {
+    margin: 0;
+    font-family: Menlo, Consolas, "Liberation Mono", monospace;
+    word-break: break-all;
+}
+
+/* ---------- Tableaux ---------- */
+.scanip-table-wrap {
+    border: 1px solid var(--scanip-border);
+    border-radius: var(--scanip-radius);
+    overflow: auto;
+}
+table.scanip-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0;
+}
+table.scanip-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 9px 10px;
+    background: var(--bg-modal-color, var(--bg-color, #f4f5f7));
+    border-bottom: 1px solid var(--scanip-border);
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    opacity: 0.95;
+}
+table.scanip-table thead th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+}
+table.scanip-table thead th[data-sort]:hover {
+    color: var(--scanip-accent);
+}
+table.scanip-table thead th[data-sort]::after {
+    content: "\2195";
+    margin-left: 5px;
+    opacity: 0.35;
+    font-size: 0.95em;
+}
+table.scanip-table thead th.sorting-asc::after {
+    content: "\2191";
+    opacity: 0.9;
+    color: var(--scanip-accent);
+}
+table.scanip-table thead th.sorting-desc::after {
+    content: "\2193";
+    opacity: 0.9;
+    color: var(--scanip-accent);
+}
+table.scanip-table tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--scanip-border);
+    vertical-align: middle;
+}
+table.scanip-table tbody tr:last-child td {
+    border-bottom: none;
+}
+table.scanip-table tbody tr:hover td {
+    background: var(--scanip-soft);
+}
+table.scanip-table td.scanip-center,
+table.scanip-table th.scanip-center {
+    text-align: center;
+    width: 44px;
+}
+table.scanip-table .scanip-mono {
+    font-family: Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.92em;
+    white-space: nowrap;
+}
+table.scanip-table .scanip-date {
+    white-space: nowrap;
+    opacity: 0.8;
+}
+table.scanip-table input.form-control.input-sm {
+    height: 28px;
+    border-radius: 6px;
+}
+table.scanip-table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    cursor: pointer;
+}
+tr.scanip-row-muted td:not(.scanip-keep) {
+    opacity: 0.6;
+}
+.scanip-sort-key {
+    display: none;
+}
+
+/* ---------- Pastilles et badges d'état ---------- */
+.scanip-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--scanip-muted);
+    vertical-align: middle;
+}
+.scanip-dot.is-on {
+    background: var(--scanip-on);
+    box-shadow: 0 0 0 3px rgba(47, 168, 79, 0.22);
+}
+.scanip-dot.is-off {
+    background: var(--scanip-off);
+    box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.18);
+}
+.scanip-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 1px 9px;
+    border-radius: 999px;
+    font-size: 0.85em;
+    font-weight: 600;
+    white-space: nowrap;
+    background: var(--scanip-soft-strong);
+}
+.scanip-badge.is-on {
+    color: var(--scanip-on);
+    background: rgba(47, 168, 79, 0.12);
+}
+.scanip-badge.is-off {
+    color: var(--scanip-off);
+    background: rgba(229, 72, 77, 0.12);
+}
+.scanip-badge.is-warn {
+    color: var(--scanip-warn);
+    background: rgba(240, 160, 32, 0.14);
+}
+.scanip-badge.is-muted {
+    color: var(--scanip-muted);
+}
+.scanip-icon-on { color: var(--scanip-on); }
+.scanip-icon-off { color: var(--scanip-warn); }
+.scanip-icon-none { color: var(--scanip-muted); }
+.scanip-text-warn { color: var(--scanip-warn) !important; }
+
+/* ---------- État vide ---------- */
+.scanip-empty {
+    padding: 40px 20px;
+    text-align: center;
+    border: 1px dashed var(--scanip-border);
+    border-radius: var(--scanip-radius);
+}
+.scanip-empty i {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 2.4em;
+    opacity: 0.4;
+}
+
+/* ---------- Configuration : liste des bridges ---------- */
+.scanip-bridges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.scanip-bridge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--scanip-border);
+    font-size: 0.9em;
+}
+.scanip-bridge.is-installed {
+    border-color: rgba(47, 168, 79, 0.45);
+}
+.scanip-bridge.is-installed i { color: var(--scanip-on); }
+.scanip-bridge:not(.is-installed) { opacity: 0.6; }

@@ -14,16 +14,16 @@ class scan_ip_bridges extends eqLogic {
     public static $_folderBridges = __DIR__ . "/../../../../plugins/scan_ip/core/class/bridges/";
     public static $_defaut_bridges_by_equipement = 10;
     
-    public static function bridges_printPlugs($_nb = 100, $_start = 0){     
+    public static function bridges_printPlugs($_nb = 1000, $_start = 0){     
         $i =1;
         $allBridges = self::getJsonBridges();
         natcasesort($allBridges);
         foreach ($allBridges as $gridge) {      
             if($i > $_start AND $i <= ($_start + $_nb)) {
                 if(self::bridges_pluginExists($gridge)){
-                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:green;'>(".__('Installé', __FILE__).")</span></div>";
+                    echo "<span class='scanip-bridge is-installed' title='".__('Installé', __FILE__)."'><i class='fas fa-check-circle'></i>".$gridge."</span>";
                 } else {
-                    echo "<div><span style='font-weight: bold;'>".$gridge."</span> <span style='color:orange;'>(".__('Non installé', __FILE__).")</span></div>";
+                    echo "<span class='scanip-bridge' title='".__('Non installé', __FILE__)."'><i class='far fa-circle'></i>".$gridge."</span>";
                 }
             }
             $i++;
