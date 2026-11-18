@@ -225,7 +225,10 @@
         "Mode développeur : Reset Ok (Penser à réactiver le CRON)": "Developer mode: Reset OK (Remember to reactivate the CRON)",
         "Démarrage du scan": "Starting scan",
         "Scan terminé": "Scan complete",
-        "Temps écoulé": "Elapsed time"
+        "Temps écoulé": "Elapsed time",
+        "environ": "about",
+        "restantes": "remaining",
+        "scan automatique déjà en cours, suivi de son avancement": "automatic scan already running, following its progress"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_equ.js": {
         "Si vous validez cette configuration, il est possible que certains de vos équipements soient indiqués comme hors-ligne alors qu'ils ne le sont pas.": "If you validate this configuration, it is possible that some of your devices may be marked as offline when they are not.",

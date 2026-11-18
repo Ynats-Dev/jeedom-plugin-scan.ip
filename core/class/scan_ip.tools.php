@@ -58,7 +58,9 @@ class scan_ip_tools extends eqLogic {
     }
     
     // Avancement du scan, lu par l'interface pendant la synchronisation
-    public static function setScanProgress($_percent, $_label, $_state = "running"){
+    // $_stepEnd / $_eta : pourcentage visé en fin d'étape et durée estimée de l'étape (en secondes),
+    // pour que l'interface fasse avancer la barre pendant une étape longue (arp-scan)
+    public static function setScanProgress($_percent, $_label, $_state = "running", $_stepEnd = NULL, $_eta = NULL){
         if (file_exists(scan_ip::$_file_lock)) {
             @touch(scan_ip::$_file_lock);
         }
@@ -70,6 +72,9 @@ class scan_ip_tools extends eqLogic {
             "state" => $_state,
             "start" => $start,
             "time" => time(),
+            "stepStart" => time(),
+            "stepEnd" => ($_stepEnd !== NULL) ? max(0, min(100, intval($_stepEnd))) : NULL,
+            "eta" => ($_eta !== NULL) ? max(1, intval($_eta)) : NULL,
         );
         cache::set('scan_ip::scanProgress', json_encode($progress), 900);
     }

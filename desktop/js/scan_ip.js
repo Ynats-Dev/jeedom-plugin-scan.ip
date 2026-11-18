@@ -109,13 +109,28 @@ function scanIpStartScan($target, onDone) {
 
     function render(p) {
         var pct = parseInt(p.percent || 0, 10);
+        var remaining = null;
+        // Étape longue (arp-scan) : avancement estimé d'après sa durée prévue
+        if (p.eta && p.stepEnd && p.stepStart && p.now && p.state == 'running') {
+            var spent = Math.max(0, p.now - p.stepStart);
+            var ratio = Math.min(0.95, spent / p.eta);
+            pct = Math.round(pct + (p.stepEnd - pct) * ratio);
+            remaining = Math.max(0, p.eta - spent);
+        }
         $target.find('.scanip-progress-bar > div').css('width', pct + '%');
         $target.find('.scanip-progress-pct').text(pct + ' %');
         if (p.label) {
             $target.find('.scanip-progress-label').text(p.label);
         }
         if (p.start && p.now) {
-            $target.find('.scanip-progress-elapsed').text('{{Temps écoulé}} : ' + Math.max(0, p.now - p.start) + ' s');
+            var info = '{{Temps écoulé}} : ' + Math.max(0, p.now - p.start) + ' s';
+            if (remaining !== null) {
+                info += ' · {{environ}} ' + remaining + ' s {{restantes}}';
+            }
+            if (followOnly) {
+                info += ' · {{scan automatique déjà en cours, suivi de son avancement}}';
+            }
+            $target.find('.scanip-progress-elapsed').text(info);
         }
         if (p.state == 'error') {
             $target.find('.scanip-progress').addClass('is-error');

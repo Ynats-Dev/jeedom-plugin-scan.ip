@@ -74,7 +74,13 @@ class scan_ip_scan extends eqLogic {
         $indexSub = 0;
         foreach ($subReseau["subReseau"] as $sub) { 
             if($sub["enable"] == 1){
-                scan_ip_tools::setScanProgress(10 + (60 * $indexSub / max(1, $nbSub)), sprintf(__("Scan du sous-réseau %s (%s/%s)", __FILE__), $sub["name"], $indexSub + 1, $nbSub));
+                scan_ip_tools::setScanProgress(
+                    10 + (60 * $indexSub / max(1, $nbSub)),
+                    sprintf(__("Scan du sous-réseau %s (%s/%s)", __FILE__), $sub["name"], $indexSub + 1, $nbSub),
+                    "running",
+                    10 + (60 * ($indexSub + 1) / max(1, $nbSub)),
+                    scan_ip_shell::estimateArpScanDuration($sub["name"])
+                );
                 $indexSub++;
                 $scanResult = scan_ip_shell::arpScanShell($sub["name"]);
                 $new = scan_ip_tools::arrayCompose($new, $scanResult);

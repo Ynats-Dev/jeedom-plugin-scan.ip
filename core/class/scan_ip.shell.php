@@ -48,6 +48,24 @@ class scan_ip_shell extends eqLogic {
         return $return;
     }
     
+    // Durée estimée d'un arp-scan --localnet sur une interface (secondes) :
+    // nombre d'adresses du sous-réseau x intervalle (2 ms) x tentatives, plus le délai de réponse
+    public static function estimateArpScanDuration($_interface){
+        $prefix = 24;
+        $output = array();
+        exec('ip -o -f inet addr show ' . escapeshellarg($_interface) . ' 2>/dev/null', $output);
+        foreach ($output as $line) {
+            if (preg_match('/inet [0-9.]+\/([0-9]{1,2})/', $line, $match)) {
+                $prefix = intval($match[1]);
+                break;
+            }
+        }
+        $prefix = max(8, min(32, $prefix));
+        $hosts = max(1, pow(2, 32 - $prefix) - 2);
+        $retry = max(1, intval(config::byKey('add_retry_scan', 'scan_ip', 3)));
+        return intval(ceil($hosts * 0.002 * $retry + 1));
+    }
+    
     public static function arpVersion(){
         log::add('scan_ip', 'debug', 'arpVersion :. ' . __('Lancement', __FILE__));
         $exec = exec('sudo arp-scan -V 2>&1',$output, $return_var);
