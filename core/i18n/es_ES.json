@@ -59,13 +59,27 @@
         "10 minutes": "10 minutos",
         "15 minutes": "15 minutos",
         "Wake-on-LAN": "Wake-on-LAN",
-        "Vérifiez que votre équipement est compatible et/ou que l'option a bien été activée pour que cela fonctionne": "Verifique que su dispositivo sea compatible y/o que la opción esté activada para que funcione",
+        "Vérifiez que votre équipement est compatible et\/ou que l'option a bien été activée pour que cela fonctionne": "Verifique que su dispositivo sea compatible y\/o que la opción esté activada para que funcione",
         "Désactiver la commande WoL sur cet équipement": "Desactivar el comando WoL en este dispositivo",
         "Activer la commande WoL sur cet équipement": "Activar el comando WoL en este dispositivo",
         "Associer cette adresse MAC à un ou plusieurs bridges (optionnel)": "Asociar esta dirección MAC con uno o varios puentes (opcional)",
         "Nom": "Nombre",
         "Valeur": "Valor",
-        "Action": "Acción"
+        "Action": "Acción",
+        "401 - Accès non autorisé": "401 - Acceso no autorizado",
+        "Associer une adresse MAC": "Asociar una dirección MAC",
+        "Effacer": "Borrar",
+        "En ligne": "En línea",
+        "Hors ligne": "Desconectado",
+        "Il est conseillé d'avoir un rafraîchissements au moins toutes les 2 minutes": "Se recomienda una actualización al menos cada 2 minutos",
+        "Il est recommandé de laisser ce paramètre à ": "Se recomienda dejar este parámetro en ",
+        "Nom de la configuration": "Nombre de la configuración",
+        "On line ou Off line ? (Mode avancé)": "¿En línea o desconectado? (Modo avanzado)",
+        "Paramètres du Widget": "Parámetros del widget",
+        "Présumé hors-ligne au bout de ": "Considerado desconectado tras ",
+        "Rechercher": "Buscar",
+        "Réveiller votre équipement à distance ?": "¿Despertar su dispositivo a distancia?",
+        "minutes": "minutos"
     },
     "plugins\/scan_ip\/desktop\/modal\/network.php": {
         "401 - Accès non autorisé": "401 - Acceso no autorizado",
@@ -76,16 +90,27 @@
         "Installation": "Instalación",
         "Host Name": "Nombre del host",
         "Votre routeur": "Su router",
-        "Nom": "Nombre",
-        "ip": "IP",
-        "Adresse MAC": "Dirección MAC",
         "Les plages ip et adresses MAC du réseau": "Rangos IP y direcciones MAC de la red",
         "Sauvegarder les commentaires": "Guardar comentarios",
-        "Adresse MAC": "Dirección MAC",
-        "ip": "IP",
-        "Nom": "Nombre",
         "Commentaire": "Comentario",
-        "Date de mise à jour": "Fecha de actualización"
+        "Date de mise à jour": "Fecha de actualización",
+        "Ajouter un commentaire": "Añadir un comentario",
+        "Aucun appareil n'a été trouvé sur vos réseaux. Vérifiez la configuration du plugin (sous-réseaux à scanner) puis relancez une synchronisation.": "No se ha encontrado ningún dispositivo en sus redes. Compruebe la configuración del plugin (subredes a escanear) y vuelva a lanzar una sincronización.",
+        "Créer un équipement MAC pour cet appareil": "Crear un dispositivo MAC para este aparato",
+        "Elément enregistré": "Elemento registrado",
+        "En ligne": "En línea",
+        "Enregistrer": "Registrar",
+        "Filtrer (MAC, ip, nom, commentaire...)": "Filtrar (MAC, IP, nombre, comentario...)",
+        "Les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.": "Los datos no tienen el formato de la versión instalada. Vaya a la configuración del plugin y active el modo debug para corregir el problema.",
+        "Ouvrir": "Abrir",
+        "Ouvrir la fiche de l'équipement": "Abrir la ficha del dispositivo",
+        "Relancer un scan du réseau": "Lanzar un nuevo escaneo de la red",
+        "Scanner": "Escanear",
+        "appareils": "dispositivos",
+        "en ligne": "en línea",
+        "enregistrés": "registrados",
+        "hors ligne": "desconectados",
+        "non enregistrés": "no registrados"
     },
     "plugins\/scan_ip\/desktop\/modal\/no_equipement.php": {
         "401 - Accès non autorisé": "401 - Acceso no autorizado",
@@ -96,7 +121,19 @@
         "Adresse MAC": "Dirección MAC",
         "ip": "IP",
         "Enregistrement": "Registro",
-        "Date de mise à jour": "Fecha de actualización"
+        "Date de mise à jour": "Fecha de actualización",
+        "Ajouter un commentaire": "Añadir un comentario",
+        "Créer un équipement MAC pour cet appareil": "Crear un dispositivo MAC para este aparato",
+        "En ligne": "En línea",
+        "Enregistrer": "Registrar",
+        "Filtrer (MAC, ip, nom, commentaire...)": "Filtrar (MAC, IP, nombre, comentario...)",
+        "Hors ligne": "Desconectado",
+        "Sauvegarder les commentaires": "Guardar los comentarios",
+        "Tout sélectionner": "Seleccionar todo",
+        "Vous n'avez aucun équipement non enregistré sur le réseau.": "No tiene ningún dispositivo no registrado en la red.",
+        "en ligne": "en línea",
+        "hors ligne": "desconectados",
+        "non enregistrés": "no registrados"
     },
     "plugins\/scan_ip\/desktop\/modal\/yes_equipement.php": {
         "401 - Accès non autorisé": "401 - Acceso no autorizado",
@@ -107,7 +144,16 @@
         "Dernière ip": "Última IP",
         "Mis à jour": "Actualizado",
         "Elément plugin associé": "Elemento del plugin asociado",
-        "Pour le moment, vous n'avez pas enregistré d'équipement MAC.": "Por el momento, no ha registrado ningún dispositivo MAC."
+        "Pour le moment, vous n'avez pas enregistré d'équipement MAC.": "Por el momento, no ha registrado ningún dispositivo MAC.",
+        "Changement d'Ip": "Cambio de IP",
+        "En ligne": "En línea",
+        "Filtrer (MAC, ip, nom, plugin...)": "Filtrar (MAC, IP, nombre, plugin...)",
+        "Hors ligne": "Desconectado",
+        "Statut": "Estado",
+        "changement(s) d'ip": "cambio(s) de IP",
+        "en ligne": "en línea",
+        "enregistrés": "registrados",
+        "hors ligne": "desconectados"
     },
     "plugins\/scan_ip\/desktop\/modal\/debug.php": {
         "401 - Accès non autorisé": "401 - Acceso no autorizado",
@@ -164,24 +210,32 @@
         "3 minutes": "3 minutos",
         "Spécifier des plages à scanner (Mode avancé)": "Especificar rangos a escanear (Modo avanzado)",
         "Bridges : Plugins compatibles": "Puentes: Plugins compatibles",
-        "Liste des Plugins pris en compte": "Lista de Plugins compatibles"
+        "Liste des Plugins pris en compte": "Lista de Plugins compatibles",
+        "1 tentatives": "1 intento",
+        "2 tentatives": "2 intentos",
+        "Afficher aussi les plugins non installés": "Mostrar también los plugins no instalados",
+        "Aucun plugin compatible n'est installé.": "No hay ningún plugin compatible instalado.",
+        "Cadence de rafraîchissement": "Frecuencia de actualización"
     },
-    "plugins\/scan_ip\/desktop\/js\/scan_ip.js" : {
+    "plugins\/scan_ip\/desktop\/js\/scan_ip.js": {
         "Afficher le Réseau": "Mostrar la Red",
         "Vos équipements enregistrés": "Sus dispositivos registrados",
         "Vos équipements non enregistrés": "Sus dispositivos no registrados",
         "Debug": "Depuración",
-        "Mode développeur : Reset Ok (Penser à réactiver le CRON)": "Modo desarrollador: Restablecimiento OK (Recuerde reactivar el CRON)"
+        "Mode développeur : Reset Ok (Penser à réactiver le CRON)": "Modo desarrollador: Restablecimiento OK (Recuerde reactivar el CRON)",
+        "Démarrage du scan": "Iniciando el escaneo",
+        "Scan terminé": "Escaneo terminado",
+        "Temps écoulé": "Tiempo transcurrido"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_equ.js": {
         "Si vous validez cette configuration, il est possible que certains de vos équipements soient indiqués comme hors-ligne alors qu'ils ne le sont pas.": "Si valida esta configuración, es posible que algunos de sus dispositivos aparezcan como fuera de línea cuando no lo están.",
         "La cadence de rafraichissement se fait toutes les %s minute(s)": "La frecuencia de actualización se realiza cada %s minuto(s)",
         "Attention, cet équipement est déjà associé plusieurs fois au plugin": "Atención, este dispositivo ya está asociado varias veces con el plugin",
         "Il est possible que cela génère des conflits s'il s'agit d'une erreur de votre part.": "Es posible que esto genere conflictos si se trata de un error de su parte.",
-        "Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core</span> de votre Jeedom !<br />Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br />Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.": "Atención, este dispositivo está asociado con el puente <span style='font-weight: bold;'>core</span> de su Jeedom!<br />Esto significa que Scan.Ip puede modificar su configuración de Jeedom.<br />Esta asociación está destinada a usuarios avanzados ya que puede generar errores en su configuración global o afectar el buen funcionamiento de otros plugins.",
+        "Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core<\/span> de votre Jeedom !<br \/>Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br \/>Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.": "Atención, este dispositivo está asociado con el puente <span style='font-weight: bold;'>core<\/span> de su Jeedom!<br \/>Esto significa que Scan.Ip puede modificar su configuración de Jeedom.<br \/>Esta asociación está destinada a usuarios avanzados ya que puede generar errores en su configuración global o afectar el buen funcionamiento de otros plugins.",
         "Tester": "Probar"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.bridges.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.bridges.php": {
         "Installé": "Instalado",
         "Non installé": "No instalado",
         "Lancement": "Inicio",
@@ -189,9 +243,10 @@
         "Sélectionnez un élément": "Seleccione un elemento",
         "Aucun élément compatible n'est associé aux bridges.": "No hay elementos compatibles asociados a los puentes.",
         "Association": "Asociación",
-        "Suppression du bridge car le plugin %s n'est pas installé": "Eliminación del puente porque el plugin %s no está instalado"
+        "Suppression du bridge car le plugin %s n'est pas installé": "Eliminación del puente porque el plugin %s no está instalado",
+        "Association 1": "Asociación 1"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.widget_network.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.widget_network.php": {
         "Lancement": "Inicio",
         "Adresse MAC": "Dirección MAC",
         "Ip": "IP",
@@ -202,9 +257,10 @@
         "Hors ligne": "Fuera de línea",
         "Cet équipement est enregistré et activé": "Este dispositivo está registrado y activado",
         "Cet équipement est enregistré mais désactivé": "Este dispositivo está registrado pero desactivado",
-        "Cet équipement n'est pas enregistré": "Este dispositivo no está registrado"
+        "Cet équipement n'est pas enregistré": "Este dispositivo no está registrado",
+        "Elément enregistré": "Elemento registrado"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.widget_alerte.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.widget_alerte.php": {
         "Rafraichir": "Actualizar",
         "Lancement": "Inicio",
         "Date": "Fecha",
@@ -213,9 +269,10 @@
         "Information": "Información",
         "Vu la première fois": "Visto por primera vez",
         "En ligne": "En línea",
-        "Hors ligne": "Fuera de línea"
+        "Hors ligne": "Fuera de línea",
+        "Aucun nouvel équipement détecté": "No se ha detectado ningún dispositivo nuevo"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.tools.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.tools.php": {
         "Lancement": "Inicio",
         "oui.txt (Installé)": "oui.txt (Instalado)",
         "oui.txt (Manquant)": "oui.txt (Faltante)",
@@ -223,9 +280,10 @@
         "iab.txt (Manquant)": "iab.txt (Faltante)",
         "Scanner le sous-réseau": "Escanear la subred",
         "Sélectionnez un élément": "Seleccione un elemento",
-        "Date": "Fecha"
+        "Date": "Fecha",
+        "Cliquer pour filtrer le tableau": "Haga clic para filtrar la tabla"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.shell.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.shell.php": {
         "Lancement": "Inicio",
         "En erreur": "Con error",
         "Validé": "Validado",
@@ -239,14 +297,23 @@
         "Cet équipement est enregistré mais désactivé": "Este dispositivo está registrado pero desactivado",
         "Cet équipement n'est pas enregistré": "Este dispositivo no está registrado"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.scan.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.scan.php": {
         "Lancement du scan du réseau": "Inicio del escaneo de la red",
         "Incident de mise à jour Scan.Ip : Synchronisation annulée car les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.": "Incidente de actualización de Scan.Ip: Sincronización cancelada porque los datos no están en el formato de la versión instalada. Vaya a la configuración del plugin y active el modo de depuración para corregir el problema.",
         "Fin du scan du réseau": "Fin del escaneo de la red",
         "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.": "No se encontraron elementos en sus redes. Verifique sus configuraciones.",
-        "Fin du scan": "Fin del escaneo"
+        "Fin du scan": "Fin del escaneo",
+        "Démarrage du scan": "Iniciando el escaneo",
+        "Enregistrement des résultats": "Guardando los resultados",
+        "Identification des appareils (%s trouvés)": "Identificando los dispositivos (%s encontrados)",
+        "Lancement": "Inicio",
+        "Lecture de la configuration réseau": "Leyendo la configuración de red",
+        "Mise à jour des équipements (%s\/%s)": "Actualizando los dispositivos (%s\/%s)",
+        "Scan annulé : les données ne sont pas au format de la version installée": "Escaneo cancelado: los datos no tienen el formato de la versión instalada",
+        "Scan du sous-réseau %s (%s\/%s)": "Escaneando la subred %s (%s\/%s)",
+        "Scan terminé": "Escaneo terminado"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.maj.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.maj.php": {
         "Lancement du scan du réseau": "Inicio del escaneo de la red",
         "Données non compatibles avec la version %s (Cliquez-ici pour corriger le problème)": "Datos no compatibles con la versión %s (Haga clic aquí para corregir el problema)",
         "Compatibles v%s": "Compatibles v%s",
@@ -264,7 +331,7 @@
         "Nettoyage des données Beta": "Limpieza de datos Beta",
         "Mise à jour de ": "Actualización de "
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.json.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.json.php": {
         "Lancement": "Inicio",
         "Création du dossier": "Creación de carpeta",
         "Enregistrement du Json : mapping.json": "Guardando Json: mapping.json",
@@ -273,13 +340,13 @@
         "Lancement du scan du réseau": "Inicio del escaneo de la red",
         "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.": "No se encontraron elementos en sus redes. Verifique sus configuraciones."
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.eqLogic.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.eqLogic.php": {
         "Lancement": "Inicio"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.cmd.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.cmd.php": {
         "Lancement": "Inicio"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.class.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.class.php": {
         "Lancement": "Inicio",
         "Mise à jour de": "Actualización de",
         "Rafraichissement de la commande": "Actualización del comando",
@@ -294,14 +361,46 @@
         "Lancement de la commande refresh": "Inicio del comando de actualización",
         "Lancement de la commande wol": "Inicio del comando wol"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php": {
         "Lancement": "Inicio",
         "Lancement de la recherche": "Inicio de la búsqueda",
         "Trouvé": "Encontrado",
         "Pas Trouvé": "No encontrado",
-        "Erreur": "Error"
+        "Erreur": "Error",
+        "Limite de recherches atteinte pour ce scan": "Límite de búsquedas alcanzado para este escaneo"
     },
     "info.json": {
         "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.": "Este plugin permite escanear una red, rastrear los elementos de la red por dirección MAC, actualizar los cambios de IP en los plugins con la ayuda de bridges, despertar un dispositivo (WoL) y recibir alertas de un nuevo elemento que ingresa a la red."
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.associations.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.conf.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.dev.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado",
+        "Aucune méthode correspondante à : ": "Ningún método corresponde a: "
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.getCommentaireById.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.getEquipementById.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.maj.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado",
+        "Aucune méthode correspondante à : ": "Ningún método corresponde a: "
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.php": {
+        "401 - Accès non autorisé": "401 - Acceso no autorizado",
+        "Adresse MAC invalide": "Dirección MAC no válida",
+        "Aucune méthode correspondante à : ": "Ningún método corresponde a: "
+    },
+    "plugins\/scan_ip\/desktop\/js\/scan_ip_configuration.js": {
+        "installés": "instalados"
+    },
+    "plugins\/scan_ip\/desktop\/js\/scan_ip_network.js": {
+        "Commentaires sauvegardés": "Comentarios guardados"
     }
 }

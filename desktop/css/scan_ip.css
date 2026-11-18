@@ -155,6 +155,19 @@
 .scanip-stat b {
     font-weight: 700;
 }
+.scanip-stat-filter {
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.scanip-stat-filter:hover {
+    border-color: var(--scanip-border);
+}
+.scanip-stat-filter.is-active {
+    border-color: var(--scanip-accent);
+    background: var(--scanip-soft);
+    color: var(--scanip-accent);
+}
 .scanip-meta {
     opacity: 0.7;
     font-size: 0.9em;

@@ -59,13 +59,27 @@
         "10 minutes": "10 minutes",
         "15 minutes": "15 minutes",
         "Wake-on-LAN": "Wake-on-LAN",
-        "Vérifiez que votre équipement est compatible et/ou que l'option a bien été activée pour que cela fonctionne": "Ensure your device is compatible and/or the option is activated for it to work",
+        "Vérifiez que votre équipement est compatible et\/ou que l'option a bien été activée pour que cela fonctionne": "Ensure your device is compatible and\/or the option is activated for it to work",
         "Désactiver la commande WoL sur cet équipement": "Disable WoL command on this device",
         "Activer la commande WoL sur cet équipement": "Enable WoL command on this device",
         "Associer cette adresse MAC à un ou plusieurs bridges (optionnel)": "Associate this MAC address with one or more bridges (optional)",
         "Nom": "Name",
         "Valeur": "Value",
-        "Action": "Action"
+        "Action": "Action",
+        "401 - Accès non autorisé": "401 - Unauthorized access",
+        "Associer une adresse MAC": "Link a MAC address",
+        "Effacer": "Clear",
+        "En ligne": "Online",
+        "Hors ligne": "Offline",
+        "Il est conseillé d'avoir un rafraîchissements au moins toutes les 2 minutes": "A refresh at least every 2 minutes is recommended",
+        "Il est recommandé de laisser ce paramètre à ": "It is recommended to keep this setting at ",
+        "Nom de la configuration": "Configuration name",
+        "On line ou Off line ? (Mode avancé)": "Online or offline? (Advanced mode)",
+        "Paramètres du Widget": "Widget settings",
+        "Présumé hors-ligne au bout de ": "Considered offline after ",
+        "Rechercher": "Search",
+        "Réveiller votre équipement à distance ?": "Wake up your device remotely?",
+        "minutes": "minutes"
     },
     "plugins\/scan_ip\/desktop\/modal\/network.php": {
         "401 - Accès non autorisé": "401 - Unauthorized access",
@@ -76,16 +90,27 @@
         "Installation": "Installation",
         "Host Name": "Host Name",
         "Votre routeur": "Your router",
-        "Nom": "Name",
-        "ip": "IP",
-        "Adresse MAC": "MAC Address",
         "Les plages ip et adresses MAC du réseau": "IP ranges and MAC addresses of the network",
         "Sauvegarder les commentaires": "Save comments",
-        "Adresse MAC": "MAC Address",
-        "ip": "IP",
-        "Nom": "Name",
         "Commentaire": "Comment",
-        "Date de mise à jour": "Update date"
+        "Date de mise à jour": "Update date",
+        "Ajouter un commentaire": "Add a comment",
+        "Aucun appareil n'a été trouvé sur vos réseaux. Vérifiez la configuration du plugin (sous-réseaux à scanner) puis relancez une synchronisation.": "No device was found on your networks. Check the plugin configuration (subnets to scan) and run a new synchronization.",
+        "Créer un équipement MAC pour cet appareil": "Create a MAC device for this device",
+        "Elément enregistré": "Registered item",
+        "En ligne": "Online",
+        "Enregistrer": "Register",
+        "Filtrer (MAC, ip, nom, commentaire...)": "Filter (MAC, IP, name, comment...)",
+        "Les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.": "The data is not in the format of the installed version. Go to the plugin configuration and enable debug mode to fix the problem.",
+        "Ouvrir": "Open",
+        "Ouvrir la fiche de l'équipement": "Open the device page",
+        "Relancer un scan du réseau": "Run a new network scan",
+        "Scanner": "Scan",
+        "appareils": "devices",
+        "en ligne": "online",
+        "enregistrés": "registered",
+        "hors ligne": "offline",
+        "non enregistrés": "not registered"
     },
     "plugins\/scan_ip\/desktop\/modal\/no_equipement.php": {
         "401 - Accès non autorisé": "401 - Unauthorized access",
@@ -96,7 +121,19 @@
         "Adresse MAC": "MAC Address",
         "ip": "IP",
         "Enregistrement": "Registration",
-        "Date de mise à jour": "Update date"
+        "Date de mise à jour": "Update date",
+        "Ajouter un commentaire": "Add a comment",
+        "Créer un équipement MAC pour cet appareil": "Create a MAC device for this device",
+        "En ligne": "Online",
+        "Enregistrer": "Register",
+        "Filtrer (MAC, ip, nom, commentaire...)": "Filter (MAC, IP, name, comment...)",
+        "Hors ligne": "Offline",
+        "Sauvegarder les commentaires": "Save comments",
+        "Tout sélectionner": "Select all",
+        "Vous n'avez aucun équipement non enregistré sur le réseau.": "You have no unregistered device on the network.",
+        "en ligne": "online",
+        "hors ligne": "offline",
+        "non enregistrés": "not registered"
     },
     "plugins\/scan_ip\/desktop\/modal\/yes_equipement.php": {
         "401 - Accès non autorisé": "401 - Unauthorized access",
@@ -107,7 +144,16 @@
         "Dernière ip": "Last IP",
         "Mis à jour": "Updated",
         "Elément plugin associé": "Associated plugin element",
-        "Pour le moment, vous n'avez pas enregistré d'équipement MAC.": "You haven't registered any MAC devices yet."
+        "Pour le moment, vous n'avez pas enregistré d'équipement MAC.": "You haven't registered any MAC devices yet.",
+        "Changement d'Ip": "IP change",
+        "En ligne": "Online",
+        "Filtrer (MAC, ip, nom, plugin...)": "Filter (MAC, IP, name, plugin...)",
+        "Hors ligne": "Offline",
+        "Statut": "Status",
+        "changement(s) d'ip": "IP change(s)",
+        "en ligne": "online",
+        "enregistrés": "registered",
+        "hors ligne": "offline"
     },
     "plugins\/scan_ip\/desktop\/modal\/debug.php": {
         "401 - Accès non autorisé": "401 - Unauthorized access",
@@ -126,7 +172,7 @@
         "Masquer le widget de votre réseau": "Hide your network widget",
         "Widget Alertes": "Alerts Widget",
         "Permet d'afficher le widget des %s derniers équipements entrant dans votre réseau": "Allows displaying the widget of the %s latest devices entering your network",
-        "Afficher le widget des %s derniers équipements non enregistrés dans le réseau" : "Display the widget of the %s latest unregistered devices in the network",
+        "Afficher le widget des %s derniers équipements non enregistrés dans le réseau": "Display the widget of the %s latest unregistered devices in the network",
         "Masquer le widget des %s derniers équipements non enregistrés dans le réseau": "Hide the widget of the %s latest unregistered devices in the network",
         "Votre réseau (Mode avancé)": "Your network (Advanced Mode)",
         "Routeur": "Router",
@@ -164,24 +210,32 @@
         "3 minutes": "3 minutes",
         "Spécifier des plages à scanner (Mode avancé)": "Specify ranges to scan (Advanced Mode)",
         "Bridges : Plugins compatibles": "Bridges: Compatible plugins",
-        "Liste des Plugins pris en compte": "List of supported Plugins"
-    },   
-    "plugins\/scan_ip\/desktop\/js\/scan_ip.js" : {
+        "Liste des Plugins pris en compte": "List of supported Plugins",
+        "1 tentatives": "1 attempt",
+        "2 tentatives": "2 attempts",
+        "Afficher aussi les plugins non installés": "Also show plugins that are not installed",
+        "Aucun plugin compatible n'est installé.": "No compatible plugin is installed.",
+        "Cadence de rafraîchissement": "Refresh rate"
+    },
+    "plugins\/scan_ip\/desktop\/js\/scan_ip.js": {
         "Afficher le Réseau": "Display Network",
         "Vos équipements enregistrés": "Your registered devices",
         "Vos équipements non enregistrés": "Your unregistered devices",
         "Debug": "Debug",
-        "Mode développeur : Reset Ok (Penser à réactiver le CRON)": "Developer mode: Reset OK (Remember to reactivate the CRON)"
+        "Mode développeur : Reset Ok (Penser à réactiver le CRON)": "Developer mode: Reset OK (Remember to reactivate the CRON)",
+        "Démarrage du scan": "Starting scan",
+        "Scan terminé": "Scan complete",
+        "Temps écoulé": "Elapsed time"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip_equ.js": {
         "Si vous validez cette configuration, il est possible que certains de vos équipements soient indiqués comme hors-ligne alors qu'ils ne le sont pas.": "If you validate this configuration, it is possible that some of your devices may be marked as offline when they are not.",
         "La cadence de rafraichissement se fait toutes les %s minute(s)": "The refresh rate occurs every %s minute(s)",
         "Attention, cet équipement est déjà associé plusieurs fois au plugin": "Warning, this device is already associated multiple times with the plugin",
         "Il est possible que cela génère des conflits s'il s'agit d'une erreur de votre part.": "It is possible that this may cause conflicts if it is a mistake on your part.",
-        "Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core</span> de votre Jeedom !<br />Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br />Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.": "Warning, this equipment is associated with the <span style='font-weight: bold;'>core</span> bridge of your Jeedom!<br />This means that Scan.Ip can modify your Jeedom configuration.<br />This association is intended for advanced users as it may cause errors in your global configuration or affect the proper functioning of other plugins.",
+        "Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core<\/span> de votre Jeedom !<br \/>Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br \/>Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.": "Warning, this equipment is associated with the <span style='font-weight: bold;'>core<\/span> bridge of your Jeedom!<br \/>This means that Scan.Ip can modify your Jeedom configuration.<br \/>This association is intended for advanced users as it may cause errors in your global configuration or affect the proper functioning of other plugins.",
         "Tester": "Test"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.bridges.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.bridges.php": {
         "Installé": "Installed",
         "Non installé": "Not installed",
         "Lancement": "Starting",
@@ -189,9 +243,10 @@
         "Sélectionnez un élément": "Select an element",
         "Aucun élément compatible n'est associé aux bridges.": "No compatible elements are associated with the bridges.",
         "Association": "Association",
-        "Suppression du bridge car le plugin %s n'est pas installé": "Removing bridge because the plugin %s is not installed"
+        "Suppression du bridge car le plugin %s n'est pas installé": "Removing bridge because the plugin %s is not installed",
+        "Association 1": "Association 1"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.widget_network.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.widget_network.php": {
         "Lancement": "Starting",
         "Adresse MAC": "MAC Address",
         "Ip": "IP",
@@ -202,9 +257,10 @@
         "Hors ligne": "Offline",
         "Cet équipement est enregistré et activé": "This device is registered and enabled",
         "Cet équipement est enregistré mais désactivé": "This device is registered but disabled",
-        "Cet équipement n'est pas enregistré": "This device is not registered"
+        "Cet équipement n'est pas enregistré": "This device is not registered",
+        "Elément enregistré": "Registered item"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.widget_alerte.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.widget_alerte.php": {
         "Rafraichir": "Refresh",
         "Lancement": "Starting",
         "Date": "Date",
@@ -213,9 +269,10 @@
         "Information": "Information",
         "Vu la première fois": "First seen",
         "En ligne": "Online",
-        "Hors ligne": "Offline"
+        "Hors ligne": "Offline",
+        "Aucun nouvel équipement détecté": "No new device detected"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.tools.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.tools.php": {
         "Lancement": "Starting",
         "oui.txt (Installé)": "oui.txt (Installed)",
         "oui.txt (Manquant)": "oui.txt (Missing)",
@@ -223,9 +280,10 @@
         "iab.txt (Manquant)": "iab.txt (Missing)",
         "Scanner le sous-réseau": "Scan the subnet",
         "Sélectionnez un élément": "Select an element",
-        "Date": "Date"
+        "Date": "Date",
+        "Cliquer pour filtrer le tableau": "Click to filter the table"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.shell.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.shell.php": {
         "Lancement": "Starting",
         "En erreur": "Error",
         "Validé": "Validated",
@@ -239,14 +297,23 @@
         "Cet équipement est enregistré mais désactivé": "This device is registered but disabled",
         "Cet équipement n'est pas enregistré": "This device is not registered"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.scan.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.scan.php": {
         "Lancement du scan du réseau": "Starting network scan",
         "Incident de mise à jour Scan.Ip : Synchronisation annulée car les données ne sont pas au format de la version installée. Allez dans la configuration du plugin et activez le mode debug pour corriger le problème.": "Scan.Ip update incident: Synchronization canceled because the data is not in the format of the installed version. Go to the plugin settings and activate debug mode to fix the issue.",
         "Fin du scan du réseau": "End of network scan",
         "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.": "No elements were found on your networks. Check your configurations.",
-        "Fin du scan": "End of scan"
+        "Fin du scan": "End of scan",
+        "Démarrage du scan": "Starting scan",
+        "Enregistrement des résultats": "Saving results",
+        "Identification des appareils (%s trouvés)": "Identifying devices (%s found)",
+        "Lancement": "Starting",
+        "Lecture de la configuration réseau": "Reading network configuration",
+        "Mise à jour des équipements (%s\/%s)": "Updating devices (%s\/%s)",
+        "Scan annulé : les données ne sont pas au format de la version installée": "Scan cancelled: the data is not in the format of the installed version",
+        "Scan du sous-réseau %s (%s\/%s)": "Scanning subnet %s (%s\/%s)",
+        "Scan terminé": "Scan complete"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.maj.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.maj.php": {
         "Lancement du scan du réseau": "Starting network scan",
         "Données non compatibles avec la version %s (Cliquez-ici pour corriger le problème)": "Data not compatible with version %s (Click here to fix the issue)",
         "Compatibles v%s": "Compatible v%s",
@@ -264,7 +331,7 @@
         "Nettoyage des données Beta": "Cleaning Beta data",
         "Mise à jour de ": "Updating"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.json.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.json.php": {
         "Lancement": "Starting",
         "Création du dossier": "Creating folder",
         "Enregistrement du Json : mapping.json": "Saving Json: mapping.json",
@@ -273,13 +340,13 @@
         "Lancement du scan du réseau": "Starting network scan",
         "Aucun élément n'a été trouvé sur vos réseaux. Vérifiez vos configurations.": "No elements were found on your networks. Check your configurations."
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.eqLogic.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.eqLogic.php": {
         "Lancement": "Starting"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.cmd.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.cmd.php": {
         "Lancement": "Starting"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.class.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.class.php": {
         "Lancement": "Lancement",
         "Mise à jour de": "Mise à jour de",
         "Rafraichissement de la commande": "Rafraichissement de la commande",
@@ -294,14 +361,46 @@
         "Lancement de la commande refresh": "Lancement de la commande refresh",
         "Lancement de la commande wol": "Lancement de la commande wol"
     },
-    "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php" : {
+    "plugins\/scan_ip\/core\/class\/scan_ip.api_mac_vendor.php": {
         "Lancement": "Lancement",
         "Lancement de la recherche": "Lancement de la recherche",
         "Trouvé": "Trouvé",
         "Pas Trouvé": "Pas Trouvé",
-        "Erreur": "Erreur"
+        "Erreur": "Erreur",
+        "Limite de recherches atteinte pour ce scan": "Lookup limit reached for this scan"
     },
     "info.json": {
         "Ce plugin permet de scanner un réseau, de suivre par adresse MAC les éléments d’un réseau, de mettre à jour les changements d’Ip sur des plugins avec l’aide de bridges, de réveiller un équiment (WoL) et d’être alerté d’un nouvelle élément entrant dans le réseau.": "This plugin allows scanning a network, tracking network elements by MAC address, updating IP changes on plugins with the help of bridges, waking up a device (WoL), and being alerted of a new element entering the network."
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.associations.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.conf.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.dev.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access",
+        "Aucune méthode correspondante à : ": "No method matching: "
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.getCommentaireById.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.getEquipementById.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access"
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.maj.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access",
+        "Aucune méthode correspondante à : ": "No method matching: "
+    },
+    "plugins\/scan_ip\/core\/ajax\/scan_ip.ajax.php": {
+        "401 - Accès non autorisé": "401 - Unauthorized access",
+        "Adresse MAC invalide": "Invalid MAC address",
+        "Aucune méthode correspondante à : ": "No method matching: "
+    },
+    "plugins\/scan_ip\/desktop\/js\/scan_ip_configuration.js": {
+        "installés": "installed"
+    },
+    "plugins\/scan_ip\/desktop\/js\/scan_ip_network.js": {
+        "Commentaires sauvegardés": "Comments saved"
     }
 }

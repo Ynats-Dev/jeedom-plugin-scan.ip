@@ -1,10 +1,24 @@
 # 18/11/2026 | v1.7.0
 * Hinzufügen der Bridge "vigipool"
 * Modernisierung der Oberfläche: neues Stylesheet, kompatibel mit dem hellen und dunklen Jeedom-Theme, Abschnittstitel mit Symbolen, ein eigenes Symbol pro Aktion und Gerätezähler
-* Überarbeitete Fenster Netzwerk und Geräte: Karten für Jeedom / Router, Sofortfilter, Zähler, fixierter Tabellenkopf, Status-Badges und Kontrollkästchen „Alle auswählen“
-* Bestätigung nach dem Speichern der Kommentare
-* Konfiguration: Bridges als Badges angezeigt (installiert / nicht installiert)
+* Überarbeitete Fenster Netzwerk und Geräte: Karten für Jeedom / Router, Sofortfilter, Zähler (bei null ausgeblendet, darunter „offline“ und „nicht registriert“), fixierter Tabellenkopf, Status-Badges und Kontrollkästchen „Alle auswählen“
+* Fortschrittsbalken während des Scans (aktueller Schritt, Prozentsatz, verstrichene Zeit) über die Schaltfläche Synchronisieren und das Fenster Netzwerk, mit einer Schaltfläche „Scannen“ für einen neuen Scan
+* Registrierung eines Geräts direkt aus dem Fenster Netzwerk und direkter Zugriff auf bereits registrierte Geräte
+* Anklickbare Zähler zum Filtern der Tabellen (online, offline, registriert, nicht registriert, IP-Änderungen)
+* Schaltfläche „Registrieren“ in jeder Zeile des Fensters der nicht registrierten Geräte
+* Modernisierte Dashboard-Widgets Netzwerk und Warnungen (Statuspunkte, Symbole, helles und dunkles Theme)
+* Kommentare im Fenster der nicht registrierten Geräte bearbeitbar, Bestätigung nach dem Speichern und Löschen eines Kommentars durch Leeren des Feldes
+* Konfiguration: Bridges als Badges angezeigt, standardmäßig nur installierte Plugins, mit einem Kontrollkästchen zur Anzeige aller unterstützten Plugins
+* Schnelleres Öffnen des Fensters Netzwerk (keine DNS-Auflösung mehr beim Anzeigen)
+* Sicherheit: Namen, Hersteller und Kommentare werden in der Oberfläche und den Widgets maskiert
+* Korrektur der Modusauswahl, die in der Konfiguration leer blieb
 * Korrektur einer fälschlich angezeigten „IP-Änderung“ bei Geräten ohne bekannte letzte IP
+* Korrektur der Kommentardatei, die bei jedem Speichern größer wurde
+* Korrektur einer veralteten Scan-Sperre, die zwei gleichzeitige Scans ermöglichte
+* Korrektur der Ausrichtung der Kontrollkästchen für die Subnetze
+* Vervollständigte Übersetzungen ins Englische, Deutsche, Spanische und Italienische sowie Korrektur der deutschen Datei, die italienische Texte enthielt
+* Kompatibilität mit PHP 7 und PHP 8: „deprecated“-Warnungen unter PHP 8 entfernt
+* Mindestens Jeedom 4.0 erforderlich
 
 # 08/11/2026 | v1.6.0
 * Hinzufügen der Bridges "tvremote" und "tvByOrange"

@@ -52,7 +52,30 @@ class scan_ip_json extends eqLogic {
     }
     
     public static function majNetworkCommentaires($_array){
-        self::createAndMergeJsonFile(scan_ip::$_jsonCommentairesEquipement, $_array);
+        // Fusion par adresse MAC : une seule entrée par appareil, un commentaire vide supprime l'entrée
+        $comments = self::getCommentaires();
+        if (!is_array($comments)) { $comments = array(); }
+        
+        if (is_array($_array)) {
+            foreach ($_array as $line) {
+                $id = isset($line[0]["id"]) ? trim((string) $line[0]["id"]) : "";
+                if ($id === "") { continue; }
+                $val = isset($line[1]["val"]) ? trim((string) $line[1]["val"]) : "";
+                if ($val === "") {
+                    unset($comments[$id]);
+                } else {
+                    $comments[$id] = function_exists('mb_substr') ? mb_substr($val, 0, 255) : substr($val, 0, 255);
+                }
+            }
+        }
+        
+        // Format historique conservé : [[{"id": ...}, {"val": ...}], ...]
+        $data = array();
+        foreach ($comments as $id => $val) {
+            $data[] = array(array("id" => (string) $id), array("val" => $val));
+        }
+        self::prepareJsonFolder();
+        self::createJsonFile(scan_ip::$_jsonCommentairesEquipement, $data);
     }
     
     public static function recordInJson($_file, $_data) {
@@ -120,9 +143,9 @@ class scan_ip_json extends eqLogic {
                     $equipement = "???";
                 }
                 
-                $print .= '<option value="'. $id .'" data-mac="'. $value["mac"] .'" ';
+                $print .= '<option value="'. scan_ip_tools::escape($id) .'" data-mac="'. scan_ip_tools::escape($value["mac"]) .'" ';
                 if($_selected != NULL AND $_selected == $id) { $print .= ' selected'; }
-                $print .= '>' . $value["mac"] . ' | ' . $value["ip_v4"] . ' | '. $equipement .'</option>';
+                $print .= '>' . scan_ip_tools::escape($value["mac"] . ' | ' . $value["ip_v4"] . ' | '. $equipement) .'</option>';
             }
         }  
         echo $print;

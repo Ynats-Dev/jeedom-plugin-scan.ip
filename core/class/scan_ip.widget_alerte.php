@@ -1,3 +1,18 @@
+        $replace["#last_unknown_equipement#"] = scan_ip_widgets::getWidgetStyle() . '<table class="scanip-w-table">
+        <thead>
+            <tr>
+                <th class="scanip-w-center"></th>
+                <th>' . __('Date', __FILE__) . '</th>
+                <th>' . __('Adresse MAC', __FILE__) . '</th>
+                <th>' . __('Ip', __FILE__) . '</th>
+                <th>' . __('Information', __FILE__) . '</th>
+                <th>' . __('Vu la première fois', __FILE__) . '</th>
+            </tr>
+        </thead>
+        <tbody>';
+        
+        $nbRows = 0;
+        
 <?php
 
 /**
@@ -209,25 +224,24 @@ class scan_ip_widget_alerte extends eqLogic {
                     $record = NULL;
                 }
                 
-                if (scan_ip_tools::isOffline($offline_time, $time) == 0) {
-                    $element["colorOnLine"] = "#50aa50";
-                    $element["titleOnLine"] = __('En ligne', __FILE__);
-                } else {
-                    $element["colorOnLine"] = "red";
-                    $element["titleOnLine"] = __("Hors ligne", __FILE__);
-                }
+                $isOnline = (scan_ip_tools::isOffline($offline_time, $time) == 0);
+                $titleOnLine = $isOnline ? __('En ligne', __FILE__) : __("Hors ligne", __FILE__);
+                $nbRows++;
                 
                 $replace["#last_unknown_equipement#"] .= '<tr>'
-                . '<td style="padding : 3px 0 3px 15px !important;" title="' . $element["titleOnLine"] .'">' . scan_ip_tools::getCycle("15px", $element["colorOnLine"]) . '</td>'
-                . '<td style="padding : 3px 0 3px 15px !important;">' . scan_ip_cmd::getCommande("last_".$i."_date", $scan_ip) . '</td>'
-                . '<td style="padding : 3px 0 3px 15px !important;">' . scan_ip_cmd::getCommande("last_".$i."_mac", $scan_ip) . '</td>'
-                . '<td style="padding : 3px 0 3px 15px !important;">' . scan_ip_cmd::getCommande("last_".$i."_ip_v4", $scan_ip) . '</td>'
-                . '<td style="padding : 3px 0 3px 15px !important;">' . scan_ip_cmd::getCommande("last_".$i."_equipement", $scan_ip) . '</td>'
-                . '<td style="padding : 3px 0 3px 15px !important;">' . $record . '</td>'
+                . '<td class="scanip-w-center">' . scan_ip_widgets::getWidgetDot($isOnline, $titleOnLine) . '</td>'
+                . '<td class="scanip-w-date">' . scan_ip_tools::escape(scan_ip_cmd::getCommande("last_".$i."_date", $scan_ip)) . '</td>'
+                . '<td class="scanip-w-mono">' . scan_ip_tools::escape(scan_ip_cmd::getCommande("last_".$i."_mac", $scan_ip)) . '</td>'
+                . '<td class="scanip-w-mono">' . scan_ip_tools::escape(scan_ip_cmd::getCommande("last_".$i."_ip_v4", $scan_ip)) . '</td>'
+                . '<td>' . scan_ip_tools::escape(scan_ip_cmd::getCommande("last_".$i."_equipement", $scan_ip)) . '</td>'
+                . '<td class="scanip-w-date">' . $record . '</td>'
                 . '</tr>';
             }
         }
         
+        if ($nbRows == 0) {
+            $replace["#last_unknown_equipement#"] .= '<tr><td colspan="6" class="scanip-w-empty">' . __('Aucun nouvel équipement détecté', __FILE__) . '</td></tr>';
+        }
         $replace["#last_unknown_equipement#"] .= '</tbody></table>';
         
         return $replace;

@@ -1,10 +1,24 @@
 # 18/11/2026 | v1.7.0
 * Añadido el puente "vigipool"
 * Modernización de la interfaz: nueva hoja de estilos compatible con los temas claro y oscuro de Jeedom, títulos de sección con iconos, un icono distinto para cada acción y contadores de dispositivos
-* Ventanas Red y Dispositivos rediseñadas: tarjetas Jeedom / router, filtro instantáneo, contadores, cabecera de tabla fija, insignias de estado y casilla «Seleccionar todo»
-* Confirmación mostrada tras guardar los comentarios
-* Configuración: puentes mostrados como insignias (instalado / no instalado)
+* Ventanas Red y Dispositivos rediseñadas: tarjetas Jeedom / router, filtro instantáneo, contadores (ocultos cuando valen cero, incluidos «desconectados» y «no registrados»), cabecera de tabla fija, insignias de estado y casilla «Seleccionar todo»
+* Barra de progreso durante el escaneo (paso actual, porcentaje, tiempo transcurrido) desde el botón Sincronizar y la ventana Red, con un botón «Escanear» para lanzar un nuevo escaneo
+* Registro de un dispositivo directamente desde la ventana Red y acceso directo a la ficha de los dispositivos ya registrados
+* Contadores en los que se puede hacer clic para filtrar las tablas (en línea, desconectados, registrados, no registrados, cambios de IP)
+* Botón «Registrar» en cada línea de la ventana de dispositivos no registrados
+* Widgets Red y Alertas del dashboard modernizados (indicadores de estado, iconos, temas claro y oscuro)
+* Comentarios editables desde la ventana de dispositivos no registrados, confirmación tras guardar y eliminación de un comentario vaciando su campo
+* Configuración: puentes mostrados como insignias, solo los plugins instalados por defecto y una casilla para mostrar todos los plugins compatibles
+* Apertura más rápida de la ventana Red (ya no hay resolución DNS al mostrarla)
+* Seguridad: los nombres, fabricantes y comentarios se escapan en la interfaz y los widgets
+* Se corrige el selector de modo que quedaba vacío en la configuración
 * Se corrige un falso «Cambio de IP» mostrado para dispositivos sin última IP conocida
+* Se corrige el archivo de comentarios que crecía en cada guardado
+* Se corrige un bloqueo de escaneo caducado que permitía lanzar dos escaneos a la vez
+* Se corrige la alineación de las casillas de las subredes
+* Traducciones completadas en inglés, alemán, español e italiano, y corrección del archivo alemán que contenía textos en italiano
+* Compatibilidad con PHP 7 y PHP 8: eliminados los avisos «deprecated» en PHP 8
+* Se requiere como mínimo Jeedom 4.0
 
 # 08/11/2026 | v1.6.0
 * Añadidos los puentes "tvremote" y "tvByOrange"

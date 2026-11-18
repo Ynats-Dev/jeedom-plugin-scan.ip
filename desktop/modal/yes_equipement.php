@@ -54,13 +54,15 @@ if (!empty($allEquipements)) {
         if (empty($equipement["plug_element_plugin"])) { $equipement["plug_element_plugin"] = '<span class="scanip-meta">…</span>'; }
 
         $classLast = "";
+        $flags = ($sortOnLine == 1) ? 'on' : 'off';
         if ($equipement["on_line"] == 1 AND $equipement["last_ip_v4"] != "…" AND $equipement["ip_v4"] != $equipement["last_ip_v4"]) {
             $nbChanged++;
             $classLast = " scanip-text-warn";
+            $flags .= ' changed';
             $badge = '<span class="scanip-badge is-warn"><i class="fas fa-exchange-alt"></i> ' . __("Changement d'Ip", __FILE__) . '</span>';
         }
 
-        $rows .= '<tr>'
+        $rows .= '<tr data-flags="' . $flags . '">'
             . '<td><span class="scanip-sort-key">' . $sortOnLine . '</span>' . $badge . '</td>'
             . '<td>' . $equipement["link"] . '</td>'
             . '<td class="scanip-mono">' . $equipement["mac"] . '</td>'
@@ -78,14 +80,14 @@ if (!empty($allEquipements)) {
     <div class="scanip-toolbar">
         <div class="scanip-filter">
             <i class="fas fa-search"></i>
-            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, plugin...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_equipement')">
+            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, plugin...)}}" data-filter-table="scan_ip_equipement" onkeyup="scanIpFilterTable(this, 'scan_ip_equipement')">
         </div>
         <div class="scanip-stats">
 <?php
-            echo scan_ip_tools::getStat(count($allEquipements), '<i class="fas fa-clipboard-check"></i>', '{{enregistrés}}');
-            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
-            echo scan_ip_tools::getStat(count($allEquipements) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
-            echo scan_ip_tools::getStat($nbChanged, '<i class="fas fa-exchange-alt"></i>', "{{changement(s) d'ip}}", 'scanip-text-warn');
+            echo scan_ip_tools::getStat(count($allEquipements), '<i class="fas fa-clipboard-check"></i>', '{{enregistrés}}', '', '');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}', '', 'on');
+            echo scan_ip_tools::getStat(count($allEquipements) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}', '', 'off');
+            echo scan_ip_tools::getStat($nbChanged, '<i class="fas fa-exchange-alt"></i>', "{{changement(s) d'ip}}", 'scanip-text-warn', 'changed');
 ?>
         </div>
     </div>

@@ -36,15 +36,16 @@ if (!empty($allNoEquipement)) {
         if ($online == 1) { $nbOnline++; }
         $title = ($online == 1) ? __('En ligne', __FILE__) : __('Hors ligne', __FILE__);
 
-        $rows .= '<tr>'
-            . '<td class="scanip-center"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++ . '" data-mac="' . $equipement["mac"] . '" class="add_element_scan_ip"></td>'
+        $rows .= '<tr data-flags="' . ($online == 1 ? 'on' : 'off') . '">'
+            . '<td class="scanip-center"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++ . '" data-mac="' . scan_ip_tools::escape($equipement["mac"]) . '" class="add_element_scan_ip"></td>'
             . '<td class="scanip-center"><span class="scanip-sort-key">' . $online . '</span>' . scan_ip_tools::getStatusDot($online, $title) . '</td>'
-            . '<td>' . $equipement["name"] . '</td>'
-            . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["comment"]) . '</span><input type="text" id="input_' . $listComment++ . '" data-id="' . $equipement["mac_id"] . '" value="' . htmlspecialchars((string) $equipement["comment"], ENT_QUOTES) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
-            . '<td class="scanip-mono">' . $equipement["mac"] . '</td>'
-            . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . $equipement["ip_v4"] . '</td>'
+            . '<td>' . scan_ip_tools::escape($equipement["name"]) . '</td>'
+            . '<td><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($equipement["comment"])) . '</span><input type="text" id="input_' . $listComment++ . '" data-id="' . scan_ip_tools::escape($equipement["mac_id"]) . '" value="' . scan_ip_tools::escape($equipement["comment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
+            . '<td class="scanip-mono">' . scan_ip_tools::escape($equipement["mac"]) . '</td>'
+            . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . scan_ip_tools::escape($equipement["ip_v4"]) . '</td>'
             . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["record"]) . '</span>' . scan_ip_tools::printDate($equipement["record"]) . '</td>'
             . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["time"]) . '</span>' . scan_ip_tools::printDate($equipement["time"]) . '</td>'
+            . '<td class="scanip-actions"><a class="btn btn-success btn-xs scanip-add-network" data-mac="' . scan_ip_tools::escape($equipement["mac"]) . '" title="{{Créer un équipement MAC pour cet appareil}}"><i class="fas fa-plus-circle"></i> {{Enregistrer}}</a></td>'
             . '</tr>';
     }
 }
@@ -55,13 +56,13 @@ if (!empty($allNoEquipement)) {
     <div class="scanip-toolbar">
         <div class="scanip-filter">
             <i class="fas fa-search"></i>
-            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_no_equipement')">
+            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" data-filter-table="scan_ip_no_equipement" onkeyup="scanIpFilterTable(this, 'scan_ip_no_equipement')">
         </div>
         <div class="scanip-stats">
 <?php
-            echo scan_ip_tools::getStat(count($allNoEquipement), '<i class="fas fa-question-circle"></i>', '{{non enregistrés}}');
-            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
-            echo scan_ip_tools::getStat(count($allNoEquipement) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
+            echo scan_ip_tools::getStat(count($allNoEquipement), '<i class="fas fa-question-circle"></i>', '{{non enregistrés}}', '', '');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}', '', 'on');
+            echo scan_ip_tools::getStat(count($allNoEquipement) - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}', '', 'off');
 ?>
         </div>
         <span class="scanip-spacer"></span>
@@ -84,6 +85,7 @@ if (!empty($allNoEquipement)) {
                     <th data-sort="int">{{ip}}</th>
                     <th data-sort="string">{{Enregistrement}}</th>
                     <th data-sort="string">{{Date de mise à jour}}</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

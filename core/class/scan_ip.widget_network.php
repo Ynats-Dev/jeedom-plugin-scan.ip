@@ -65,16 +65,22 @@ class scan_ip_widget_network extends eqLogic {
         $savingMac = scan_ip_eqLogic::getAlleqLogics();
         $commentMac = scan_ip_json::getCommentaires();
 
-        $replace["#widget_network#"] = '<table style="width: 100%; margin: -5px -5px 22px 0;" id="scan_ip_network_widget">
+        $iconsEquipement = array(
+            2 => '<i class="fas fa-clipboard-check scanip-w-on"></i>',
+            1 => '<i class="fas fa-clipboard-check scanip-w-warn"></i>',
+            0 => '<i class="fas fa-question-circle scanip-w-none"></i>',
+        );
+
+        $replace["#widget_network#"] = scan_ip_widgets::getWidgetStyle() . '<table class="scanip-w-table" id="scan_ip_network_widget">
         <thead>
-            <tr style="background-color: grey !important; color: white !important;">
-                <th data-sort="string" style="padding : 3px 0 3px 15px !important; text-align: center;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b></span></th>
-                <th data-sort="int" style="text-align: center; padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b></span></th>
-                <th data-sort="string" style="padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b> '. __('Adresse MAC', __FILE__) .'</span></th>
-                <th data-sort="int" style="padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b> '. __('Ip', __FILE__) .'</span></th>
-                <th data-sort="string" style="padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b> '. __('Nom', __FILE__) .'</span></th>
-                <th data-sort="string" style="padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b> '. __('Commentaire', __FILE__) .'</span></th>
-                <th data-sort="int" style="padding : 3px 0 3px 15px !important;"><span style="cursor: pointer !important; width: 100%;"><b class="caret"></b> '. __('Date de mise à jour', __FILE__) .'</span></th>
+            <tr>
+                <th data-sort="string" class="scanip-w-center" title="'. __('En ligne', __FILE__) .'"><i class="fas fa-signal"></i></th>
+                <th data-sort="int" class="scanip-w-center" title="'. __('Elément enregistré', __FILE__) .'"><i class="fas fa-clipboard-check"></i></th>
+                <th data-sort="string">'. __('Adresse MAC', __FILE__) .'</th>
+                <th data-sort="int">'. __('Ip', __FILE__) .'</th>
+                <th data-sort="string">'. __('Nom', __FILE__) .'</th>
+                <th data-sort="string">'. __('Commentaire', __FILE__) .'</th>
+                <th data-sort="int">'. __('Date de mise à jour', __FILE__) .'</th>
             </tr>
         </thead>
         <tbody>';
@@ -82,15 +88,16 @@ class scan_ip_widget_network extends eqLogic {
         foreach ($_reseau["sort"] as $device) {
 
             $element = self::getElementVueNetwork($device, $savingMac, $commentMac);
+            $rowClass = ($element["lineSortEquipement"] == 0) ? ' class="scanip-w-muted"' : '';
 
-            $replace["#widget_network#"] .= '<tr>'
-            . '<td style="padding : 3px 0 3px 15px !important;" title="' . $element["titleOnLine"] .'"><span style="display:none;">' . $element["lineSortOnline"] . '</span>' . scan_ip_tools::getCycle("15px", $element["colorOnLine"]) . '</td>'
-            . '<td style="text-align:center !important; padding : 3px 0 3px 15px !important;' . $element["classPresent"] . '" title="' . $element["titleEquipement"] .'"><span style="display:none;">' . $element["lineSortEquipement"] . '</span><span class="' . $element["classSuivi"] . '">' . $element["textPresent"] . '</span></td>'
-            . '<td style="padding : 3px 0 3px 15px !important;">' . $device["mac"] . '</td>'
-            . '<td style="padding : 3px 0 3px 15px !important;"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . $device["ip_v4"] . '</td>'
-            . '<td style="text-overflow: ellipsis;padding : 3px 0 3px 15px !important;"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($element["name"], "string") . '</span>' . $element["name"] . '</td>'
-            . '<td style="padding : 3px 0 3px 15px !important;"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($element["printComment"], "string") . '</span>' . $element["printComment"] . '</td>'
-            . '<td style="padding : 3px 0 3px 15px !important;"><span style="display:none;">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
+            $replace["#widget_network#"] .= '<tr' . $rowClass . '>'
+            . '<td class="scanip-w-center scanip-w-keep"><span class="scanip-w-sort">' . $element["lineSortOnline"] . '</span>' . scan_ip_widgets::getWidgetDot($element["lineSortOnline"], $element["titleOnLine"]) . '</td>'
+            . '<td class="scanip-w-center scanip-w-keep" title="' . scan_ip_tools::escape($element["titleEquipement"]) . '"><span class="scanip-w-sort">' . $element["lineSortEquipement"] . '</span>' . $iconsEquipement[$element["lineSortEquipement"]] . '</td>'
+            . '<td class="scanip-w-mono">' . scan_ip_tools::escape($device["mac"]) . '</td>'
+            . '<td class="scanip-w-mono"><span class="scanip-w-sort">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . scan_ip_tools::escape($device["ip_v4"]) . '</td>'
+            . '<td><span class="scanip-w-sort">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["name"], "string")) . '</span>' . scan_ip_tools::escape($element["name"]) . '</td>'
+            . '<td><span class="scanip-w-sort">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["printComment"], "string")) . '</span>' . scan_ip_tools::escape($element["printComment"]) . '</td>'
+            . '<td class="scanip-w-date"><span class="scanip-w-sort">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
             . '</tr>';
 
         }

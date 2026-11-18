@@ -1,10 +1,24 @@
 # 18/11/2026 | v1.7.0
 * Aggiunto il bridge "vigipool"
 * Interfaccia modernizzata: nuovo foglio di stile compatibile con i temi chiaro e scuro di Jeedom, titoli di sezione con icone, un'icona distinta per ogni azione e contatori dei dispositivi
-* Finestre Rete e Dispositivi ridisegnate: schede Jeedom / router, filtro istantaneo, contatori, intestazione della tabella fissa, badge di stato e casella «Seleziona tutto»
-* Conferma mostrata dopo il salvataggio dei commenti
-* Configurazione: bridge visualizzati come badge (installato / non installato)
+* Finestre Rete e Dispositivi ridisegnate: schede Jeedom / router, filtro istantaneo, contatori (nascosti quando valgono zero, tra cui «offline» e «non registrati»), intestazione della tabella fissa, badge di stato e casella «Seleziona tutto»
+* Barra di avanzamento durante la scansione (passo corrente, percentuale, tempo trascorso) dal pulsante Sincronizza e dalla finestra Rete, con un pulsante «Scansiona» per avviare una nuova scansione
+* Registrazione di un dispositivo direttamente dalla finestra Rete e accesso diretto alla scheda dei dispositivi già registrati
+* Contatori cliccabili per filtrare le tabelle (online, offline, registrati, non registrati, cambi di IP)
+* Pulsante «Registra» su ogni riga della finestra dei dispositivi non registrati
+* Widget Rete e Avvisi del dashboard modernizzati (indicatori di stato, icone, temi chiaro e scuro)
+* Commenti modificabili dalla finestra dei dispositivi non registrati, conferma dopo il salvataggio ed eliminazione di un commento svuotandone il campo
+* Configurazione: bridge visualizzati come badge, solo i plugin installati per impostazione predefinita e una casella per mostrare tutti i plugin supportati
+* Apertura più rapida della finestra Rete (nessuna risoluzione DNS durante la visualizzazione)
+* Sicurezza: nomi, produttori e commenti vengono ora sottoposti a escape nell'interfaccia e nei widget
+* Correzione del selettore della modalità che restava vuoto nella configurazione
 * Correzione di un falso «Cambio di IP» mostrato per i dispositivi senza ultimo IP noto
+* Correzione del file dei commenti che cresceva a ogni salvataggio
+* Correzione di un blocco di scansione scaduto che permetteva due scansioni contemporanee
+* Correzione dell'allineamento delle caselle delle sottoreti
+* Traduzioni completate in inglese, tedesco, spagnolo e italiano, e correzione del file tedesco che conteneva testi in italiano
+* Compatibilità PHP 7 e PHP 8: rimossi gli avvisi «deprecated» in PHP 8
+* Richiesto almeno Jeedom 4.0
 
 # 08/11/2026 | v1.6.0
 * Aggiunti i bridge "tvremote" e "tvByOrange"

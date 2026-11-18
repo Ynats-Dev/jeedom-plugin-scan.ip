@@ -10,7 +10,7 @@ require_once __DIR__ . "/../../../../plugins/scan_ip/core/class/scan_ip.require_
 
 class scan_ip_tools extends eqLogic {
 
-    public static function arrayCompose($_arrayOld = NULL, $_arrayNew){
+    public static function arrayCompose($_arrayOld, $_arrayNew){
         if(is_array($_arrayNew)){
             if($_arrayOld == NULL){ 
                 return $_arrayNew; 
@@ -44,7 +44,8 @@ class scan_ip_tools extends eqLogic {
     
     public static function lockProcess(){
         if(file_exists(scan_ip::$_file_lock)) {
-            if((time() - filemtime (scan_ip::$_file_lock)) > 180){
+            // Le scan rafraîchit le verrou à chaque étape : il n'est périmé que si plus rien ne bouge depuis 10 minutes
+            if((time() - filemtime (scan_ip::$_file_lock)) > 600){
                 // Verrou périmé : on le remplace par un nouveau
                 self::unlockProcess();
             } else {
@@ -58,6 +59,9 @@ class scan_ip_tools extends eqLogic {
     
     // Avancement du scan, lu par l'interface pendant la synchronisation
     public static function setScanProgress($_percent, $_label, $_state = "running"){
+        if (file_exists(scan_ip::$_file_lock)) {
+            @touch(scan_ip::$_file_lock);
+        }
         $previous = self::getScanProgress();
         $start = ($_percent == 0 OR empty($previous["start"])) ? time() : $previous["start"];
         $progress = array(
@@ -125,7 +129,7 @@ class scan_ip_tools extends eqLogic {
         }
     }
     
-    public static function isOffline($_expire = NULL, $_time){
+    public static function isOffline($_expire, $_time){
         if($_expire == NULL){ $_expire = 4; }
         $expire = time() - (60 * $_expire);
         if($expire <= $_time){ return 0; } 
@@ -153,13 +157,24 @@ class scan_ip_tools extends eqLogic {
                 </div>';
     }
     
+    // Échappe un texte avant de l'insérer dans du HTML (noms, fabricants, commentaires...)
+    public static function escape($_string){
+        return htmlspecialchars((string) $_string, ENT_QUOTES, 'UTF-8');
+    }
+    
     // Compteur de la barre d'outils des modales : rien n'est affiché quand il vaut 0
-    public static function getStat($_nb, $_icon, $_label, $_class = ""){
+    // $_filter : critère appliqué au tableau au clic ("" = tout afficher, NULL = compteur non cliquable)
+    public static function getStat($_nb, $_icon, $_label, $_class = "", $_filter = NULL){
         if (intval($_nb) <= 0) {
             return "";
         }
         $class = ($_class != "") ? " " . $_class : "";
-        return '<span class="scanip-stat' . $class . '">' . $_icon . ' <b>' . intval($_nb) . '</b> ' . $_label . '</span>';
+        $attr = "";
+        if ($_filter !== NULL) {
+            $class .= " scanip-stat-filter";
+            $attr = ' data-filter="' . self::escape($_filter) . '" title="' . __('Cliquer pour filtrer le tableau', __FILE__) . '"';
+        }
+        return '<span class="scanip-stat' . $class . '"' . $attr . '>' . $_icon . ' <b>' . intval($_nb) . '</b> ' . $_label . '</span>';
     }
     
     public static function getStatusDot($_online, $_title = ""){

@@ -1,10 +1,24 @@
 # 18/11/2026 | v1.7.0
 * Added "vigipool" bridge
 * Modernized interface: new stylesheet compatible with Jeedom light and dark themes, section titles with icons, a distinct icon for each action and device counters
-* Redesigned Network and Devices modals: Jeedom / router cards, instant filter, counters, sticky table header, status badges and a "Select all" checkbox
-* Confirmation shown after saving comments
-* Configuration: bridges displayed as badges (installed / not installed)
+* Redesigned Network and Devices modals: Jeedom / router cards, instant filter, counters (hidden when zero, including "offline" and "not registered"), sticky table header, status badges and a "Select all" checkbox
+* Progress bar during the scan (current step, percentage, elapsed time) from the Synchronize button and the Network modal, with a "Scan" button to start a new scan
+* Register a device directly from the Network modal, and open already registered devices in one click
+* Clickable counters to filter the modal tables (online, offline, registered, not registered, IP changes)
+* "Register" button on each row of the unregistered devices modal
+* Modernized Network and Alerts dashboard widgets (status dots, icons, light and dark theme support)
+* Comments can be edited from the unregistered devices modal, a confirmation is shown after saving, and clearing a field deletes the comment
+* Configuration: bridges displayed as badges, showing only installed plugins by default with a checkbox to show every supported plugin
+* Faster opening of the Network modal (no more DNS lookup when displaying it)
+* Security: names, vendors and comments are now escaped in the interface and widgets
+* Fixed the mode selector staying empty in the configuration
 * Fixed a false "IP change" shown for devices with no known last IP
+* Fixed the comments file growing with every save
+* Fixed a stale scan lock that allowed two scans to run at the same time
+* Fixed the alignment of the subnet checkboxes
+* Completed English, German, Spanish and Italian translations, and fixed the German file that contained Italian text
+* PHP 7 and PHP 8 compatibility: removed the "deprecated" warnings under PHP 8
+* Jeedom 4.0 minimum required
 
 # 08/11/2026 | v1.6.0
 * Added "tvremote" and "tvByOrange" bridges

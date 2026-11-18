@@ -20,18 +20,74 @@ $('#bt_scanIpResetSearch').off('click').on('click', function () {
     $('#in_searchEqlogic').val('').keyup().focus();
 });
 
-// Filtre texte des tableaux dans les modales (ligne masquée si aucune cellule ne correspond)
+// Filtre des tableaux des modales : texte saisi + critère du compteur cliqué (data-flags des lignes)
 function scanIpFilterTable(input, tableId) {
-    var search = $(input).val().toLowerCase().trim();
-    $('#' + tableId + ' tbody tr').each(function () {
+    var $table = $('#' + tableId);
+    var search = $.trim($('[data-filter-table="' + tableId + '"]').val() || '').toLowerCase();
+    var flag = $table.attr('data-flag') || '';
+    $table.find('tbody tr').each(function () {
         var $tr = $(this);
-        var text = $tr.find('td').map(function () {
-            var $input = $(this).find('input[type="text"]');
-            return $(this).text() + ' ' + ($input.length ? $input.val() : '');
-        }).get().join(' ').toLowerCase();
-        $tr.toggle(search === '' || text.indexOf(search) !== -1);
+        var flags = ' ' + ($tr.attr('data-flags') || '') + ' ';
+        var okFlag = (flag === '' || flags.indexOf(' ' + flag + ' ') !== -1);
+        var okText = true;
+        if (search !== '') {
+            var text = $tr.find('td').map(function () {
+                var $input = $(this).find('input[type="text"]');
+                return $(this).text() + ' ' + ($input.length ? $input.val() : '');
+            }).get().join(' ').toLowerCase();
+            okText = text.indexOf(search) !== -1;
+        }
+        $tr.toggle(okFlag && okText);
     });
 }
+
+// Compteurs cliquables : un clic filtre, un second clic sur le même compteur retire le filtre
+$(document).off('click.scanip', '.scanip-stat-filter').on('click.scanip', '.scanip-stat-filter', function () {
+    var $stat = $(this);
+    var $modal = $stat.closest('.scanip-modal');
+    var $table = $modal.find('table.scanip-table').first();
+    var filter = $stat.attr('data-filter') || '';
+    if ($stat.hasClass('is-active') || filter === '') {
+        filter = '';
+    }
+    $modal.find('.scanip-stat-filter').removeClass('is-active');
+    if (filter !== '') {
+        $stat.addClass('is-active');
+    }
+    $table.attr('data-flag', filter);
+    scanIpFilterTable(null, $table.attr('id'));
+});
+
+// Enregistrer un appareil (modales Réseau et non enregistrés), puis ouvrir sa fiche
+$(document).off('click.scanip', '.scanip-add-network').on('click.scanip', '.scanip-add-network', function () {
+    var $bt = $(this);
+    if ($bt.hasClass('disabled')) {
+        return;
+    }
+    $bt.addClass('disabled').find('i, svg').first().attr('class', 'fas fa-spinner fa-spin');
+
+    $.ajax({
+        type: "POST",
+        url: "plugins/scan_ip/core/ajax/scan_ip.ajax.php",
+        data: {
+            action: "addEquipementFromNetwork",
+            mac: $bt.attr('data-mac'),
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            $bt.removeClass('disabled').find('i, svg').first().attr('class', 'fas fa-plus-circle');
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $bt.removeClass('disabled').find('i, svg').first().attr('class', 'fas fa-plus-circle');
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            window.location.href = 'index.php?v=d&m=scan_ip&p=scan_ip&id=' + data.result.id;
+        }
+    });
+});
 
 // Lance un scan et affiche son avancement dans $target, puis appelle onDone()
 function scanIpStartScan($target, onDone) {

@@ -82,6 +82,7 @@ class scan_ip_shell extends eqLogic {
                 $return["ip_v4"] = trim(str_replace("inet", "", explode("/",$value)[0]));
                 $return["mac"] = strtoupper(trim(str_replace("link/ether", "", explode("brd",$list[$i-1])[0])));
                 $return["name"] = config::byKey('name');
+                $return["hostname"] = (string) gethostname();
                 $return["time"] = time();
                 $return["record"] = scan_ip_tools::getInstallJeedom();
                 break;

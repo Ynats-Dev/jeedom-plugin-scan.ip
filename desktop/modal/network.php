@@ -70,24 +70,26 @@ foreach ($ipsReseau["sort"] as $device) {
     $rowClass = ($element["lineSortEquipement"] == 0) ? ' class="scanip-row-muted"' : '';
 
     if ($element["lineSortEquipement"] == 0) {
-        $action = '<a class="btn btn-success btn-xs scanip-add-network" data-mac="' . $device["mac"] . '" title="{{Créer un équipement MAC pour cet appareil}}"><i class="fas fa-plus-circle"></i> {{Enregistrer}}</a>';
+        $action = '<a class="btn btn-success btn-xs scanip-add-network" data-mac="' . scan_ip_tools::escape($device["mac"]) . '" title="{{Créer un équipement MAC pour cet appareil}}"><i class="fas fa-plus-circle"></i> {{Enregistrer}}</a>';
     } else {
         $action = '<a class="btn btn-default btn-xs" href="index.php?v=d&m=scan_ip&p=scan_ip&id=' . $savingMac[$device["mac_id"]]["id"] . '" title="{{Ouvrir la fiche de l\'équipement}}"><i class="fas fa-external-link-alt"></i> {{Ouvrir}}</a>';
     }
 
-    $rows .= '<tr' . $rowClass . '>'
+    $flags = ($element["lineSortOnline"] == 1 ? 'on' : 'off') . ' ' . ($element["lineSortEquipement"] > 0 ? 'saved' : 'unsaved');
+    $rows .= '<tr' . $rowClass . ' data-flags="' . $flags . '">'
         . '<td class="scanip-center scanip-keep"><span class="scanip-sort-key">' . $element["lineSortOnline"] . '</span>' . scan_ip_tools::getStatusDot($element["lineSortOnline"], $element["titleOnLine"]) . '</td>'
         . '<td class="scanip-center scanip-keep" title="' . $element["titleEquipement"] . '"><span class="scanip-sort-key">' . $element["lineSortEquipement"] . '</span>' . $iconsEquipement[$element["lineSortEquipement"]] . '</td>'
-        . '<td class="scanip-mono">' . $device["mac"] . '</td>'
-        . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . $device["ip_v4"] . '</td>'
-        . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["name"], "string") . '</span>' . $element["name"] . '</td>'
-        . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["printComment"], "string") . '</span><input type="text" id="input_' . $list++ . '" data-id="' . $device["mac_id"] . '" value="' . $element["printComment"] . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
+        . '<td class="scanip-mono">' . scan_ip_tools::escape($device["mac"]) . '</td>'
+        . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . scan_ip_tools::escape($device["ip_v4"]) . '</td>'
+        . '<td><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["name"], "string")) . '</span>' . scan_ip_tools::escape($element["name"]) . '</td>'
+        . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["printComment"], "string")) . '</span><input type="text" id="input_' . $list++ . '" data-id="' . scan_ip_tools::escape($device["mac_id"]) . '" value="' . scan_ip_tools::escape($element["printComment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
         . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
         . '<td class="scanip-keep scanip-actions">' . $action . '</td>'
         . '</tr>';
 }
 
-$hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
+// Nom d'hôte enregistré pendant le scan ; sinon nom local de la machine (aucune requête DNS)
+$hostName = !empty($ipsReseau["jeedom"]["hostname"]) ? $ipsReseau["jeedom"]["hostname"] : (string) gethostname();
 ?>
 
 <div class="scanip-modal">
@@ -99,13 +101,13 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
             <div class="scanip-card-title"><i class="fas fa-server"></i> {{Votre Jeedom}}</div>
             <dl class="scanip-kv">
             <?php if($ipsReseau["jeedom"]["name"] != "") { ?>
-                <dt>{{Nom}}</dt><dd><?php echo $ipsReseau["jeedom"]["name"] ?></dd>
+                <dt>{{Nom}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["jeedom"]["name"]) ?></dd>
             <?php } ?>
-                <dt>{{ip}}</dt><dd><?php echo $ipsReseau["jeedom"]["ip_v4"] ?></dd>
-                <dt>{{Adresse MAC}}</dt><dd><?php echo $ipsReseau["jeedom"]["mac"] ?></dd>
+                <dt>{{ip}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["jeedom"]["ip_v4"]) ?></dd>
+                <dt>{{Adresse MAC}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["jeedom"]["mac"]) ?></dd>
                 <dt>{{Installation}}</dt><dd><?php echo scan_ip_tools::printDate($ipsReseau["jeedom"]["record"]) ?></dd>
-            <?php if($hostName != $ipsReseau["jeedom"]["ip_v4"]) { ?>
-                <dt>{{Host Name}}</dt><dd><?php echo $hostName ?></dd>
+            <?php if($hostName != "" AND $hostName != $ipsReseau["jeedom"]["ip_v4"]) { ?>
+                <dt>{{Host Name}}</dt><dd><?php echo scan_ip_tools::escape($hostName) ?></dd>
             <?php } ?>
             </dl>
         </div>
@@ -113,10 +115,10 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
             <div class="scanip-card-title"><i class="fas fa-route"></i> {{Votre routeur}}</div>
             <dl class="scanip-kv">
             <?php if(!empty($ipsReseau["route"]["equipement"])) { ?>
-                <dt>{{Nom}}</dt><dd><?php echo $ipsReseau["route"]["equipement"] ?></dd>
+                <dt>{{Nom}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["route"]["equipement"]) ?></dd>
             <?php } ?>
-                <dt>{{ip}}</dt><dd><?php echo $ipsReseau["route"]["ip_v4"] ?></dd>
-                <dt>{{Adresse MAC}}</dt><dd><?php echo $ipsReseau["route"]["mac"] ?></dd>
+                <dt>{{ip}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["route"]["ip_v4"]) ?></dd>
+                <dt>{{Adresse MAC}}</dt><dd><?php echo scan_ip_tools::escape($ipsReseau["route"]["mac"]) ?></dd>
             </dl>
         </div>
     </div>
@@ -124,15 +126,15 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
     <div class="scanip-toolbar">
         <div class="scanip-filter">
             <i class="fas fa-search"></i>
-            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" onkeyup="scanIpFilterTable(this, 'scan_ip_network')">
+            <input type="text" class="form-control input-sm" placeholder="{{Filtrer (MAC, ip, nom, commentaire...)}}" data-filter-table="scan_ip_network" onkeyup="scanIpFilterTable(this, 'scan_ip_network')">
         </div>
         <div class="scanip-stats">
 <?php
-            echo scan_ip_tools::getStat($nbTotal, '<i class="fas fa-network-wired"></i>', '{{appareils}}');
-            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}');
-            echo scan_ip_tools::getStat($nbTotal - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}');
-            echo scan_ip_tools::getStat($nbSaved, '<i class="fas fa-clipboard-check scanip-icon-on"></i>', '{{enregistrés}}');
-            echo scan_ip_tools::getStat($nbTotal - $nbSaved, '<i class="fas fa-question-circle scanip-icon-none"></i>', '{{non enregistrés}}');
+            echo scan_ip_tools::getStat($nbTotal, '<i class="fas fa-network-wired"></i>', '{{appareils}}', '', '');
+            echo scan_ip_tools::getStat($nbOnline, '<span class="scanip-dot is-on"></span>', '{{en ligne}}', '', 'on');
+            echo scan_ip_tools::getStat($nbTotal - $nbOnline, '<span class="scanip-dot is-off"></span>', '{{hors ligne}}', '', 'off');
+            echo scan_ip_tools::getStat($nbSaved, '<i class="fas fa-clipboard-check scanip-icon-on"></i>', '{{enregistrés}}', '', 'saved');
+            echo scan_ip_tools::getStat($nbTotal - $nbSaved, '<i class="fas fa-question-circle scanip-icon-none"></i>', '{{non enregistrés}}', '', 'unsaved');
 ?>
         </div>
         <span class="scanip-spacer"></span>

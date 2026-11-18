@@ -1,10 +1,24 @@
 # 18/11/2026 | v1.7.0
 * Ajout du bridge "vigipool"
 * Modernisation de l'interface : nouvelle feuille de style compatible avec les thèmes clair et sombre de Jeedom, titres de section avec icônes, une icône distincte par action et compteurs d'équipements
-* Modales Réseau et Équipements revues : cartes Jeedom / routeur, filtre instantané, compteurs, en-tête de tableau fixe, badges d'état et case « Tout sélectionner »
-* Confirmation affichée après la sauvegarde des commentaires
-* Configuration : bridges affichés sous forme de pastilles (installé / non installé)
+* Modales Réseau et Équipements revues : cartes Jeedom / routeur, filtre instantané, compteurs (masqués à zéro, dont « hors ligne » et « non enregistrés »), en-tête de tableau fixe, badges d'état et case « Tout sélectionner »
+* Barre de progression pendant le scan (étape en cours, pourcentage, temps écoulé) depuis le bouton Synchroniser et la modale Réseau, avec un bouton « Scanner » pour relancer un scan
+* Enregistrement d'un appareil directement depuis la modale Réseau, et accès direct à la fiche des appareils déjà enregistrés
+* Compteurs cliquables pour filtrer les tableaux des modales (en ligne, hors ligne, enregistrés, non enregistrés, changements d'IP)
+* Bouton « Enregistrer » sur chaque ligne de la modale des équipements non enregistrés
+* Widgets Réseau et Alertes du dashboard modernisés (pastilles d'état, icônes, compatibles thèmes clair et sombre)
+* Commentaires modifiables depuis la modale des équipements non enregistrés, confirmation après la sauvegarde, et suppression d'un commentaire en vidant son champ
+* Configuration : bridges affichés sous forme de pastilles, avec uniquement les plugins installés par défaut et une case pour afficher tous les plugins pris en compte
+* Ouverture plus rapide de la modale Réseau (plus de résolution DNS à l'affichage)
+* Sécurité : échappement des noms, fabricants et commentaires affichés dans l'interface et les widgets
+* Correction du menu de sélection du mode qui restait vide dans la configuration
 * Correction d'un faux « Changement d'Ip » affiché pour les équipements sans dernière IP connue
+* Correction du fichier des commentaires qui grossissait à chaque sauvegarde
+* Correction du verrou de scan périmé qui permettait de lancer deux scans en parallèle
+* Correction de l'alignement des cases des sous-réseaux à scanner
+* Traductions complétées en anglais, allemand, espagnol et italien, et correction du fichier allemand qui contenait des textes en italien
+* Compatibilité PHP 7 et PHP 8 : suppression des avertissements « deprecated » sous PHP 8
+* Jeedom 4.0 minimum requis
 
 # 08/11/2026 | v1.6.0
 * Ajout des bridges "tvremote" et "tvByOrange"
