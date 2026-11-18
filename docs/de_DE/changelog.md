@@ -7,7 +7,7 @@
 * Anklickbare Zähler zum Filtern der Tabellen (online, offline, registriert, nicht registriert, IP-Änderungen)
 * Schaltfläche „Registrieren“ in jeder Zeile des Fensters der nicht registrierten Geräte
 * Modernisierte Dashboard-Widgets Netzwerk und Warnungen (Statuspunkte, Symbole, helles und dunkles Theme)
-* Kommentare im Fenster der nicht registrierten Geräte bearbeitbar, Bestätigung nach dem Speichern und Löschen eines Kommentars durch Leeren des Feldes
+* Kommentare werden während der Eingabe automatisch gespeichert (keine Schaltfläche „Kommentare speichern“ mehr), sind auch im Fenster der nicht registrierten Geräte bearbeitbar, und ein geleertes Feld löscht den Kommentar
 * Konfiguration: Bridges als Badges angezeigt, standardmäßig nur installierte Plugins, mit einem Kontrollkästchen zur Anzeige aller unterstützten Plugins
 * Schnelleres Öffnen des Fensters Netzwerk (keine DNS-Auflösung mehr beim Anzeigen)
 * Sicherheit: Namen, Hersteller und Kommentare werden in der Oberfläche und den Widgets maskiert

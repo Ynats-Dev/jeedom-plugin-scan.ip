@@ -146,7 +146,7 @@ La tabella mostra l'intera rete:
 - La terza colonna indica l'indirizzo MAC del dispositivo.
 - La quarta colonna indica l'indirizzo IP del dispositivo.
 - La quinta colonna indica il nome del dispositivo se è registrato o il nome del produttore preceduto da un "|".
-- La sesta colonna consente di associare commenti a un dispositivo (dovrai salvare i commenti affinché vengano presi in considerazione).
+- La sesta colonna consente di associare commenti a un dispositivo (vengono salvati automaticamente durante la digitazione; svuota il campo per eliminare un commento).
 - La settima colonna indica la data dell'ultima apparizione del dispositivo.
 
 > Se noti "|..." nei nomi dei dispositivi significa che non è stato riconosciuto.
@@ -169,7 +169,7 @@ La tabella mostra l'intera rete:
 
 - La prima colonna consente di selezionare il dispositivo* (per aggiungerlo al volo tra i tuoi dispositivi o per eliminarlo dagli archivi della rete).
 - La seconda colonna indica il nome del dispositivo.
-- La terza colonna mostra i commenti associati al dispositivo.
+- La terza colonna consente di inserire un commento per il dispositivo, salvato automaticamente.
 - La quarta colonna indica l'indirizzo MAC del dispositivo.
 - La quinta colonna indica l'IP utilizzato dal dispositivo.
 - La sesta colonna indica la data del primo registro nella tua rete.

@@ -7,7 +7,7 @@
 * Clickable counters to filter the modal tables (online, offline, registered, not registered, IP changes)
 * "Register" button on each row of the unregistered devices modal
 * Modernized Network and Alerts dashboard widgets (status dots, icons, light and dark theme support)
-* Comments can be edited from the unregistered devices modal, a confirmation is shown after saving, and clearing a field deletes the comment
+* Comments are saved automatically while typing (no more "Save comments" button), can also be edited from the unregistered devices modal, and clearing a field deletes the comment
 * Configuration: bridges displayed as badges, showing only installed plugins by default with a checkbox to show every supported plugin
 * Faster opening of the Network modal (no more DNS lookup when displaying it)
 * Security: names, vendors and comments are now escaped in the interface and widgets

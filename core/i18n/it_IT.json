@@ -110,7 +110,8 @@
         "en ligne": "online",
         "enregistrés": "registrati",
         "hors ligne": "offline",
-        "non enregistrés": "non registrati"
+        "non enregistrés": "non registrati",
+        "Enregistré automatiquement": "Salvato automaticamente"
     },
     "plugins\/scan_ip\/desktop\/modal\/no_equipement.php": {
         "401 - Accès non autorisé": "401 - Accesso non autorizzato",
@@ -133,7 +134,8 @@
         "Vous n'avez aucun équipement non enregistré sur le réseau.": "Non avete alcun dispositivo non registrato sulla rete.",
         "en ligne": "online",
         "hors ligne": "offline",
-        "non enregistrés": "non registrati"
+        "non enregistrés": "non registrati",
+        "Enregistré automatiquement": "Salvato automaticamente"
     },
     "plugins\/scan_ip\/desktop\/modal\/yes_equipement.php": {
         "401 - Accès non autorisé": "401 - Accesso non autorizzato",

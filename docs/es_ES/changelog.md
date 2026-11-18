@@ -7,7 +7,7 @@
 * Contadores en los que se puede hacer clic para filtrar las tablas (en línea, desconectados, registrados, no registrados, cambios de IP)
 * Botón «Registrar» en cada línea de la ventana de dispositivos no registrados
 * Widgets Red y Alertas del dashboard modernizados (indicadores de estado, iconos, temas claro y oscuro)
-* Comentarios editables desde la ventana de dispositivos no registrados, confirmación tras guardar y eliminación de un comentario vaciando su campo
+* Comentarios guardados automáticamente al escribir (ya no hay botón «Guardar los comentarios»), editables también desde la ventana de dispositivos no registrados, y eliminación de un comentario vaciando su campo
 * Configuración: puentes mostrados como insignias, solo los plugins instalados por defecto y una casilla para mostrar todos los plugins compatibles
 * Apertura más rápida de la ventana Red (ya no hay resolución DNS al mostrarla)
 * Seguridad: los nombres, fabricantes y comentarios se escapan en la interfaz y los widgets

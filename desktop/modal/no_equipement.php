@@ -40,7 +40,7 @@ if (!empty($allNoEquipement)) {
             . '<td class="scanip-center"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++ . '" data-mac="' . scan_ip_tools::escape($equipement["mac"]) . '" class="add_element_scan_ip"></td>'
             . '<td class="scanip-center"><span class="scanip-sort-key">' . $online . '</span>' . scan_ip_tools::getStatusDot($online, $title) . '</td>'
             . '<td>' . scan_ip_tools::escape($equipement["name"]) . '</td>'
-            . '<td><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($equipement["comment"])) . '</span><input type="text" id="input_' . $listComment++ . '" data-id="' . scan_ip_tools::escape($equipement["mac_id"]) . '" value="' . scan_ip_tools::escape($equipement["comment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
+            . '<td><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($equipement["comment"])) . '</span><input type="text" id="input_' . $listComment++ . '" data-id="' . scan_ip_tools::escape($equipement["mac_id"]) . '" value="' . scan_ip_tools::escape($equipement["comment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}" title="{{Enregistré automatiquement}}"></td>'
             . '<td class="scanip-mono">' . scan_ip_tools::escape($equipement["mac"]) . '</td>'
             . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . scan_ip_tools::escape($equipement["ip_v4"]) . '</td>'
             . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["record"]) . '</span>' . scan_ip_tools::printDate($equipement["record"]) . '</td>'
@@ -66,7 +66,6 @@ if (!empty($allNoEquipement)) {
 ?>
         </div>
         <span class="scanip-spacer"></span>
-        <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>
         <span id="show_scan_ip_add" style="display:none;">
             <a class="btn btn-success btn-sm" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> {{Ajouter les équipements sélectionnés}}</a>
             <a class="btn btn-danger btn-sm" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> {{Supprimer les équipements sélectionnés}}</a>
@@ -108,10 +107,6 @@ if (!empty($allNoEquipement)) {
 
     $("#remove_scan_ip_equipement").click(function() {
         removeEquipement(<?php echo $list ?>);
-    });
-
-    $("#btSaveCommentaires").click(function() {
-        btSaveCommentaires(<?php echo $listComment ?>);
     });
 
     $("#scan_ip_check_all").click(function() {

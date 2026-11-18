@@ -486,3 +486,19 @@ tr.scanip-row-muted td:not(.scanip-keep) {
 @media (prefers-reduced-motion: reduce) {
     .scanip-progress-bar > div { animation: none; transition: none; }
 }
+
+/* ---------- Commentaires enregistrés automatiquement ---------- */
+table.scanip-table input.form-control.input-sm {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+table.scanip-table input.scanip-comment-saving {
+    border-color: var(--scanip-accent) !important;
+}
+table.scanip-table input.scanip-comment-saved {
+    border-color: var(--scanip-on) !important;
+    box-shadow: 0 0 0 2px rgba(47, 168, 79, 0.25);
+}
+table.scanip-table input.scanip-comment-error {
+    border-color: var(--scanip-off) !important;
+    box-shadow: 0 0 0 2px rgba(229, 72, 77, 0.25);
+}

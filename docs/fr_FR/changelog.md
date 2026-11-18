@@ -7,7 +7,7 @@
 * Compteurs cliquables pour filtrer les tableaux des modales (en ligne, hors ligne, enregistrés, non enregistrés, changements d'IP)
 * Bouton « Enregistrer » sur chaque ligne de la modale des équipements non enregistrés
 * Widgets Réseau et Alertes du dashboard modernisés (pastilles d'état, icônes, compatibles thèmes clair et sombre)
-* Commentaires modifiables depuis la modale des équipements non enregistrés, confirmation après la sauvegarde, et suppression d'un commentaire en vidant son champ
+* Commentaires enregistrés automatiquement pendant la saisie (plus de bouton « Sauvegarder les commentaires »), modifiables aussi depuis la modale des équipements non enregistrés, et suppression d'un commentaire en vidant son champ
 * Configuration : bridges affichés sous forme de pastilles, avec uniquement les plugins installés par défaut et une case pour afficher tous les plugins pris en compte
 * Ouverture plus rapide de la modale Réseau (plus de résolution DNS à l'affichage)
 * Sécurité : échappement des noms, fabricants et commentaires affichés dans l'interface et les widgets

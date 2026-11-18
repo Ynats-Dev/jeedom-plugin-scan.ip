@@ -82,7 +82,7 @@ foreach ($ipsReseau["sort"] as $device) {
         . '<td class="scanip-mono">' . scan_ip_tools::escape($device["mac"]) . '</td>'
         . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["ip_v4"], "int") . '</span>' . scan_ip_tools::escape($device["ip_v4"]) . '</td>'
         . '<td><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["name"], "string")) . '</span>' . scan_ip_tools::escape($element["name"]) . '</td>'
-        . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["printComment"], "string")) . '</span><input type="text" id="input_' . $list++ . '" data-id="' . scan_ip_tools::escape($device["mac_id"]) . '" value="' . scan_ip_tools::escape($element["printComment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
+        . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::escape(scan_ip_tools::getCleanForSortTable($element["printComment"], "string")) . '</span><input type="text" id="input_' . $list++ . '" data-id="' . scan_ip_tools::escape($device["mac_id"]) . '" value="' . scan_ip_tools::escape($element["printComment"]) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}" title="{{Enregistré automatiquement}}"></td>'
         . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
         . '<td class="scanip-keep scanip-actions">' . $action . '</td>'
         . '</tr>';
@@ -140,7 +140,6 @@ $hostName = !empty($ipsReseau["jeedom"]["hostname"]) ? $ipsReseau["jeedom"]["hos
         <span class="scanip-spacer"></span>
         <span class="scanip-meta"><i class="far fa-clock"></i> <?php echo $ipsReseau["infos"]["date"] ?></span>
         <a id="bt_scanIpRescan" class="btn btn-default btn-sm" title="{{Relancer un scan du réseau}}"><i class="fas fa-sync-alt"></i> {{Scanner}}</a>
-        <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>
     </div>
 
     <div class="scanip-table-wrap">
@@ -165,10 +164,6 @@ $hostName = !empty($ipsReseau["jeedom"]["hostname"]) ? $ipsReseau["jeedom"]["hos
 </div>
 
 <script>
-    $("#btSaveCommentaires").click(function() {
-        btSaveCommentaires(<?php echo $list ?>);
-    });
-
     $("#bt_scanIpRescan").click(function() {
         $(this).addClass('disabled');
         scanIpStartScan($("#scan_ip_network_progress"), function () {

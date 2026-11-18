@@ -146,7 +146,7 @@ Le tableau affiche l'ensemble du réseau :
 - La 3em colonne indique l'adresse MAC de l'équipement
 - La 4em colonne indique l'ip de l'équipement
 - La 5em colonne indique le nom de l'équipement si il est enregistré ou bien le nom du constructeur, précédé d'un "|".
-- La 6em colonne permet d'associer des commentaires à un équipement (il vous faudra sauvegarder les commentaires pour qu'ils soient pris en compte)
+- La 6em colonne permet d'associer des commentaires à un équipement (ils sont enregistrés automatiquement pendant la saisie ; videz le champ pour supprimer un commentaire)
 - La 7em colonne indique la dernière date de parution de l'équipement
 
 > Si vous constatez des "|..." dans le nom des équipements c'est que celui-ci n'a pas été reconnu
@@ -169,7 +169,7 @@ Le tableau affiche l'ensemble du réseau :
 
 - La 1er colonne permet de sélectionner l'équipement* (pour l'ajouter "à la volée" parmis vos équipements ou à le supprimer des archives du réseau)
 - La 2em colonne indique le nom de l'équipement
-- La 3em colonne affcihe le commentaires associé à l'équipement
+- La 3e colonne permet de saisir un commentaire associé à l'équipement, enregistré automatiquement
 - La 4em colonne indique l'adresse MAC de l'équipement
 - La 5em colonne indique l'ip utilisée par l'équipement
 - La 6em indique la date du premier enregistrement dans votre réseau

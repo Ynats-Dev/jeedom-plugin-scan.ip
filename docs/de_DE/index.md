@@ -146,7 +146,7 @@ Die Tabelle zeigt das gesamte Netzwerk an:
 - Die dritte Spalte zeigt die MAC-Adresse des Geräts an.
 - Die vierte Spalte zeigt die IP-Adresse des Geräts an.
 - Die fünfte Spalte zeigt den Gerätenamen an, wenn es registriert ist, oder den Herstellernamen, der von einem "|" eingeleitet wird.
-- Die sechste Spalte ermöglicht das Hinzufügen von Kommentaren zu einem Gerät (Sie müssen die Kommentare speichern, damit sie berücksichtigt werden).
+- Die sechste Spalte ermöglicht das Hinzufügen von Kommentaren zu einem Gerät (sie werden während der Eingabe automatisch gespeichert; leeren Sie das Feld, um einen Kommentar zu löschen).
 - Die siebte Spalte zeigt das letzte Erscheinen des Geräts an.
 
 > Wenn Sie "|" im Gerätenamen bemerken, bedeutet dies, dass es nicht erkannt wurde.
@@ -169,7 +169,7 @@ Die Tabelle zeigt das gesamte Netzwerk an:
 
 - Die erste Spalte ermöglicht die Auswahl des Geräts* (um es "on the fly" zu Ihren Geräten hinzuzufügen oder es aus den Netzwerkarchiven zu löschen).
 - Die zweite Spalte zeigt den Namen des Geräts an.
-- Die dritte Spalte zeigt die mit dem Gerät verbundenen Kommentare an.
+- In der dritten Spalte können Sie einen Kommentar zum Gerät eingeben, der automatisch gespeichert wird.
 - Die vierte Spalte zeigt die MAC-Adresse des Geräts an.
 - Die fünfte Spalte zeigt die vom Gerät verwendete IP-Adresse an.
 - Die sechste Spalte zeigt das Datum des ersten Eintrags in Ihr Netzwerk an.

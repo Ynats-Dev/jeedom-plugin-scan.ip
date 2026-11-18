@@ -146,7 +146,7 @@ La tabla muestra toda la red:
 - La tercera columna indica la dirección MAC del dispositivo.
 - La cuarta columna indica la dirección IP del dispositivo.
 - La quinta columna indica el nombre del dispositivo si está registrado, o el nombre del fabricante precedido por un "|".
-- La sexta columna permite asociar comentarios a un dispositivo (deberá guardar los comentarios para que se tengan en cuenta).
+- La sexta columna permite asociar comentarios a un dispositivo (se guardan automáticamente al escribir; vacíe el campo para eliminar un comentario).
 - La séptima columna indica la última fecha de aparición del dispositivo.
 
 > Si observa "|..." en los nombres de los dispositivos, significa que no ha sido reconocido.
@@ -169,7 +169,7 @@ La tabla muestra toda la red:
 
 - La primera columna permite seleccionar el dispositivo* (para agregarlo sobre la marcha entre sus dispositivos o para eliminarlo de los archivos de la red).
 - La segunda columna indica el nombre del dispositivo.
-- La tercera columna muestra los comentarios asociados al dispositivo.
+- La tercera columna permite introducir un comentario para el dispositivo, que se guarda automáticamente.
 - La cuarta columna indica la dirección MAC del dispositivo.
 - La quinta columna indica la IP utilizada por el dispositivo.
 - La sexta columna indica la fecha del primer registro en su red.

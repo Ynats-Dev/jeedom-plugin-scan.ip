@@ -145,7 +145,7 @@ The table displays the entire network:
 - The third column indicates the MAC address of the device.
 - The fourth column indicates the IP address of the device.
 - The fifth column indicates the device name if registered, or the manufacturer's name preceded by a "|".
-- The sixth column allows associating comments with a device (you will need to save the comments for them to be taken into account).
+- The sixth column allows associating comments with a device (they are saved automatically while typing; clear the field to delete a comment).
 - The seventh column indicates the last appearance date of the device.
 
 > If you notice "|..." in the device names, it means it has not been recognized.
@@ -168,7 +168,7 @@ The table displays the entire network:
 
 - The first column allows selecting the device* (to add it "on the fly" to your devices or to delete it from the network's archives).
 - The second column indicates the device's name.
-- The third column shows the comments associated with the device.
+- The third column lets you enter a comment for the device, saved automatically.
 - The fourth column indicates the device's MAC address.
 - The fifth column indicates the IP used by the device.
 - The sixth column indicates the date of the first record in your network.

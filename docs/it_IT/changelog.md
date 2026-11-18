@@ -7,7 +7,7 @@
 * Contatori cliccabili per filtrare le tabelle (online, offline, registrati, non registrati, cambi di IP)
 * Pulsante «Registra» su ogni riga della finestra dei dispositivi non registrati
 * Widget Rete e Avvisi del dashboard modernizzati (indicatori di stato, icone, temi chiaro e scuro)
-* Commenti modificabili dalla finestra dei dispositivi non registrati, conferma dopo il salvataggio ed eliminazione di un commento svuotandone il campo
+* Commenti salvati automaticamente durante la digitazione (niente più pulsante «Salva i commenti»), modificabili anche dalla finestra dei dispositivi non registrati, ed eliminazione di un commento svuotandone il campo
 * Configurazione: bridge visualizzati come badge, solo i plugin installati per impostazione predefinita e una casella per mostrare tutti i plugin supportati
 * Apertura più rapida della finestra Rete (nessuna risoluzione DNS durante la visualizzazione)
 * Sicurezza: nomi, produttori e commenti vengono ora sottoposti a escape nell'interfaccia e nei widget
