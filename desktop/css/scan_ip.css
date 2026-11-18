@@ -120,7 +120,8 @@
     max-width: 420px;
     position: relative;
 }
-.scanip-toolbar .scanip-filter i {
+.scanip-toolbar .scanip-filter > i,
+.scanip-toolbar .scanip-filter > svg {
     position: absolute;
     left: 11px;
     top: 50%;
@@ -128,8 +129,9 @@
     opacity: 0.5;
     pointer-events: none;
 }
-.scanip-toolbar .scanip-filter input {
-    padding-left: 32px;
+.scanip-toolbar .scanip-filter input,
+.scanip-toolbar .scanip-filter input.form-control {
+    padding-left: 34px !important;
     border-radius: 999px !important;
 }
 .scanip-toolbar .scanip-spacer {
@@ -282,6 +284,11 @@ table.scanip-table input[type="checkbox"] {
     margin: 0;
     cursor: pointer;
 }
+table.scanip-table td.scanip-actions {
+    width: 1%;
+    white-space: nowrap;
+    text-align: right;
+}
 tr.scanip-row-muted td:not(.scanip-keep) {
     opacity: 0.6;
 }
@@ -351,6 +358,26 @@ tr.scanip-row-muted td:not(.scanip-keep) {
     opacity: 0.4;
 }
 
+/* ---------- Configuration : sous-réseaux à scanner ---------- */
+.scanip-subnet {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+.scanip-subnet input[type="checkbox"] {
+    margin: 0;
+    position: static;
+    vertical-align: middle;
+}
+.scanip-subnet span {
+    font-family: Menlo, Consolas, "Liberation Mono", monospace;
+    font-weight: 600;
+}
+
 /* ---------- Configuration : liste des bridges ---------- */
 .scanip-bridges {
     display: flex;
@@ -371,3 +398,14 @@ tr.scanip-row-muted td:not(.scanip-keep) {
 }
 .scanip-bridge.is-installed i { color: var(--scanip-on); }
 .scanip-bridge:not(.is-installed) { opacity: 0.6; }
+.scanip-bridges.scanip-only-installed .scanip-bridge:not(.is-installed) { display: none; }
+.scanip-bridges-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px;
+}
+.scanip-bridges-toolbar .checkbox-inline {
+    padding-top: 0;
+}

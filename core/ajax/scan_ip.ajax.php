@@ -51,6 +51,16 @@ try {
         
     }
     
+    elseif (init('action') == 'addEquipementFromNetwork') {
+
+        $mac = trim(init('mac'));
+        if (!preg_match('/^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/', $mac)) {
+            throw new Exception(__('Adresse MAC invalide', __FILE__) . ' : ' . $mac);
+        }
+        ajax::success(array('id' => scan_ip_eqLogic::createElement($mac)));
+
+    }
+
     elseif (init('action') == 'addEquipement') {
         
         scan_ip_eqLogic::addEquipementsTab(init('data'));

@@ -163,6 +163,7 @@ class scan_ip_json extends eqLogic {
                 $return[] = array(
                     "name" => $device["equipement"], 
                     "mac" => $device["mac"], 
+                    "mac_id" => $device["mac_id"], 
                     "ip_v4" => $device["ip_v4"], 
                     "comment" => $comment, 
                     "time" => $device["time"],

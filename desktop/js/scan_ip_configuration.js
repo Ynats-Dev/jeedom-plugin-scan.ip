@@ -40,6 +40,11 @@ function recordBtMac() {
 
 function scan_ip_mode_plugin() { 
     var mode = $( "#scan_ip_mode" ).val();
+    // Aucune valeur enregistrée : on affiche le mode normal par défaut
+    if (!mode) {
+        mode = "normal";
+        $( "#scan_ip_mode" ).val(mode);
+    }
     if(mode == "normal"){
         $('#show_debug').hide();
         $('#show_sous_reseau').hide();
@@ -57,9 +62,23 @@ function scan_ip_mode_plugin() {
     }
 }
 
+// Bridges : n'afficher que les plugins installés, sauf si la case est cochée
+function scan_ip_filter_bridges() {
+    var showAll = $('#scan_ip_show_all_bridges').is(':checked');
+    var total = $('#scan_ip_bridges .scanip-bridge').length;
+    var installed = $('#scan_ip_bridges .scanip-bridge.is-installed').length;
+
+    $('#scan_ip_bridges').toggleClass('scanip-only-installed', !showAll);
+    $('#scan_ip_bridges_none').toggle(!showAll && installed == 0);
+    $('#scan_ip_bridges_count').text(installed + ' / ' + total + ' {{installés}}');
+}
+
+$('#scan_ip_show_all_bridges').off('change').on('change', scan_ip_filter_bridges);
+
 setTimeout(function(){
     showVersion();
     scan_ip_mode_plugin();
+    scan_ip_filter_bridges();
 }, 150);
 
 $("#reloadMajPlugin").click(function() {

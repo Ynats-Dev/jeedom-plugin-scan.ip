@@ -37,3 +37,33 @@ function btSaveCommentaires(nb){
     }
     
 }
+// Enregistrer un appareil directement depuis la vue Réseau, puis ouvrir sa fiche
+$('#scan_ip_network').off('click', '.scanip-add-network').on('click', '.scanip-add-network', function () {
+    var $bt = $(this);
+    if ($bt.hasClass('disabled')) {
+        return;
+    }
+    $bt.addClass('disabled').find('i').attr('class', 'fas fa-spinner fa-spin');
+
+    $.ajax({
+        type: "POST",
+        url: "plugins/scan_ip/core/ajax/scan_ip.ajax.php",
+        data: {
+            action: "addEquipementFromNetwork",
+            mac: $bt.attr('data-mac'),
+        },
+        dataType: 'json',
+        error: function (request, status, error) {
+            $bt.removeClass('disabled').find('i').attr('class', 'fas fa-plus-circle');
+            handleAjaxError(request, status, error);
+        },
+        success: function (data) {
+            if (data.state != 'ok') {
+                $bt.removeClass('disabled').find('i').attr('class', 'fas fa-plus-circle');
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            window.location.href = 'index.php?v=d&m=scan_ip&p=scan_ip&id=' + data.result.id;
+        }
+    });
+});

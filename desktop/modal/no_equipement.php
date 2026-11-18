@@ -26,6 +26,7 @@ require_once dirname(__FILE__) . "/../../../../plugins/scan_ip/core/class/scan_i
 <?php
 $allNoEquipement = scan_ip_json::showNoEquipements();
 $list = 1;
+$listComment = 1;
 $nbOnline = 0;
 $rows = '';
 
@@ -39,7 +40,7 @@ if (!empty($allNoEquipement)) {
             . '<td class="scanip-center"><input type="checkbox" onclick="is_checked_scan_ip()" id="checked_input_' . $list++ . '" data-mac="' . $equipement["mac"] . '" class="add_element_scan_ip"></td>'
             . '<td class="scanip-center"><span class="scanip-sort-key">' . $online . '</span>' . scan_ip_tools::getStatusDot($online, $title) . '</td>'
             . '<td>' . $equipement["name"] . '</td>'
-            . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["comment"]) . '</span>' . $equipement["comment"] . '</td>'
+            . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["comment"]) . '</span><input type="text" id="input_' . $listComment++ . '" data-id="' . $equipement["mac_id"] . '" value="' . htmlspecialchars((string) $equipement["comment"], ENT_QUOTES) . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
             . '<td class="scanip-mono">' . $equipement["mac"] . '</td>'
             . '<td class="scanip-mono"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["ip_v4"]) . '</span>' . $equipement["ip_v4"] . '</td>'
             . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($equipement["record"]) . '</span>' . scan_ip_tools::printDate($equipement["record"]) . '</td>'
@@ -61,6 +62,7 @@ if (!empty($allNoEquipement)) {
             <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
         </div>
         <span class="scanip-spacer"></span>
+        <a id="btSaveCommentaires" class="btn btn-success btn-sm"><i class="far fa-check-circle"></i> {{Sauvegarder les commentaires}}</a>
         <span id="show_scan_ip_add" style="display:none;">
             <a class="btn btn-success btn-sm" id="add_scan_ip_equipement"><i class="fas fa-check-circle"></i> {{Ajouter les équipements sélectionnés}}</a>
             <a class="btn btn-danger btn-sm" id="remove_scan_ip_equipement"><i class="fas fa-trash"></i> {{Supprimer les équipements sélectionnés}}</a>
@@ -103,6 +105,10 @@ if (!empty($allNoEquipement)) {
         removeEquipement(<?php echo $list ?>);
     });
 
+    $("#btSaveCommentaires").click(function() {
+        btSaveCommentaires(<?php echo $listComment ?>);
+    });
+
     $("#scan_ip_check_all").click(function() {
         $(".add_element_scan_ip:visible").prop('checked', $(this).is(':checked'));
         is_checked_scan_ip();
@@ -112,3 +118,4 @@ if (!empty($allNoEquipement)) {
 <?php include_file('desktop', 'scan_ip', 'css', 'scan_ip'); ?>
 <?php include_file('3rdparty', 'stupidtable.min', 'js', 'scan_ip'); ?>
 <?php include_file('desktop', 'scan_ip_no_equipements', 'js', 'scan_ip'); ?>
+<?php include_file('desktop', 'scan_ip_network', 'js', 'scan_ip'); ?>

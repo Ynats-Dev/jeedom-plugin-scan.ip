@@ -237,10 +237,10 @@ class scan_ip_tools extends eqLogic {
         
         foreach ($allReseau as $sub) {
             if(self::excludeSubReseau($sub["name"]) == TRUE) {
-                $return .= '<div class="form-group"">';
-                $return .= '<label class="col-sm-4 control-label">'. __('Scanner le sous-réseau', __FILE__) . ' ['.$sub["name"].']</label>';
-                $return .= '<div class="col-sm-2">';
-                $return .= '<input type="checkbox" class="configKey" data-l1key="sub_enable_'.md5($sub["name"]).'" style="border: 1px solid var(--link-color) !important;"><span style="font-weight: bold;">'.$sub["ip_v4"].'</span>';
+                $return .= '<div class="form-group">';
+                $return .= '<label class="col-lg-4 control-label">'. __('Scanner le sous-réseau', __FILE__) . ' ['.$sub["name"].']</label>';
+                $return .= '<div class="col-lg-5">';
+                $return .= '<label class="scanip-subnet"><input type="checkbox" class="configKey" data-l1key="sub_enable_'.md5($sub["name"]).'"><span>'.$sub["ip_v4"].'</span></label>';
                 $return .= '</div>';
                 $return .= '</div>';
             }

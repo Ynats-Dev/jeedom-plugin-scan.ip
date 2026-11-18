@@ -222,9 +222,16 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Liste des Plugins pris en compte}}</label>
             <div class="col-lg-6">
-                <div class="scanip-bridges">
+                <div class="scanip-bridges-toolbar">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="scan_ip_show_all_bridges" /> {{Afficher aussi les plugins non installés}}
+                    </label>
+                    <span class="scanip-meta" id="scan_ip_bridges_count"></span>
+                </div>
+                <div class="scanip-bridges scanip-only-installed" id="scan_ip_bridges">
                     <?php scan_ip_bridges::bridges_printPlugs(); ?>
                 </div>
+                <div class="scanip-meta" id="scan_ip_bridges_none" style="display:none;">{{Aucun plugin compatible n'est installé.}}</div>
             </div>
         </div>
     </fieldset>

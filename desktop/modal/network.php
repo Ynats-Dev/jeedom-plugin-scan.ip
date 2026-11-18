@@ -43,9 +43,9 @@ $nbSaved = 0;
 $rows = '';
 $list = 1;
 $iconsEquipement = array(
-    2 => '<i class="fas fa-check-circle scanip-icon-on"></i>',
-    1 => '<i class="fas fa-exclamation-circle scanip-icon-off"></i>',
-    0 => '<i class="far fa-circle scanip-icon-none"></i>',
+    2 => '<i class="fas fa-clipboard-check scanip-icon-on"></i>',
+    1 => '<i class="fas fa-clipboard-check scanip-icon-off"></i>',
+    0 => '<i class="fas fa-question-circle scanip-icon-none"></i>',
 );
 
 foreach ($ipsReseau["sort"] as $device) {
@@ -58,6 +58,12 @@ foreach ($ipsReseau["sort"] as $device) {
 
     $rowClass = ($element["lineSortEquipement"] == 0) ? ' class="scanip-row-muted"' : '';
 
+    if ($element["lineSortEquipement"] == 0) {
+        $action = '<a class="btn btn-success btn-xs scanip-add-network" data-mac="' . $device["mac"] . '" title="{{Créer un équipement MAC pour cet appareil}}"><i class="fas fa-plus-circle"></i> {{Enregistrer}}</a>';
+    } else {
+        $action = '<a class="btn btn-default btn-xs" href="index.php?v=d&m=scan_ip&p=scan_ip&id=' . $savingMac[$device["mac_id"]]["id"] . '" title="{{Ouvrir la fiche de l\'équipement}}"><i class="fas fa-external-link-alt"></i> {{Ouvrir}}</a>';
+    }
+
     $rows .= '<tr' . $rowClass . '>'
         . '<td class="scanip-center scanip-keep"><span class="scanip-sort-key">' . $element["lineSortOnline"] . '</span>' . scan_ip_tools::getStatusDot($element["lineSortOnline"], $element["titleOnLine"]) . '</td>'
         . '<td class="scanip-center scanip-keep" title="' . $element["titleEquipement"] . '"><span class="scanip-sort-key">' . $element["lineSortEquipement"] . '</span>' . $iconsEquipement[$element["lineSortEquipement"]] . '</td>'
@@ -66,6 +72,7 @@ foreach ($ipsReseau["sort"] as $device) {
         . '<td><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["name"], "string") . '</span>' . $element["name"] . '</td>'
         . '<td class="scanip-keep"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($element["printComment"], "string") . '</span><input type="text" id="input_' . $list++ . '" data-id="' . $device["mac_id"] . '" value="' . $element["printComment"] . '" class="form-control input-sm" placeholder="{{Ajouter un commentaire}}"></td>'
         . '<td class="scanip-date"><span class="scanip-sort-key">' . scan_ip_tools::getCleanForSortTable($device["time"], "date") . '</span>' . scan_ip_tools::printDate($device["time"]) . '</td>'
+        . '<td class="scanip-keep scanip-actions">' . $action . '</td>'
         . '</tr>';
 }
 
@@ -109,7 +116,7 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
         <div class="scanip-stats">
             <span class="scanip-stat"><i class="fas fa-network-wired"></i> <b><?php echo $nbTotal ?></b> {{appareils}}</span>
             <span class="scanip-stat"><span class="scanip-dot is-on"></span> <b><?php echo $nbOnline ?></b> {{en ligne}}</span>
-            <span class="scanip-stat"><i class="fas fa-check-circle scanip-icon-on"></i> <b><?php echo $nbSaved ?></b> {{enregistrés}}</span>
+            <span class="scanip-stat"><i class="fas fa-clipboard-check scanip-icon-on"></i> <b><?php echo $nbSaved ?></b> {{enregistrés}}</span>
         </div>
         <span class="scanip-spacer"></span>
         <span class="scanip-meta"><i class="far fa-clock"></i> <?php echo $ipsReseau["infos"]["date"] ?></span>
@@ -121,12 +128,13 @@ $hostName = gethostbyaddr($ipsReseau["jeedom"]["ip_v4"]);
             <thead>
                 <tr>
                     <th data-sort="string" class="scanip-center" title="{{En ligne}}"><i class="fas fa-signal"></i></th>
-                    <th data-sort="int" class="scanip-center" title="{{Elément enregistré}}"><i class="fas fa-bookmark"></i></th>
+                    <th data-sort="int" class="scanip-center" title="{{Elément enregistré}}"><i class="fas fa-clipboard-check"></i></th>
                     <th data-sort="string">{{Adresse MAC}}</th>
                     <th data-sort="int">{{ip}}</th>
                     <th data-sort="string">{{Nom}}</th>
                     <th data-sort="string">{{Commentaire}}</th>
                     <th data-sort="int">{{Date de mise à jour}}</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

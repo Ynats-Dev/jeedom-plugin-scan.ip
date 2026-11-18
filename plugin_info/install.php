@@ -19,7 +19,15 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.require_once.php";
 
+function scan_ip_defaultConfig() {
+    // Valeur par défaut du mode, sinon le menu de sélection de la configuration reste vide
+    if (config::byKey('mode_plugin', 'scan_ip', '') == '') {
+        config::save('mode_plugin', 'normal', 'scan_ip');
+    }
+}
+
 function scan_ip_install() {
+    scan_ip_defaultConfig();
     
     log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
     log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
@@ -76,6 +84,7 @@ function scan_ip_install() {
 }
 
 function scan_ip_update() {
+    scan_ip_defaultConfig();
     
     log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
     log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');

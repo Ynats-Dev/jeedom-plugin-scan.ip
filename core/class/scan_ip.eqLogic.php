@@ -16,6 +16,7 @@ class scan_ip_eqLogic extends eqLogic {
         
         foreach ($eqLogics as $scan_ip) {
             $macId = $scan_ip->getConfiguration('mac_id');
+            $return[$macId]["id"] = $scan_ip->getId();
             $return[$macId]["name"] = $scan_ip->name;
             $return[$macId]["enable"] = $scan_ip->getIsEnable();
             $return[$macId]["offline_time"] = $scan_ip->getConfiguration("offline_time", scan_ip::$_defaut_offline_time);
@@ -51,6 +52,7 @@ class scan_ip_eqLogic extends eqLogic {
         $eqLogic->setConfiguration('adress_mac', $_mac);
         $eqLogic->setConfiguration('mac_id', scan_ip_tools::getLastMac($_mac));
         $eqLogic->save();
+        return $eqLogic->getId();
     }
     
     public static function showEquipements(){
