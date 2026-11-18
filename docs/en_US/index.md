@@ -62,6 +62,15 @@ By default it is set to 1 minute.
 
 > Not every device answers every network scan, because some take too long to reply (Wi-Fi devices for example). It is therefore recommended to wait for at least 3 scans before considering a device really offline. This setting can be fine-tuned on each device.
 
+### Vendor files (oui.txt and iab.txt)
+
+These files identify a device's manufacturer from its MAC address. They are updated automatically every month from the IEEE website; if it fails, the existing files are kept and a new attempt is made the next day.
+
+Depending on the mode, this section shows:
+- **normal mode**: the update frequency and the date of the last update
+- **advanced mode**: in addition, the option to choose the frequency (every month, every week) or to disable the automatic update
+- **debug mode**: in addition, the state of each file and an "Update now" button
+
 ### List of supported plugins
 
 Scan.Ip uses bridges to update data in some plugins. By default, only the plugins installed on your Jeedom are shown; tick "Also show plugins that are not installed" to see every supported plugin.
@@ -92,12 +101,6 @@ Sets the number of attempts during network scans. Not every device answers the f
 
 On Safari, hiding options in selection menus (used to show only the unused bridges) does not work. With this option enabled, the elements already in use are disabled instead of hidden. Only enable this option if you run into the problem with Safari.
 
-### Automatic update of the vendor files
-
-The oui.txt and iab.txt files identify a device's manufacturer from its MAC address. This option updates them automatically from the IEEE website, every week or every month (disabled by default). If it fails, the existing files are kept and a new attempt is made the next day. The date of the last update is shown just below.
-
-> A manual update is still possible at any time from debug mode ("Update oui.txt and iab.txt" button).
-
 ### Specify network ranges to scan
 
 When you have several network cards or subnets, tick the subnet(s) to scan. Only interfaces with an IPv4 address are offered (Docker virtual interfaces or disconnected cards are not listed).
@@ -109,14 +112,6 @@ When you have several network cards or subnets, tick the subnet(s) to scan. Only
 ## Debug mode
 
 ![scan_ip7](../images/Config.Debug.png)
-
-### Files present
-
-Checks that the oui.txt and iab.txt files are present, along with their update dates.
-
-> These two files link a MAC address to a manufacturer.
-
-The "Update oui.txt and iab.txt" button downloads the latest version of the registries from the IEEE website and regenerates both files. If it fails (no Internet access, incomplete file received), the existing files are kept.
 
 ### Version check
 

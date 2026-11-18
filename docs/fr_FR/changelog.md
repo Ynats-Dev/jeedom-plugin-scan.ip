@@ -1,6 +1,6 @@
 # 18/11/2026 | v1.7.1
 * Ajout d'un bouton pour mettre à jour les fichiers constructeurs oui.txt et iab.txt depuis le site de l'IEEE (configuration, mode debug), avec conservation des anciens fichiers en cas d'échec
-* Mise à jour automatique des fichiers oui.txt et iab.txt, toutes les semaines ou tous les mois (configuration, mode avancé)
+* Mise à jour automatique des fichiers oui.txt et iab.txt tous les mois par défaut, avec la date de la dernière mise à jour ; fréquence modifiable ou désactivable en mode avancé, mise à jour immédiate en mode debug
 * Éléments de plugins associés présentés sous forme d'étiquettes (plugin + équipement) dans la modale des équipements enregistrés, sans doublons
 * Correction du bouton de téléchargement des fichiers oui.txt et iab.txt manquants, qui ne fonctionnait pas
 

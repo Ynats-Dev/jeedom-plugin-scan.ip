@@ -62,6 +62,15 @@ Par défaut, celle-ci est réglée à 1 minute.
 
 > À chaque scan du réseau, tous les périphériques ne répondent pas forcément, car certains mettent trop de temps à répondre (par exemple les périphériques Wi-Fi). Il est donc conseillé d'attendre au moins 3 scans avant de considérer qu'un périphérique est vraiment hors ligne. Ce paramètre peut être réglé plus finement au niveau de chaque équipement.
 
+### Fichiers constructeurs (oui.txt et iab.txt)
+
+Ces fichiers permettent d'identifier le constructeur d'un appareil à partir de son adresse MAC. Ils sont mis à jour automatiquement tous les mois depuis le site de l'IEEE ; en cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain.
+
+Selon le mode, cette section affiche :
+- **mode normal** : la fréquence de mise à jour et la date de la dernière mise à jour
+- **mode avancé** : en plus, la possibilité de choisir la fréquence (tous les mois, toutes les semaines) ou de désactiver la mise à jour automatique
+- **mode debug** : en plus, l'état de chaque fichier et un bouton « Mettre à jour maintenant »
+
 ### Liste des Plugins pris en compte
 
 Scan.Ip utilise des bridges pour mettre à jour des données dans certains plugins. Par défaut, seuls les plugins installés sur votre Jeedom sont affichés ; cochez « Afficher aussi les plugins non installés » pour voir l'ensemble des plugins pris en compte.
@@ -92,12 +101,6 @@ Règle le nombre de tentatives lors des scans du réseau. Tous les équipements 
 
 Sur Safari, le masquage des options dans les menus de sélection (qui sert à n'afficher que les bridges non utilisés) ne fonctionne pas. En activant cette option, les éléments déjà utilisés sont désactivés au lieu d'être masqués. N'activez cette option que si vous rencontrez le problème sous Safari.
 
-### Mise à jour automatique des fichiers constructeurs
-
-Les fichiers oui.txt et iab.txt permettent d'identifier le constructeur d'un appareil à partir de son adresse MAC. Cette option les met à jour automatiquement depuis le site de l'IEEE, toutes les semaines ou tous les mois (désactivée par défaut). En cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain. La date de la dernière mise à jour est affichée juste en dessous.
-
-> Une mise à jour manuelle reste possible à tout moment depuis le mode debug (bouton « Mettre à jour oui.txt et iab.txt »).
-
 ### Spécifier des plages réseau à scanner
 
 Lorsque vous avez plusieurs cartes réseau ou des sous-réseaux, cochez le ou les sous-réseaux à scanner. Seules les interfaces qui possèdent une adresse IPv4 sont proposées (les interfaces virtuelles Docker ou les cartes non connectées ne sont pas listées).
@@ -109,14 +112,6 @@ Lorsque vous avez plusieurs cartes réseau ou des sous-réseaux, cochez le ou le
 ## Mode debug
 
 ![scan_ip7](../images/Config.Debug.png)
-
-### Fichiers présents
-
-Vérifie la présence des fichiers oui.txt et iab.txt ainsi que leurs dates de mise à jour.
-
-> Ces deux fichiers font le lien entre une adresse MAC et un constructeur.
-
-Le bouton « Mettre à jour oui.txt et iab.txt » télécharge la dernière version des registres sur le site de l'IEEE et régénère les deux fichiers. En cas d'échec (pas d'accès à Internet, fichier reçu incomplet), les fichiers existants sont conservés.
 
 ### Vérification de la version
 

@@ -206,6 +206,18 @@ class scan_ip_tools extends eqLogic {
         return self::printVendorFileStatus(scan_ip::$_file_iab, "iab.txt");
     }
     
+    // Date de la dernière mise à jour des fichiers constructeurs (téléchargement réussi, sinon date du fichier oui.txt)
+    public static function getVendorFilesLastUpdate(){
+        $last = intval(config::byKey('vendor_files_last_update', 'scan_ip', 0));
+        if ($last > 0) {
+            return date("d/m/Y H:i", $last);
+        }
+        if (@file_exists(scan_ip::$_file_oui)) {
+            return date("d/m/Y H:i", filemtime(scan_ip::$_file_oui));
+        }
+        return "…";
+    }
+    
     public static function printVendorFileStatus($_file, $_name){
         if(@file_exists($_file) == TRUE){
             return '<span class="scanip-vendor-file" data-file="' . $_name . '" style="color:green">' . $_name . ' (' . __('Installé', __FILE__) . ' · ' . self::getDateFile($_file) . ')</span>';

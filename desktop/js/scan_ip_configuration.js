@@ -57,6 +57,11 @@ function scanIpUpdateVendorFiles() {
                     messages.push(name + ' : ' + res.message);
                 }
             });
+            if (allOk) {
+                var now = new Date();
+                var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+                $('#scan_ip_vendor_last').text(pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes()));
+            }
             $('#scan_ip_vendor_files_status').text(messages.join(' · '));
             $('#div_alert').showAlert({message: messages.join(' · '), level: allOk ? 'success' : 'warning'});
         }
@@ -65,6 +70,12 @@ function scanIpUpdateVendorFiles() {
 
 $('#bt_scanIpUpdateVendorFiles').off('click').on('click', scanIpUpdateVendorFiles);
 
+// Libellé de la fréquence affiché en mode normal
+function scan_ip_vendor_label() {
+    $('#scan_ip_vendor_auto_label').text($('#scan_ip_vendor_auto option:selected').text());
+}
+$('#scan_ip_vendor_auto').off('change').on('change', scan_ip_vendor_label);
+
 function scan_ip_mode_plugin() { 
     var mode = $( "#scan_ip_mode" ).val();
     // Aucune valeur enregistrée : on affiche le mode normal par défaut
@@ -72,10 +83,15 @@ function scan_ip_mode_plugin() {
         mode = "normal";
         $( "#scan_ip_mode" ).val(mode);
     }
-    // Mise à jour automatique des fichiers constructeurs : désactivée tant qu'aucune valeur n'est enregistrée
+    // Fichiers constructeurs : mise à jour mensuelle par défaut, fréquence modifiable en mode avancé,
+    // mise à jour manuelle en mode debug
     if (!$('#scan_ip_vendor_auto').val()) {
-        $('#scan_ip_vendor_auto').val('0');
+        $('#scan_ip_vendor_auto').val('monthly');
     }
+    scan_ip_vendor_label();
+    $('.scanip-vendor-normal').toggle(mode == "normal");
+    $('.scanip-vendor-advanced').toggle(mode != "normal");
+    $('.scanip-vendor-debug').toggle(mode == "debug");
 
     // Éléments de la page du plugin dépendant du mode : mis à jour sans recharger la page
     $('#bt_scanIpDebug').toggle(mode == "debug");

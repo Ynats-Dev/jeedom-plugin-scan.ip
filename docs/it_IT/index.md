@@ -62,6 +62,15 @@ Per impostazione predefinita è di 1 minuto.
 
 > Non tutti i dispositivi rispondono a ogni scansione, perché alcuni impiegano troppo tempo a rispondere (ad esempio i dispositivi Wi-Fi). Si consiglia quindi di attendere almeno 3 scansioni prima di considerare un dispositivo davvero offline. Questo parametro può essere regolato con più precisione su ogni dispositivo.
 
+### File dei produttori (oui.txt e iab.txt)
+
+Questi file identificano il produttore di un dispositivo a partire dal suo indirizzo MAC. Vengono aggiornati automaticamente ogni mese dal sito dell'IEEE; in caso di errore, i file esistenti vengono conservati e si riprova il giorno successivo.
+
+A seconda della modalità, questa sezione mostra:
+- **modalità normale**: la frequenza di aggiornamento e la data dell'ultimo aggiornamento
+- **modalità avanzata**: in più, la possibilità di scegliere la frequenza (ogni mese, ogni settimana) o di disattivare l'aggiornamento automatico
+- **modalità debug**: in più, lo stato di ogni file e un pulsante «Aggiorna ora»
+
 ### Elenco dei plugin supportati
 
 Scan.Ip utilizza i bridge per aggiornare i dati in alcuni plugin. Per impostazione predefinita sono mostrati solo i plugin installati nel tuo Jeedom; spunta «Mostra anche i plugin non installati» per vedere tutti i plugin supportati.
@@ -92,12 +101,6 @@ Imposta il numero di tentativi durante le scansioni della rete. Non tutti i disp
 
 Su Safari, il mascheramento delle opzioni nei menu di selezione (che serve a mostrare solo i bridge non utilizzati) non funziona. Con questa opzione attivata, gli elementi già utilizzati vengono disattivati invece di essere nascosti. Attiva questa opzione solo se riscontri il problema su Safari.
 
-### Aggiornamento automatico dei file dei produttori
-
-I file oui.txt e iab.txt identificano il produttore di un dispositivo a partire dal suo indirizzo MAC. Questa opzione li aggiorna automaticamente dal sito dell'IEEE, ogni settimana o ogni mese (disattivata per impostazione predefinita). In caso di errore, i file esistenti vengono conservati e si riprova il giorno successivo. La data dell'ultimo aggiornamento è mostrata subito sotto.
-
-> Un aggiornamento manuale resta possibile in qualsiasi momento dalla modalità debug (pulsante «Aggiorna oui.txt e iab.txt»).
-
 ### Specificare gli intervalli di rete da scansionare
 
 Se hai più schede di rete o sottoreti, spunta la sottorete o le sottoreti da scansionare. Sono proposte solo le interfacce che hanno un indirizzo IPv4 (le interfacce virtuali Docker o le schede non collegate non sono elencate).
@@ -109,14 +112,6 @@ Se hai più schede di rete o sottoreti, spunta la sottorete o le sottoreti da sc
 ## Modalità debug
 
 ![scan_ip7](../images/Config.Debug.png)
-
-### File presenti
-
-Verifica la presenza dei file oui.txt e iab.txt e la loro data di aggiornamento.
-
-> Questi due file collegano un indirizzo MAC a un produttore.
-
-Il pulsante «Aggiorna oui.txt e iab.txt» scarica l'ultima versione dei registri dal sito dell'IEEE e rigenera entrambi i file. In caso di errore (nessun accesso a Internet, file ricevuto incompleto), i file esistenti vengono conservati.
 
 ### Verifica della versione
 

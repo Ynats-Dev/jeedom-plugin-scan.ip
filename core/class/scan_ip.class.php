@@ -179,7 +179,7 @@ class scan_ip extends eqLogic {
     
     // Mise à jour automatique des fichiers constructeurs (oui.txt / iab.txt) selon la périodicité choisie
     public static function cronDaily() {
-        $period = config::byKey('vendor_files_auto_update', 'scan_ip', '0');
+        $period = config::byKey('vendor_files_auto_update', 'scan_ip', 'monthly'); // mensuelle par défaut
         if ($period != 'weekly' AND $period != 'monthly') {
             return;
         }

@@ -1,6 +1,6 @@
 # 18/11/2026 | v1.7.1
 * Nuovo pulsante per aggiornare i file dei produttori oui.txt e iab.txt dal sito dell'IEEE (configurazione, modalità debug), conservando i file precedenti in caso di errore
-* Aggiornamento automatico dei file oui.txt e iab.txt, ogni settimana o ogni mese (configurazione, modalità avanzata)
+* Aggiornamento automatico mensile predefinito dei file oui.txt e iab.txt, con la data dell'ultimo aggiornamento; frequenza modificabile o disattivabile in modalità avanzata, aggiornamento immediato in modalità debug
 * Elementi dei plugin associati mostrati come etichette (plugin + dispositivo) nella finestra dei dispositivi registrati, senza duplicati
 * Correzione del pulsante di download dei file oui.txt e iab.txt mancanti, che non funzionava
 

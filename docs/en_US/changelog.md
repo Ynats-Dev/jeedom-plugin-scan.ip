@@ -1,6 +1,6 @@
 # 18/11/2026 | v1.7.1
 * Added a button to update the oui.txt and iab.txt vendor files from the IEEE website (configuration, debug mode), keeping the previous files if it fails
-* Automatic update of the oui.txt and iab.txt files, every week or every month (configuration, advanced mode)
+* Automatic monthly update of the oui.txt and iab.txt files by default, with the date of the last update; frequency can be changed or disabled in advanced mode, immediate update in debug mode
 * Associated plugin elements shown as tags (plugin + device) in the registered devices modal, without duplicates
 * Fixed the download button for missing oui.txt and iab.txt files, which did not work
 

@@ -62,6 +62,15 @@ Standardmäßig ist es auf 1 Minute eingestellt.
 
 > Nicht alle Geräte antworten bei jedem Scan, da manche zu lange für eine Antwort brauchen (zum Beispiel WLAN-Geräte). Es wird daher empfohlen, mindestens 3 Scans abzuwarten, bevor ein Gerät als wirklich offline gilt. Diese Einstellung kann für jedes Gerät genauer angepasst werden.
 
+### Herstellerdateien (oui.txt und iab.txt)
+
+Diese Dateien ermitteln den Hersteller eines Geräts anhand seiner MAC-Adresse. Sie werden jeden Monat automatisch von der IEEE-Website aktualisiert; bei einem Fehler bleiben die vorhandenen Dateien erhalten und am nächsten Tag erfolgt ein neuer Versuch.
+
+Je nach Modus zeigt dieser Abschnitt:
+- **normaler Modus**: die Aktualisierungshäufigkeit und das Datum der letzten Aktualisierung
+- **erweiterter Modus**: zusätzlich die Wahl der Häufigkeit (jeden Monat, jede Woche) oder die Deaktivierung der automatischen Aktualisierung
+- **Debug-Modus**: zusätzlich den Zustand jeder Datei und eine Schaltfläche „Jetzt aktualisieren“
+
 ### Liste der unterstützten Plugins
 
 Scan.Ip verwendet Bridges, um Daten in bestimmten Plugins zu aktualisieren. Standardmäßig werden nur die in Ihrem Jeedom installierten Plugins angezeigt; aktivieren Sie „Auch nicht installierte Plugins anzeigen“, um alle unterstützten Plugins zu sehen.
@@ -92,12 +101,6 @@ Legt die Anzahl der Versuche bei den Netzwerkscans fest. Nicht alle Geräte antw
 
 Unter Safari funktioniert das Ausblenden von Optionen in Auswahlmenüs (mit dem nur die nicht verwendeten Bridges angezeigt werden) nicht. Mit dieser Option werden bereits verwendete Elemente deaktiviert statt ausgeblendet. Aktivieren Sie diese Option nur, wenn das Problem unter Safari auftritt.
 
-### Automatische Aktualisierung der Herstellerdateien
-
-Die Dateien oui.txt und iab.txt ermitteln den Hersteller eines Geräts anhand seiner MAC-Adresse. Diese Option aktualisiert sie automatisch von der IEEE-Website, jede Woche oder jeden Monat (standardmäßig deaktiviert). Bei einem Fehler bleiben die vorhandenen Dateien erhalten und am nächsten Tag erfolgt ein neuer Versuch. Das Datum der letzten Aktualisierung wird direkt darunter angezeigt.
-
-> Eine manuelle Aktualisierung ist jederzeit im Debug-Modus möglich (Schaltfläche „oui.txt und iab.txt aktualisieren“).
-
 ### Zu scannende Netzwerkbereiche festlegen
 
 Wenn Sie mehrere Netzwerkkarten oder Subnetze haben, aktivieren Sie das oder die zu scannenden Subnetze. Es werden nur Schnittstellen mit einer IPv4-Adresse angeboten (virtuelle Docker-Schnittstellen oder nicht verbundene Karten werden nicht aufgeführt).
@@ -109,14 +112,6 @@ Wenn Sie mehrere Netzwerkkarten oder Subnetze haben, aktivieren Sie das oder die
 ## Debug-Modus
 
 ![scan_ip7](../images/Config.Debug.png)
-
-### Vorhandene Dateien
-
-Prüft, ob die Dateien oui.txt und iab.txt vorhanden sind, sowie ihr Aktualisierungsdatum.
-
-> Diese beiden Dateien ordnen eine MAC-Adresse einem Hersteller zu.
-
-Die Schaltfläche „oui.txt und iab.txt aktualisieren“ lädt die neueste Version der Register von der IEEE-Website herunter und erzeugt beide Dateien neu. Schlägt dies fehl (kein Internetzugang, unvollständige Datei), werden die vorhandenen Dateien beibehalten.
 
 ### Versionsprüfung
 

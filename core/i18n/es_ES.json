@@ -225,7 +225,10 @@
         "Désactivée": "Desactivada",
         "Toutes les semaines": "Cada semana",
         "Tous les mois": "Cada mes",
-        "Dernière mise à jour": "Última actualización"
+        "Dernière mise à jour": "Última actualización",
+        "Fichiers constructeurs (oui.txt et iab.txt)": "Archivos de fabricantes (oui.txt e iab.txt)",
+        "Ces fichiers permettent d'identifier le constructeur d'un appareil à partir de son adresse MAC. Ils sont téléchargés depuis le site de l'IEEE ; en cas d'échec, les fichiers existants sont conservés et une nouvelle tentative a lieu le lendemain.": "Estos archivos identifican al fabricante de un dispositivo a partir de su dirección MAC. Se descargan del sitio del IEEE; si falla, se conservan los archivos existentes y se vuelve a intentar al día siguiente.",
+        "Mettre à jour maintenant": "Actualizar ahora"
     },
     "plugins\/scan_ip\/desktop\/js\/scan_ip.js": {
         "Afficher le Réseau": "Mostrar la Red",
