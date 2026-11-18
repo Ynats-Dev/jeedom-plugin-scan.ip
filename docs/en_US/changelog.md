@@ -15,6 +15,7 @@
 * Fixed the Wake-on-LAN, "Considered offline" and widget display order menus staying empty on a device
 * Fixed a false "IP change" shown for devices with no known last IP
 * Fixed the comments file growing with every save
+* Fixed the "mac" and "Last IpV4" commands no longer being updated since v1.6.0 (the widget showed "...")
 * Fixed a stale scan lock that allowed two scans to run at the same time
 * Fixed the alignment of the subnet checkboxes
 * Fixed the Jeedom MAC address being misread when an "altname" line appears in the network configuration

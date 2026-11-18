@@ -15,6 +15,7 @@
 * Se corrigen los menús Wake-on-LAN, «Considerado desconectado» y orden de visualización del widget que quedaban vacíos en un dispositivo
 * Se corrige un falso «Cambio de IP» mostrado para dispositivos sin última IP conocida
 * Se corrige el archivo de comentarios que crecía en cada guardado
+* Se corrigen los comandos «mac» y «Last IpV4» que ya no se actualizaban desde la v1.6.0 (el widget mostraba «...»)
 * Se corrige un bloqueo de escaneo caducado que permitía lanzar dos escaneos a la vez
 * Se corrige la alineación de las casillas de las subredes
 * Se corrige la dirección MAC de Jeedom mal leída cuando aparece una línea «altname» en la configuración de red

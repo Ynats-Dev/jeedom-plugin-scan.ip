@@ -15,6 +15,7 @@
 * Correction des menus Wake-on-LAN, « Présumé hors-ligne » et ordre d'affichage du widget qui restaient vides sur un équipement
 * Correction d'un faux « Changement d'Ip » affiché pour les équipements sans dernière IP connue
 * Correction du fichier des commentaires qui grossissait à chaque sauvegarde
+* Correction des commandes « mac » et « Last IpV4 » qui n'étaient plus mises à jour depuis la v1.6.0 (le widget affichait « ... »)
 * Correction du verrou de scan périmé qui permettait de lancer deux scans en parallèle
 * Correction de l'alignement des cases des sous-réseaux à scanner
 * Correction de l'adresse MAC de Jeedom mal lue quand une ligne « altname » apparaît dans la configuration réseau

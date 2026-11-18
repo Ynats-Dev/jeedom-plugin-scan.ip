@@ -34,6 +34,10 @@ class scan_ip_widget_normal extends eqLogic {
             if (isset($cmdCache['ip_v4']) && $cmdCache['ip_v4']->execCmd() != $device["ip_v4"]) {
                 $cmdCache['ip_v4']->event($device["ip_v4"]);
             }
+            // Dernière IP connue : initialisée avec l'IP actuelle si elle est encore vide
+            if (isset($cmdCache['last_ip_v4']) && $cmdCache['last_ip_v4']->execCmd() == "" && !empty($device["ip_v4"])) {
+                $cmdCache['last_ip_v4']->event($device["ip_v4"]);
+            }
         } else {
             if (isset($cmdCache['on_line']) && $cmdCache['on_line']->execCmd() != 0) {
                 $cmdCache['on_line']->event(0);
@@ -41,6 +45,15 @@ class scan_ip_widget_normal extends eqLogic {
             if (isset($cmdCache['ip_v4']) && $cmdCache['ip_v4']->execCmd() != "") {
                 $cmdCache['ip_v4']->event(NULL);
             }
+            // Hors ligne : on conserve la dernière IP connue de l'appareil
+            if (isset($cmdCache['last_ip_v4']) && !empty($device["ip_v4"]) && $cmdCache['last_ip_v4']->execCmd() != $device["ip_v4"]) {
+                $cmdCache['last_ip_v4']->event($device["ip_v4"]);
+            }
+        }
+
+        // Adresse MAC de l'appareil (affichée sous le nom dans le widget)
+        if (isset($cmdCache['mac']) && !empty($device["mac"]) && $cmdCache['mac']->execCmd() != $device["mac"]) {
+            $cmdCache['mac']->event($device["mac"]);
         }
 
         // 4. Gestion des dates uniquement si l'appareil est Online et que la date de dernière communication est disponible
