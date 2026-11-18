@@ -12,6 +12,7 @@
 * Apertura più rapida della finestra Rete (nessuna risoluzione DNS durante la visualizzazione)
 * Sicurezza: nomi, produttori e commenti vengono ora sottoposti a escape nell'interfaccia e nei widget
 * Correzione del selettore della modalità che restava vuoto nella configurazione
+* Correzione dei menu Wake-on-LAN, «Considerato offline» e ordine di visualizzazione del widget che restavano vuoti su un dispositivo
 * Correzione di un falso «Cambio di IP» mostrato per i dispositivi senza ultimo IP noto
 * Correzione del file dei commenti che cresceva a ogni salvataggio
 * Correzione di un blocco di scansione scaduto che permetteva due scansioni contemporanee
@@ -21,6 +22,7 @@
 * La barra di avanzamento si muove durante la scansione di una sottorete, con una stima del tempo rimanente
 * Documentazione: screenshot aggiornati con la nuova interfaccia
 * Modalità debug: i controlli riusciti mostrano «Aggiornato» invece di «Non aggiornato»
+* Il pulsante Debug e le opzioni delle modalità avanzata e debug compaiono non appena si cambia modalità, senza ricaricare la pagina
 * Configurazione: le interfacce di rete senza indirizzo IPv4 (interfacce virtuali Docker, schede non collegate) non sono più proposte per la scansione
 * Traduzioni completate in inglese, tedesco, spagnolo e italiano, e correzione del file tedesco che conteneva testi in italiano
 * Compatibilità PHP 7 e PHP 8: rimossi gli avvisi «deprecated» in PHP 8

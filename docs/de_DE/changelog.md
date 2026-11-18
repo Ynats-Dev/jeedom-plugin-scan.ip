@@ -12,6 +12,7 @@
 * Schnelleres Öffnen des Fensters Netzwerk (keine DNS-Auflösung mehr beim Anzeigen)
 * Sicherheit: Namen, Hersteller und Kommentare werden in der Oberfläche und den Widgets maskiert
 * Korrektur der Modusauswahl, die in der Konfiguration leer blieb
+* Korrektur der Menüs Wake-on-LAN, „Als offline betrachtet“ und Anzeigereihenfolge des Widgets, die bei einem Gerät leer blieben
 * Korrektur einer fälschlich angezeigten „IP-Änderung“ bei Geräten ohne bekannte letzte IP
 * Korrektur der Kommentardatei, die bei jedem Speichern größer wurde
 * Korrektur einer veralteten Scan-Sperre, die zwei gleichzeitige Scans ermöglichte
@@ -21,6 +22,7 @@
 * Der Fortschrittsbalken bewegt sich während des Scans eines Subnetzes, mit geschätzter Restzeit
 * Dokumentation: Screenshots mit der neuen Oberfläche aktualisiert
 * Debug-Modus: Erfolgreiche Prüfungen zeigen „Aktuell“ statt „Nicht aktuell“ an
+* Die Schaltfläche Debug und die Optionen des erweiterten und des Debug-Modus erscheinen sofort beim Moduswechsel, ohne die Seite neu zu laden
 * Konfiguration: Netzwerkschnittstellen ohne IPv4-Adresse (virtuelle Docker-Schnittstellen, nicht verbundene Karten) werden nicht mehr zum Scannen angeboten
 * Vervollständigte Übersetzungen ins Englische, Deutsche, Spanische und Italienische sowie Korrektur der deutschen Datei, die italienische Texte enthielt
 * Kompatibilität mit PHP 7 und PHP 8: „deprecated“-Warnungen unter PHP 8 entfernt

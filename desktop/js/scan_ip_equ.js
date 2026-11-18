@@ -24,8 +24,20 @@ $("#hiden_type_widget").change(function () {
     }
 });
 
-if (!$("#offline_time option:selected").length) {
-    $("#offline_time option[value='4']").attr('selected', 'selected');
+// Appelé par Jeedom après le chargement d'un équipement : valeurs par défaut des menus
+// jamais enregistrés (sinon Jeedom y met une valeur vide et le menu reste blanc)
+function printEqLogic(_eqLogic) {
+    var defaults = {
+        'offline_time': '4',
+        'enable_wol': '0',
+        'saveOrderColonWidegetNetwork': 'ip'
+    };
+    $.each(defaults, function (key, value) {
+        var $select = $('.eqLogicAttr[data-l1key="configuration"][data-l2key="' + key + '"]');
+        if ($select.length && !$select.val()) {
+            $select.val(value);
+        }
+    });
 }
 
 function hideSelect(NbSelect) {

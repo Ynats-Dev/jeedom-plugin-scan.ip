@@ -12,6 +12,7 @@
 * Apertura más rápida de la ventana Red (ya no hay resolución DNS al mostrarla)
 * Seguridad: los nombres, fabricantes y comentarios se escapan en la interfaz y los widgets
 * Se corrige el selector de modo que quedaba vacío en la configuración
+* Se corrigen los menús Wake-on-LAN, «Considerado desconectado» y orden de visualización del widget que quedaban vacíos en un dispositivo
 * Se corrige un falso «Cambio de IP» mostrado para dispositivos sin última IP conocida
 * Se corrige el archivo de comentarios que crecía en cada guardado
 * Se corrige un bloqueo de escaneo caducado que permitía lanzar dos escaneos a la vez
@@ -21,6 +22,7 @@
 * La barra de progreso avanza durante el escaneo de una subred, con una estimación del tiempo restante
 * Documentación: capturas de pantalla actualizadas con la nueva interfaz
 * Modo debug: las verificaciones correctas muestran «Actualizado» en lugar de «No actualizado»
+* El botón Debug y las opciones de los modos avanzado y debug aparecen en cuanto se cambia de modo, sin recargar la página
 * Configuración: las interfaces de red sin dirección IPv4 (interfaces virtuales de Docker, tarjetas no conectadas) ya no se proponen para el escaneo
 * Traducciones completadas en inglés, alemán, español e italiano, y corrección del archivo alemán que contenía textos en italiano
 * Compatibilidad con PHP 7 y PHP 8: eliminados los avisos «deprecated» en PHP 8

@@ -12,6 +12,7 @@
 * Ouverture plus rapide de la modale Réseau (plus de résolution DNS à l'affichage)
 * Sécurité : échappement des noms, fabricants et commentaires affichés dans l'interface et les widgets
 * Correction du menu de sélection du mode qui restait vide dans la configuration
+* Correction des menus Wake-on-LAN, « Présumé hors-ligne » et ordre d'affichage du widget qui restaient vides sur un équipement
 * Correction d'un faux « Changement d'Ip » affiché pour les équipements sans dernière IP connue
 * Correction du fichier des commentaires qui grossissait à chaque sauvegarde
 * Correction du verrou de scan périmé qui permettait de lancer deux scans en parallèle
@@ -21,6 +22,7 @@
 * Barre de progression qui avance pendant le scan d'un sous-réseau, avec une estimation du temps restant
 * Documentation : captures d'écran mises à jour avec la nouvelle interface
 * Mode debug : les vérifications réussies affichent « À jour » au lieu de « Pas à jour »
+* Le bouton Debug et les options des modes avancé et debug apparaissent dès le changement de mode, sans recharger la page
 * Configuration : les interfaces réseau sans adresse IPv4 (interfaces virtuelles Docker, cartes non connectées) ne sont plus proposées au scan
 * Traductions complétées en anglais, allemand, espagnol et italien, et correction du fichier allemand qui contenait des textes en italien
 * Compatibilité PHP 7 et PHP 8 : suppression des avertissements « deprecated » sous PHP 8

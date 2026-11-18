@@ -12,6 +12,7 @@
 * Faster opening of the Network modal (no more DNS lookup when displaying it)
 * Security: names, vendors and comments are now escaped in the interface and widgets
 * Fixed the mode selector staying empty in the configuration
+* Fixed the Wake-on-LAN, "Considered offline" and widget display order menus staying empty on a device
 * Fixed a false "IP change" shown for devices with no known last IP
 * Fixed the comments file growing with every save
 * Fixed a stale scan lock that allowed two scans to run at the same time
@@ -21,6 +22,7 @@
 * Progress bar now moves during a subnet scan, with an estimate of the remaining time
 * Documentation: screenshots updated with the new interface
 * Debug mode: successful checks now show "Up to date" instead of "Not up to date"
+* The Debug button and the advanced and debug mode options appear as soon as the mode is changed, without reloading the page
 * Configuration: network interfaces without an IPv4 address (Docker virtual interfaces, disconnected cards) are no longer offered for scanning
 * Completed English, German, Spanish and Italian translations, and fixed the German file that contained Italian text
 * PHP 7 and PHP 8 compatibility: removed the "deprecated" warnings under PHP 8

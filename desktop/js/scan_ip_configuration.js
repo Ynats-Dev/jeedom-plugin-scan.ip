@@ -45,6 +45,11 @@ function scan_ip_mode_plugin() {
         mode = "normal";
         $( "#scan_ip_mode" ).val(mode);
     }
+    // Éléments de la page du plugin dépendant du mode : mis à jour sans recharger la page
+    $('#bt_scanIpDebug').toggle(mode == "debug");
+    $('#scan_ip_debug_macid').toggle(mode == "debug");
+    $('#show_off_line').toggle(mode != "normal");
+
     if(mode == "normal"){
         $('#show_debug').hide();
         $('#show_sous_reseau').hide();
