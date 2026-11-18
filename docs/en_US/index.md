@@ -71,6 +71,12 @@ Depending on the mode, this section shows:
 - **advanced mode**: in addition, the option to choose the frequency (every month, every week) or to disable the automatic update
 - **debug mode**: in addition, the state of each file and an "Update now" button
 
+![scan_ip_vendor_normal](../images/Config.Vendor.Normal.png)
+
+![scan_ip_vendor_avance](../images/Config.Vendor.Avance.png)
+
+![scan_ip_vendor_debug](../images/Config.Vendor.Debug.png)
+
 ### List of supported plugins
 
 Scan.Ip uses bridges to update data in some plugins. By default, only the plugins installed on your Jeedom are shown; tick "Also show plugins that are not installed" to see every supported plugin.
