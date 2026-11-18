@@ -16,6 +16,12 @@
 * Fixed the comments file growing with every save
 * Fixed a stale scan lock that allowed two scans to run at the same time
 * Fixed the alignment of the subnet checkboxes
+* Fixed the Jeedom MAC address being misread when an "altname" line appears in the network configuration
+* Fixed the arp-scan header being recorded as a device ("Interface: eth0, type: EN10MB…")
+* Progress bar now moves during a subnet scan, with an estimate of the remaining time
+* Documentation: screenshots updated with the new interface
+* Debug mode: successful checks now show "Up to date" instead of "Not up to date"
+* Configuration: network interfaces without an IPv4 address (Docker virtual interfaces, disconnected cards) are no longer offered for scanning
 * Completed English, German, Spanish and Italian translations, and fixed the German file that contained Italian text
 * PHP 7 and PHP 8 compatibility: removed the "deprecated" warnings under PHP 8
 * Jeedom 4.0 minimum required

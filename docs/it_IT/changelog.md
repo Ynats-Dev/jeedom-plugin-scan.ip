@@ -16,6 +16,12 @@
 * Correzione del file dei commenti che cresceva a ogni salvataggio
 * Correzione di un blocco di scansione scaduto che permetteva due scansioni contemporanee
 * Correzione dell'allineamento delle caselle delle sottoreti
+* Correzione dell'indirizzo MAC di Jeedom letto male quando compare una riga «altname» nella configurazione di rete
+* Correzione dell'intestazione di arp-scan registrata per errore come dispositivo («Interface: eth0, type: EN10MB…»)
+* La barra di avanzamento si muove durante la scansione di una sottorete, con una stima del tempo rimanente
+* Documentazione: screenshot aggiornati con la nuova interfaccia
+* Modalità debug: i controlli riusciti mostrano «Aggiornato» invece di «Non aggiornato»
+* Configurazione: le interfacce di rete senza indirizzo IPv4 (interfacce virtuali Docker, schede non collegate) non sono più proposte per la scansione
 * Traduzioni completate in inglese, tedesco, spagnolo e italiano, e correzione del file tedesco che conteneva testi in italiano
 * Compatibilità PHP 7 e PHP 8: rimossi gli avvisi «deprecated» in PHP 8
 * Richiesto almeno Jeedom 4.0

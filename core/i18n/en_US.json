@@ -332,7 +332,8 @@
         "Mise à jour du JSON des équipements": "Updating equipment JSON",
         "ERROR : MAC Id Vide !": "ERROR: Empty MAC Id!",
         "Nettoyage des données Beta": "Cleaning Beta data",
-        "Mise à jour de ": "Updating"
+        "Mise à jour de ": "Updating",
+        "À jour": "Up to date"
     },
     "plugins\/scan_ip\/core\/class\/scan_ip.json.php": {
         "Lancement": "Starting",

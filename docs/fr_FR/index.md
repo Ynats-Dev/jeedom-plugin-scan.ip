@@ -61,7 +61,9 @@ A defaut, celle-ci est réglée à 1 minute.
 
 ### Liste des Plugins pris en compte
 
-Scan.ip utilise des bridges pour mettre à jour des données sur certains plugins. Un indicateur vous permettra de voir si le plugin est présents dans votre Jeedom ou non.
+Scan.ip utilise des bridges pour mettre à jour des données sur certains plugins. Par défaut, seuls les plugins installés sur votre Jeedom sont affichés ; cochez « Afficher aussi les plugins non installés » pour voir l'ensemble des plugins pris en compte.
+
+![scan_ip_bridges](../images/Config.Bridges.png)
 
 > Dans les faits cela permet d'automatiser, par le biais de bridges, le changement d’ip d’un device dans les autres plugins quand celui-ci a décidé de changer d’ip (par exemple quand on est dans l'impossibilité de fixer une Ip dans le DHCP) 
 

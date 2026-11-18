@@ -288,7 +288,8 @@ class scan_ip_tools extends eqLogic {
         unset($allReseau["name_plage_route"]);
         
         foreach ($allReseau as $sub) {
-            if(self::excludeSubReseau($sub["name"]) == TRUE) {
+            // Interfaces sans adresse IPv4 (veth Docker, cartes non connectées...) : rien à scanner, on ne les affiche pas
+            if(self::excludeSubReseau($sub["name"]) == TRUE AND !empty($sub["ip_v4"])) {
                 $return .= '<div class="form-group">';
                 $return .= '<label class="col-lg-4 control-label">'. __('Scanner le sous-réseau', __FILE__) . ' ['.$sub["name"].']</label>';
                 $return .= '<div class="col-lg-5">';

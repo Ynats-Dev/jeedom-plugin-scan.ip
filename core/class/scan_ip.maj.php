@@ -87,7 +87,7 @@ class scan_ip_maj extends eqLogic {
         if($_statut == FALSE){
             return "<span style='color:red;'>" . __('Pas à jour', __FILE__) . "</span>";
         } else {
-            return "<span style='color:green;'>" . __('Pas à jour', __FILE__) . "</span>";
+            return "<span style='color:green;'>" . __('À jour', __FILE__) . "</span>";
         }
     }
     

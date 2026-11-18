@@ -31,7 +31,9 @@ class scan_ip_shell extends eqLogic {
         exec('sudo arp-scan --numeric --retry=' . $retry .  ' --interval=2 --timeout=300 --interface=' . $_subReseau . ' --localnet --ouifile=' . scan_ip::$_file_oui, $output);        
         
         foreach ($output as $scanLine) {
-            if (preg_match(scan_ip_tools::getRegex("ip_v4"), $scanLine)) {     
+            // Seules les lignes de résultat commencent par une IP suivie d'une MAC ; l'en-tête
+            // ("Interface: eth0, type: EN10MB, MAC: ..., IPv4: ...") contient aussi une MAC et une IP
+            if (preg_match('/^\s*\d{1,3}(\.\d{1,3}){3}\s+([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}/', $scanLine)) {     
                     preg_match(scan_ip_tools::getRegex("ip_v4"), $scanLine, $sortIp); 
                     preg_match(scan_ip_tools::getRegex("mac"), $scanLine, $sortMac);
                     
@@ -98,7 +100,16 @@ class scan_ip_shell extends eqLogic {
             // $return["plage_route"] = NULL; 
             if(preg_match(scan_ip_tools::getRegex("ip_v4"), $value) AND preg_match("(".$plageRouteur.")", $value)) {
                 $return["ip_v4"] = trim(str_replace("inet", "", explode("/",$value)[0]));
-                $return["mac"] = strtoupper(trim(str_replace("link/ether", "", explode("brd",$list[$i-1])[0])));
+                // Adresse MAC : ligne "link/ether" de la même interface, qui n'est pas forcément
+                // juste au-dessus (des lignes "altname ..." peuvent s'intercaler)
+                $return["mac"] = "";
+                for ($j = $i - 1; $j >= 0; $j--) {
+                    if (strpos($list[$j], "link/ether") !== FALSE AND preg_match(scan_ip_tools::getRegex("mac"), $list[$j], $macJeedom)) {
+                        $return["mac"] = strtoupper($macJeedom[0]);
+                        break;
+                    }
+                    if (preg_match('/^\d+:\s/', $list[$j])) { break; } // début du bloc de l'interface atteint
+                }
                 $return["name"] = config::byKey('name');
                 $return["hostname"] = (string) gethostname();
                 $return["time"] = time();

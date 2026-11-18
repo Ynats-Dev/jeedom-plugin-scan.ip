@@ -60,7 +60,9 @@ Used to adjust the refresh rate of the scheduled task. By default, it is set to 
 
 ### List of Supported Plugins
 
-Scan.ip uses bridges to update data on certain plugins. An indicator will let you see if the plugin is present in your Jeedom or not.
+Scan.ip uses bridges to update data on certain plugins. By default, only the plugins installed on your Jeedom are shown; tick "Also show plugins that are not installed" to see every supported plugin.
+
+![scan_ip_bridges](../images/Config.Bridges.png)
 
 > In practice, this allows automating, through bridges, the IP address change of a device in other plugins when it decides to change its IP (for example, when you are unable to set a fixed IP in the DHCP).
 

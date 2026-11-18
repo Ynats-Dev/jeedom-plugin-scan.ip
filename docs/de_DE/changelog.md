@@ -16,6 +16,12 @@
 * Korrektur der Kommentardatei, die bei jedem Speichern größer wurde
 * Korrektur einer veralteten Scan-Sperre, die zwei gleichzeitige Scans ermöglichte
 * Korrektur der Ausrichtung der Kontrollkästchen für die Subnetze
+* Korrektur der falsch gelesenen MAC-Adresse von Jeedom, wenn eine Zeile „altname“ in der Netzwerkkonfiguration erscheint
+* Korrektur des arp-scan-Kopfes, der fälschlich als Gerät erfasst wurde („Interface: eth0, type: EN10MB…“)
+* Der Fortschrittsbalken bewegt sich während des Scans eines Subnetzes, mit geschätzter Restzeit
+* Dokumentation: Screenshots mit der neuen Oberfläche aktualisiert
+* Debug-Modus: Erfolgreiche Prüfungen zeigen „Aktuell“ statt „Nicht aktuell“ an
+* Konfiguration: Netzwerkschnittstellen ohne IPv4-Adresse (virtuelle Docker-Schnittstellen, nicht verbundene Karten) werden nicht mehr zum Scannen angeboten
 * Vervollständigte Übersetzungen ins Englische, Deutsche, Spanische und Italienische sowie Korrektur der deutschen Datei, die italienische Texte enthielt
 * Kompatibilität mit PHP 7 und PHP 8: „deprecated“-Warnungen unter PHP 8 entfernt
 * Mindestens Jeedom 4.0 erforderlich
