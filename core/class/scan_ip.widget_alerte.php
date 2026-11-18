@@ -1,18 +1,3 @@
-        $replace["#last_unknown_equipement#"] = scan_ip_widgets::getWidgetStyle() . '<table class="scanip-w-table">
-        <thead>
-            <tr>
-                <th class="scanip-w-center"></th>
-                <th>' . __('Date', __FILE__) . '</th>
-                <th>' . __('Adresse MAC', __FILE__) . '</th>
-                <th>' . __('Ip', __FILE__) . '</th>
-                <th>' . __('Information', __FILE__) . '</th>
-                <th>' . __('Vu la première fois', __FILE__) . '</th>
-            </tr>
-        </thead>
-        <tbody>';
-        
-        $nbRows = 0;
-        
 <?php
 
 /**
@@ -198,18 +183,20 @@ class scan_ip_widget_alerte extends eqLogic {
         
         $temp = array();
         
-        $replace["#last_unknown_equipement#"] = '<table style="width: 100%; margin: -5px -5px 22px 0;">
+        $replace["#last_unknown_equipement#"] = scan_ip_widgets::getWidgetStyle() . '<table class="scanip-w-table">
         <thead>
-            <tr style="background-color: grey !important; color: white !important;">
-                <th style="padding : 3px 0 3px 15px !important; text-align: center;"></th>
-                <th style="padding : 3px 0 3px 15px !important;">' . __('Date', __FILE__) . '</th>
-                <th style="padding : 3px 0 3px 15px !important;">' . __('Adresse MAC', __FILE__) . '</th>
-                <th style="padding : 3px 0 3px 15px !important;">' . __('Ip', __FILE__) . '</th>
-                <th style="padding : 3px 0 3px 15px !important;">' . __('Information', __FILE__) . '</th>
-                <th style="padding : 3px 0 3px 15px !important;">' . __('Vu la première fois', __FILE__) . '</th>
+            <tr>
+                <th class="scanip-w-center"></th>
+                <th>' . __('Date', __FILE__) . '</th>
+                <th>' . __('Adresse MAC', __FILE__) . '</th>
+                <th>' . __('Ip', __FILE__) . '</th>
+                <th>' . __('Information', __FILE__) . '</th>
+                <th>' . __('Vu la première fois', __FILE__) . '</th>
             </tr>
         </thead>
         <tbody>';
+        
+        $nbRows = 0;
         
         for ($i = 0; $i <= (scan_ip::$_defaut_alerte_new_equipement -1); $i++) {
             if(!empty(scan_ip_cmd::getCommande("last_".$i."_date", $scan_ip))){ 
