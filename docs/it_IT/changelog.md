@@ -1,8 +1,6 @@
 # 18/11/2026 | v1.7.1
-* Nuovo pulsante per aggiornare i file dei produttori oui.txt e iab.txt dal sito dell'IEEE (configurazione, modalità debug), conservando i file precedenti in caso di errore
-* Aggiornamento automatico mensile predefinito dei file oui.txt e iab.txt, con la data dell'ultimo aggiornamento; frequenza modificabile o disattivabile in modalità avanzata, aggiornamento immediato in modalità debug
+* File dei produttori oui.txt e iab.txt aggiornati automaticamente ogni mese dal sito dell'IEEE, con la data dell'ultimo aggiornamento; frequenza modificabile o disattivabile in modalità avanzata, aggiornamento immediato in modalità debug; i file esistenti vengono conservati in caso di errore
 * Elementi dei plugin associati mostrati come etichette (plugin + dispositivo) nella finestra dei dispositivi registrati, senza duplicati
-* Correzione del pulsante di download dei file oui.txt e iab.txt mancanti, che non funzionava
 
 # 18/11/2026 | v1.7.0
 * Aggiunto il bridge "vigipool"

@@ -1,8 +1,6 @@
 # 18/11/2026 | v1.7.1
-* Ajout d'un bouton pour mettre à jour les fichiers constructeurs oui.txt et iab.txt depuis le site de l'IEEE (configuration, mode debug), avec conservation des anciens fichiers en cas d'échec
-* Mise à jour automatique des fichiers oui.txt et iab.txt tous les mois par défaut, avec la date de la dernière mise à jour ; fréquence modifiable ou désactivable en mode avancé, mise à jour immédiate en mode debug
+* Fichiers constructeurs oui.txt et iab.txt mis à jour automatiquement tous les mois depuis le site de l'IEEE, avec la date de la dernière mise à jour ; fréquence modifiable ou désactivable en mode avancé, mise à jour immédiate en mode debug ; les fichiers existants sont conservés en cas d'échec
 * Éléments de plugins associés présentés sous forme d'étiquettes (plugin + équipement) dans la modale des équipements enregistrés, sans doublons
-* Correction du bouton de téléchargement des fichiers oui.txt et iab.txt manquants, qui ne fonctionnait pas
 
 # 18/11/2026 | v1.7.0
 * Ajout du bridge "vigipool"
