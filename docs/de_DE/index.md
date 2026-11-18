@@ -6,94 +6,99 @@ lang: de_DE
 Beschreibung
 ===
 
-Dieses Plugin wird verwendet, um Ihr Netzwerk zu scannen und die Liste der verbundenen Geräte sowie deren MAC-Adressen abzurufen.
+Dieses Plugin scannt Ihr Netzwerk und ermittelt die Liste der verbundenen Geräte mit ihren MAC-Adressen.
 
 Mit diesen Informationen ermöglicht das Plugin:
-- die neue IP-Adresse eines Geräts abzurufen
-- ein Widget anzuzeigen, das den Status Ihres Netzwerks anzeigt
-- ein Widget anzuzeigen, das nicht registrierte Geräte anzeigt, die sich gerade mit dem Netzwerk verbunden haben
-- ein Widget für jedes registrierte Gerät anzuzeigen und die zugehörigen Befehle bereitzustellen
-- Benachrichtigungen zu erhalten, wenn ein Gerät im Netzwerk verschwindet, erscheint oder seine IP-Adresse ändert
-- IP-Änderungen in anderen Plugins über Bridges zu automatisieren
-- die Möglichkeit zu bieten, ein Gerät aus der Ferne einzuschalten (Wake-on-LAN)
+- die neue IP eines Geräts zu ermitteln
+- ein Widget mit dem Zustand Ihres Netzwerks anzuzeigen
+- ein Widget mit den nicht registrierten Geräten anzuzeigen, die sich gerade mit dem Netzwerk verbunden haben
+- ein Widget pro registriertem Gerät anzuzeigen und die zugehörigen Befehle bereitzustellen
+- Warnungen zu erstellen, wenn ein Gerät im Netzwerk verschwindet, erscheint oder seine IP ändert
+- IP-Änderungen über Bridges automatisch an andere Plugins weiterzugeben
+- ein Gerät aus der Ferne einzuschalten (Wake-on-LAN)
 
 Installation und Abhängigkeiten
 ===
 
-- Dieses Plugin erfordert zwingend "arp-scan", "wakeonlan" und "etherwake".
-- Die Verwendung der Dateien "oui.txt" und "iab.txt", die von "standards-oui.ieee.org" bereitgestellt werden
-- APIs, die von "macvendors.com" und "macvendors.co" bereitgestellt werden
+- Mindestens Jeedom 4.0, kompatibel mit PHP 7 und PHP 8.
+- Dieses Plugin benötigt unbedingt "arp-scan", "wakeonlan" und "etherwake" (werden mit den Abhängigkeiten installiert).
+- Es verwendet die Dateien "oui.txt" und "iab.txt" von "standards-oui.ieee.org".
+- Es verwendet die APIs von "macvendors.com" und "macvendors.co".
+
+> **Jeedom unter Docker**: Der Jeedom-Container muss mit `network_mode: host` laufen. Andernfalls sieht er nur das interne Docker-Netzwerk (oft ein `/16` mit 65.534 Adressen): Die Scans dauern mehrere Minuten und finden nur die anderen Container, nicht die Geräte in Ihrem Netzwerk.
 
 # Konfiguration
 
-Um die Verwendung dieses Plugins zu erleichtern, können die angebotenen Optionen in drei Modi angepasst werden: "normal", "fortgeschritten" und "debug".
+Um die Bedienung zu erleichtern, passt das Plugin die angebotenen Optionen an drei Modi an: "normal", "erweitert" und "debug".
 
 ## Normaler Modus
 
-Der normale Modus zeigt die Hauptparameter an, die sich in der Regel an Standardkonfigurationen anpassen.
+Der normale Modus zeigt die wichtigsten Einstellungen, die in der Regel für Standardkonfigurationen passen.
 
 ![scan_ip1](../images/Config.Normal.png)
 
-### Netzwerk-Widget
+### Widget Netzwerk
 
-Diese Option ermöglicht es, das Netzwerk-Widget anzuzeigen oder auszublenden.
+Diese Option blendet das Netzwerk-Widget ein oder aus.
 
 ![scan_ip2](../images/Widget.network.png)
 
-> Sie haben die Möglichkeit, die Spalten mit einem einfachen Klick zu sortieren.
+> Sie können die Spalten mit einem Klick auf ihre Überschrift sortieren.
 
-> Sie haben auch die Möglichkeit, eine Standardsortierung zu konfigurieren, indem Sie das Gerät aufrufen, das mit diesem Widget verknüpft ist.
+> Sie können außerdem im zugehörigen Gerät dieses Widgets eine Standardsortierung festlegen.
 
-### Benachrichtigungs-Widget
+### Widget Warnungen
 
-Diese Option ermöglicht es, das Benachrichtigungs-Widget anzuzeigen oder auszublenden.
+Diese Option blendet das Widget der Warnungen ein oder aus.
 
-![scan_ip5](../images//Widget.Alerte.png)
+![scan_ip5](../images/Widget.Alerte.png)
 
-> Dieses Widget zeigt nur nicht registrierte Geräte an, und die Anzeige erfolgt sortiert nach ((dateConnexion).(datePremierReferencement)). Ein neues Gerät wird also an erster Stelle angezeigt.
+> Dieses Widget zeigt nur nicht registrierte Geräte an, sortiert nach Verbindungsdatum und dann nach dem Datum der ersten Erfassung. Ein ganz neues Gerät erscheint daher an erster Stelle.
 
-### Aktualisierungsrate
+### Aktualisierungsintervall
 
-Dient zur Einstellung der Aktualisierungsrate der geplanten Aufgabe.  
-Standardmäßig ist diese auf 1 Minute eingestellt.
+Legt das Aktualisierungsintervall der geplanten Aufgabe fest.
+Standardmäßig ist es auf 1 Minute eingestellt.
 
-> Es sei darauf hingewiesen, dass bei jedem Netzwerkscan nicht unbedingt alle Geräte antworten, da sie zu lange zum Antworten benötigen (z. B. WLAN-Geräte). Es wird daher empfohlen, mindestens drei Scans durchzuführen, bevor festgestellt wird, dass ein Gerät tatsächlich offline ist. Sie werden sehen, dass Sie diesen Parameter auf Geräteebene feiner einstellen können.
+> Nicht alle Geräte antworten bei jedem Scan, da manche zu lange für eine Antwort brauchen (zum Beispiel WLAN-Geräte). Es wird daher empfohlen, mindestens 3 Scans abzuwarten, bevor ein Gerät als wirklich offline gilt. Diese Einstellung kann für jedes Gerät genauer angepasst werden.
 
 ### Liste der unterstützten Plugins
 
-Scan.ip verwendet Bridges, um Daten in bestimmten Plugins zu aktualisieren. Standardmäßig werden nur die in Ihrem Jeedom installierten Plugins angezeigt; aktivieren Sie „Auch nicht installierte Plugins anzeigen“, um alle unterstützten Plugins zu sehen.
+Scan.Ip verwendet Bridges, um Daten in bestimmten Plugins zu aktualisieren. Standardmäßig werden nur die in Ihrem Jeedom installierten Plugins angezeigt; aktivieren Sie „Auch nicht installierte Plugins anzeigen“, um alle unterstützten Plugins zu sehen.
 
 ![scan_ip_bridges](../images/Config.Bridges.png)
 
-> In der Praxis ermöglicht dies, durch Bridges die IP-Adresse eines Geräts in anderen Plugins automatisch zu ändern, wenn es seine IP ändert (zum Beispiel, wenn es nicht möglich ist, eine feste IP im DHCP festzulegen).
+> Konkret geben die Bridges die IP-Änderung eines Geräts automatisch an die anderen Plugins weiter (zum Beispiel, wenn keine feste IP im DHCP vergeben werden kann).
 
-Sie können ein Gerät einem oder mehreren Plugins zuordnen.
+So können Sie ein Gerät einem oder mehreren Plugins zuordnen.
 
-## Fortgeschrittener Modus
+## Erweiterter Modus
 
 ![scan_ip7](../images/Config.Avance.png)
 
 ### Router
 
-Ermöglicht das Hinzufügen des Routers zur Netzwerk-Liste. Standardmäßig wird dieser entfernt.
+Fügt den Router zur Netzwerkliste hinzu. Standardmäßig ist er entfernt.
 
 ### Jeedom
 
-Ermöglicht das Hinzufügen des Jeedom-Servers zur Netzwerk-Liste. Standardmäßig wird dieser entfernt.
+Fügt den Jeedom-Server zur Netzwerkliste hinzu. Standardmäßig ist er entfernt.
 
-### Retry-Option
+### Option Wiederholung
 
-Damit können Sie die Anzahl der Versuche beim Netzwerkscan festlegen. Tatsächlich antworten nicht alle Geräte beim ersten Scanversuch. Beachten Sie, dass je mehr Versuche Sie einstellen, desto länger der Scan dauert.
+Legt die Anzahl der Versuche bei den Netzwerkscans fest. Nicht alle Geräte antworten beim ersten Versuch. Je mehr Versuche, desto länger dauert der Scan.
 
-### Safari-Kompatibilität
+### Kompatibilität mit dem Safari-Browser
 
-Im Safari-Webbrowser ist der versteckte Modus im Auswahlmenü, der nur unbenutzte Bridges anzeigt, nicht kompatibel. Wenn Sie diese Option aktivieren, werden bereits verwendete Menüs deaktiviert. Diese Option sollte nur aktiviert werden, wenn Sie das Problem in Safari haben.
+Unter Safari funktioniert das Ausblenden von Optionen in Auswahlmenüs (mit dem nur die nicht verwendeten Bridges angezeigt werden) nicht. Mit dieser Option werden bereits verwendete Elemente deaktiviert statt ausgeblendet. Aktivieren Sie diese Option nur, wenn das Problem unter Safari auftritt.
 
-### Netzbereiche zum Scannen festlegen
+### Zu scannende Netzwerkbereiche festlegen
 
-Wenn Sie mehrere Netzwerkkarten oder insbesondere Subnetze haben, sollten Sie das/die zu scannende(n) Subnetz(e) festlegen.
+Wenn Sie mehrere Netzwerkkarten oder Subnetze haben, aktivieren Sie das oder die zu scannenden Subnetze. Es werden nur Schnittstellen mit einer IPv4-Adresse angeboten (virtuelle Docker-Schnittstellen oder nicht verbundene Karten werden nicht aufgeführt).
 
-> Zur Information: Ein Subnetz erlaubt möglicherweise nicht, MAC-Adressen abzurufen (gesperrt auf dem Router oder anderen Stellen). Wenn Sie dieses Problem haben, müssen Sie ein weiteres Jeedom in diesem Subnetz installieren, das mit einem dedizierten Scan.ip das gleiche Subnetz verwaltet.
+> Ein Subnetz erlaubt möglicherweise nicht, die darin befindlichen MAC-Adressen abzurufen (Sperre durch den Router oder anderes). In diesem Fall müssen Sie in diesem Subnetz ein weiteres Jeedom mit einem eigenen Scan.Ip installieren.
+
+> Die Dauer eines Scans hängt von der Größe des Subnetzes ab: einige Sekunden für ein `/24` (254 Adressen), mehrere Minuten für ein `/16` (65.534 Adressen).
 
 ## Debug-Modus
 
@@ -101,81 +106,97 @@ Wenn Sie mehrere Netzwerkkarten oder insbesondere Subnetze haben, sollten Sie da
 
 ### Vorhandene Dateien
 
-Dient zur Überprüfung, ob die Dateien oui.txt und iab.txt vorhanden sind und wann sie zuletzt aktualisiert wurden.
+Prüft, ob die Dateien oui.txt und iab.txt vorhanden sind, sowie ihr Aktualisierungsdatum.
 
-> Diese beiden Dateien werden verwendet, um eine MAC-Adresse einem Hersteller zuzuordnen.
+> Diese beiden Dateien ordnen eine MAC-Adresse einem Hersteller zu.
+
+### Versionsprüfung
+
+Prüft, ob die vom Plugin gespeicherten Daten das Format der installierten Version haben. Jede Zeile zeigt „Aktuell“ in Grün, wenn alles korrekt ist, andernfalls „Nicht aktuell“ in Rot. Sind die Daten nicht kompatibel, kann ihre Korrektur über eine Schaltfläche gestartet werden.
 
 ### Abhängigkeiten
 
-Ermöglicht die einfache Visualisierung von fehlgeschlagenen Abhängigkeiten.
+Zeigt auf einen Blick, welche Abhängigkeiten fehlgeschlagen sind.
 
 # Geräteverwaltung
 
 ![scan_ip9](../images/AllEquipements.png)
 
-> Die Geräte sind in zwei Teile unterteilt: "MAC-Geräte" und "Widgets, die von Scan.Ip verwaltet werden". Diese sollten nur im Falle eines Fehlers gelöscht werden. Um sie zu löschen, müssen Sie den Debug-Modus aktivieren, damit der "Löschen"-Button erscheint.
+> Die Geräte sind in zwei Bereiche unterteilt: "Ihre MAC-Geräte" und "Von Scan.Ip verwaltete Widgets". Letztere sollten nur bei einem Fehler gelöscht werden. Um sie zu löschen, aktivieren Sie den Debug-Modus, damit die Schaltfläche "Löschen" erscheint.
 
-## Zugriffssymbole
+## Zugangssymbole
 
-> Wenn Sie den Modus ändern, müssen Sie die Seite aktualisieren, um die Änderungen anzuzeigen.
-
-Im Debug-Modus erscheint ein Debug-Symbol.
+Im Debug-Modus erscheint ein Debug-Symbol. Es erscheint oder verschwindet sofort beim Moduswechsel, ohne die Seite neu zu laden.
 
 ![scan_ip10](../images/Menu.Debug.png)
 
 ### MAC-Gerät hinzufügen
 
-Dies ermöglicht es, ein Gerät hinzuzufügen, wenn Sie die MAC-Adresse des hinzuzufügenden Geräts kennen.
+Fügt ein Gerät hinzu, wenn Sie die MAC-Adresse des hinzuzufügenden Geräts kennen.
 
-> Beachten Sie, dass es einfacher ist, über "Nicht registrierte Einträge" zu gehen, mit dem Sie ein oder mehrere im Netzwerk vorhandene Geräte schnell hinzufügen können.
+> Einfacher ist es, über "Nicht registrierte Geräte" oder "Netzwerk" zu gehen, wo Sie ein oder mehrere Geräte Ihres Netzwerks direkt hinzufügen können.
 
 ### Synchronisieren
 
-Erzwingt einen neuen Scan und aktualisiert die Geräte.
+Startet einen neuen Scan und aktualisiert die Geräte. Ein Fortschrittsbalken zeigt den aktuellen Schritt, den Prozentsatz, die verstrichene Zeit und eine Schätzung der Restzeit; am Ende des Scans wird die Seite neu geladen.
 
-> Wenn bereits ein Scan läuft, ist die Aktion nicht möglich.
+> Läuft bereits ein automatischer Scan, verfolgt der Fortschrittsbalken diesen Scan, statt einen zweiten zu starten.
 
 ### Netzwerk
 
 ![scan_ip11](../images/Modal.Network.png)
 
-Die Tabelle zeigt das gesamte Netzwerk an:
+Oben im Fenster fassen zwei Karten Ihr Jeedom (IP, MAC-Adresse, Installationsdatum, Hostname) und Ihren Router (Name, IP, MAC-Adresse) zusammen.
 
-- Die erste Spalte zeigt an, ob das Gerät "Online" oder "Offline" ist.
-- Die zweite Spalte zeigt an, ob das Gerät "registriert", "registriert, aber deaktiviert" oder "nicht registriert" ist.
-- Die dritte Spalte zeigt die MAC-Adresse des Geräts an.
-- Die vierte Spalte zeigt die IP-Adresse des Geräts an.
-- Die fünfte Spalte zeigt den Gerätenamen an, wenn es registriert ist, oder den Herstellernamen, der von einem "|" eingeleitet wird.
-- Die sechste Spalte ermöglicht das Hinzufügen von Kommentaren zu einem Gerät (sie werden während der Eingabe automatisch gespeichert; leeren Sie das Feld, um einen Kommentar zu löschen).
-- Die siebte Spalte zeigt das letzte Erscheinen des Geräts an.
+Die Werkzeugleiste bietet:
+- einen Filter für die Suche nach MAC-Adresse, IP, Name oder Kommentar
+- Zähler (Geräte, online, offline, registriert, nicht registriert): Ein Klick auf einen Zähler filtert die Tabelle, ein zweiter Klick hebt den Filter auf; Zähler mit dem Wert null werden nicht angezeigt
+- das Datum des letzten Scans und eine Schaltfläche "Scannen", um einen neuen Scan mit Fortschrittsbalken zu starten
 
-> Wenn Sie "|" im Gerätenamen bemerken, bedeutet dies, dass es nicht erkannt wurde.
+Die Tabelle zeigt das gesamte Netzwerk:
+
+- Die 1. Spalte zeigt, ob das Gerät "Online" oder "Offline" ist
+- Die 2. Spalte zeigt, ob das Gerät "registriert", "registriert, aber deaktiviert" oder "nicht registriert" ist
+- Die 3. Spalte zeigt die MAC-Adresse des Geräts
+- Die 4. Spalte zeigt die IP des Geräts
+- Die 5. Spalte zeigt den Namen des Geräts, falls es registriert ist, sonst den Herstellernamen mit vorangestelltem "|"
+- In der 6. Spalte können Sie einem Gerät einen Kommentar zuordnen (er wird während der Eingabe automatisch gespeichert; leeren Sie das Feld, um einen Kommentar zu löschen)
+- Die 7. Spalte zeigt, wann das Gerät zuletzt gesehen wurde
+- Die letzte Spalte bietet "Registrieren" für ein nicht registriertes Gerät (das Gerät wird erstellt und seine Seite geöffnet, damit Sie es benennen und aktivieren können) oder "Öffnen", um zur Seite eines bereits registrierten Geräts zu gelangen
+
+> Wenn Sie "|..." im Namen eines Geräts sehen, wurde sein Hersteller nicht erkannt.
 
 ### Registrierte Geräte
 
 ![scan_ip12](../images/Modal.Equipemetn.Ok.png)
 
-- Die erste Spalte zeigt an, ob das Gerät "Online" oder "Offline" ist.
-- Die zweite Spalte zeigt den Gerätenamen an.
-- Die dritte Spalte zeigt die MAC-Adresse des Geräts an.
-- Die vierte Spalte zeigt die IP-Adresse des Geräts an.
-- Die fünfte Spalte zeigt die IP-Adresse, die beim letzten Verbinden verwendet wurde.
-- Die sechste Spalte zeigt das letzte Erscheinen des Geräts an.
-- Die siebte Spalte zeigt alle Bridges an, die mit dem Gerät verbunden sind. Durch Klicken auf diese werden Sie zum entsprechenden Plugin-Gerät weitergeleitet.
+Die Werkzeugleiste bietet einen Filter und anklickbare Zähler (registriert, online, offline, IP-Änderungen).
+
+- Die 1. Spalte zeigt den Zustand des Geräts: "Online", "Offline" oder "IP-Änderung"
+- Die 2. Spalte zeigt den Namen des Geräts
+- Die 3. Spalte zeigt die MAC-Adresse des Geräts
+- Die 4. Spalte zeigt die IP des Geräts
+- Die 5. Spalte zeigt die bei der letzten Verbindung verwendete IP (in Orange, wenn sie von der aktuellen IP abweicht)
+- Die 6. Spalte zeigt das Datum der letzten Aktualisierung des Geräts
+- Die 7. Spalte zeigt alle dem Gerät zugeordneten Bridges. Ein Klick darauf führt Sie zum Gerät im zugehörigen Plugin.
 
 ### Nicht registrierte Geräte
 
 ![scan_ip13](../images/Modal.Equipemetn.No.png)
 
-- Die erste Spalte ermöglicht die Auswahl des Geräts* (um es "on the fly" zu Ihren Geräten hinzuzufügen oder es aus den Netzwerkarchiven zu löschen).
-- Die zweite Spalte zeigt den Namen des Geräts an.
-- In der dritten Spalte können Sie einen Kommentar zum Gerät eingeben, der automatisch gespeichert wird.
-- Die vierte Spalte zeigt die MAC-Adresse des Geräts an.
-- Die fünfte Spalte zeigt die vom Gerät verwendete IP-Adresse an.
-- Die sechste Spalte zeigt das Datum des ersten Eintrags in Ihr Netzwerk an.
-- Die siebte Spalte zeigt das letzte Erscheinen des Geräts an.
+Die Werkzeugleiste bietet einen Filter und anklickbare Zähler (nicht registriert, online, offline).
 
-> * Wenn Sie ein oder mehrere Elemente auswählen, erscheinen Aktionsschaltflächen.
+- In der 1. Spalte können Sie das Gerät auswählen* (um es direkt zu Ihren Geräten hinzuzufügen oder aus dem Netzwerkarchiv zu löschen); das Kontrollkästchen in der Kopfzeile wählt alle angezeigten Zeilen aus
+- Die 2. Spalte zeigt, ob das Gerät "Online" oder "Offline" ist
+- Die 3. Spalte zeigt den Namen des Geräts
+- In der 4. Spalte können Sie einen Kommentar zum Gerät eingeben, der automatisch gespeichert wird
+- Die 5. Spalte zeigt die MAC-Adresse des Geräts
+- Die 6. Spalte zeigt die vom Gerät verwendete IP
+- Die 7. Spalte zeigt das Datum der ersten Erfassung in Ihrem Netzwerk
+- Die 8. Spalte zeigt, wann das Gerät zuletzt gesehen wurde
+- Die letzte Spalte bietet "Registrieren", um das Gerät direkt zu erstellen und seine Seite zu öffnen
+
+> \* Wenn Sie ein oder mehrere Elemente auswählen, erscheinen Aktionsschaltflächen.
 
 ![scan_ip14](../images/Modal.Equipemetn.No.save.png)
 
@@ -183,31 +204,31 @@ Die Tabelle zeigt das gesamte Netzwerk an:
 
 ![scan_ip15](../images/Modal.Debug.png)
 
-Dieses Modal dient dazu, potenzielle Fehler zu verstehen, die auftreten könnten.
+Dieses Fenster hilft, mögliche Fehler zu verstehen.
 
 #### # ip a
 
-Ergebnis des Befehls "ip a", der die Liste aller Netzwerke anzeigt, die von Ihrem Jeedom aus zugänglich sind.
+Ergebnis des Befehls "ip a", der alle von Ihrem Jeedom aus erreichbaren Netzwerke auflistet.
 
 #### # ip route show default
 
-Zeigt die IP-Adresse des Routers an, der mit Ihrem Jeedom verbunden ist.
+Zeigt die IP des Routers an, mit dem Ihr Jeedom verbunden ist.
 
 #### # sudo arp-scan -r 3 --interface=eth0 --localnet --ouifile=ieee-oui.txt
 
-> Hier ist das Netzwerk "eth0" ausgewählt, aber dies ist spezifisch für Ihr Netzwerk.
+> Hier ist das Netzwerk "eth0" ausgewählt, dies hängt jedoch von Ihrem Netzwerk ab.
 
-Ergebnis des Befehls "sudo arp-scan -r 3 --interface=eth0 --localnet --ouifile=ieee-oui.txt", das die Liste der Geräte anzeigt, die auf den Scan antworten.
+Ergebnis des Befehls "sudo arp-scan -r 3 --interface=eth0 --localnet --ouifile=ieee-oui.txt", der die Geräte auflistet, die auf den Scan antworten.
 
-> Wie bereits erwähnt, werden möglicherweise nicht alle angeschlossenen Geräte in einem Scan angezeigt. Aus diesem Grund ist es wichtig, mehrere Scans durchzuführen, um eine genauere Rückmeldung darüber zu erhalten, welche Geräte verbunden sind.
+> Wie oben erwähnt, erscheinen möglicherweise nicht alle verbundenen Geräte bei einem einzigen Scan. Deshalb sind mehrere Scans nötig, um ein genaues Bild der verbundenen Geräte zu erhalten.
 
-#### # Geräte
+#### # Equipements
 
-Zeigt die im Geräte-json enthaltenen Daten an. Dies ist der Verlauf aller Geräte, die sich mit Ihrem Netzwerk verbunden haben.
+Zeigt die Daten aus dem Geräte-JSON. Dies ist der Verlauf aller Geräte, die sich mit Ihrem Netzwerk verbunden haben.
 
 #### # Mappings
 
-Zeigt die im Mapping-json enthaltenen Daten an. Dies ist der letzte Status Ihres Netzwerks mit der verwendeten Version von "arp-scan".
+Zeigt die Daten aus dem Mapping-JSON. Dies ist der letzte Zustand Ihres Netzwerks mit der verwendeten Version von "arp-scan".
 
 ### Konfiguration
 
@@ -221,114 +242,157 @@ Dieser Punkt wurde bereits am Anfang behandelt.
 
 #### MAC-Adresse suchen
 
-Dieses Auswahlmenü ermöglicht es Ihnen, direkt nach einem Element in Ihrem Netzwerk zu suchen und dessen MAC-Adresse abzurufen.
+Mit diesem Auswahlmenü können Sie direkt nach einem Element Ihres Netzwerks suchen und seine MAC-Adresse übernehmen.
 
-> Nur nicht zugeordnete MAC-Adressen werden angezeigt, um Duplikate zu vermeiden.
+> Es werden nur noch nicht zugeordnete MAC-Adressen angeboten, um Duplikate zu vermeiden.
 
 #### Zugeordnete MAC-Adresse
 
 Dieses Feld wird:
-- entweder automatisch mit dem Auswahlmenü "MAC-Adresse suchen" ausgefüllt
-- oder Sie können es manuell ausfüllen, wenn Sie das Hinzufügen von Geräten in Ihr Netzwerk vorwegnehmen möchten.
+- entweder automatisch über das Menü "MAC-Adresse suchen" ausgefüllt
+- oder manuell ausgefüllt, wenn Sie die Ankunft eines Geräts in Ihrem Netzwerk vorwegnehmen möchten
 
 #### Hersteller
 
-Wenn der Hersteller identifiziert wurde, wird er hier eingetragen.
+Wurde der Hersteller erkannt, wird er hier angezeigt.
 
 #### Wake-on-LAN
 
-Dies ermöglicht das Hinzufügen eines WoL-Aktionsbefehls, mit dem Sie ein Gerät aus der Ferne einschalten können.
+Fügt einen WoL-Aktionsbefehl hinzu, der das Gerät aus der Ferne einschaltet.
 
-> Stellen Sie sicher, dass Ihr Gerät kompatibel ist und/oder die Option aktiviert wurde, damit es funktioniert.
+> Prüfen Sie, ob Ihr Gerät kompatibel ist und die Option darauf aktiviert ist, damit dies funktioniert.
 
 #### Zuordnung
 
 ![scan_ip6](../images/Equipement.Bridge.png)
 
-Wie im Konfigurationsabschnitt beschrieben, werden hier die Plugins über Bridges mit Scan.Ip verbunden.
+Wie im Konfigurationsteil gesehen, werden hier Plugins über Bridges mit Scan.Ip verknüpft.
 
-> Im Auswahlmenü wird die Information wie folgt angezeigt: [Pluginname][im Plugin registrierte IP::Subconfig-Name (falls vorhanden)] Name des Zielgeräts im Plugin.
+> Im Auswahlmenü wird die Information so dargestellt: [Name des Plugins][im Plugin gespeicherte IP :: Unterbezeichnung der Konfiguration (falls vorhanden)] Name des Geräts im Ziel-Plugin.
 
-> Achtung: Diese Option nimmt Änderungen an anderen Plugins vor. Verwenden Sie sie mit Vorsicht. Der Autor des Ziel-Plugins ist nicht verantwortlich für Fehlfunktionen, die dadurch in seinem Plugin entstehen könnten.
+> Achtung: Diese Option ändert andere Plugins. Verwenden Sie sie bewusst. Der Autor des Ziel-Plugins ist in keiner Weise für Fehlfunktionen verantwortlich, die dadurch in seinem Plugin entstehen könnten.
 
-> Das versteht sich von selbst! Solange Sie keine Zuordnung zu einem Plugin vornehmen, nimmt Scan.ip keine Änderungen daran vor.
+> Solange Sie kein Plugin zuordnen, nimmt Scan.Ip daran keine Änderung vor.
 
-> Wenn Sie Entwickler sind und eine zusätzliche Bridge vorschlagen möchten, ist dies möglich. Entweder durch einen direkten Vorschlag auf GitHub (https://ynats.github.io/jeedom-plugin-scan.ip/) oder über das Forum.
+> Wenn Sie Entwickler sind und eine zusätzliche Bridge vorschlagen möchten, ist das gern möglich: entweder direkt auf GitHub (https://ynats.github.io/jeedom-plugin-scan.ip/) oder über das Forum.
 
-### Im fortgeschrittenen Modus
+### Im erweiterten Modus
 
 ![scan_ip17](../images/Equipement.Avanced.png)
 
-#### Erinnerung "Konfiguration"
+#### Hinweis "Konfiguration"
 
-Damit haben Sie die Konfiguration, die Sie gespeichert haben, im Blick.
+Erinnert Sie an das in der Plugin-Konfiguration gespeicherte Aktualisierungsintervall.
 
-#### Als offline vermutet nach
+#### Als offline betrachtet nach
 
-Standardmäßig auf 4 Minuten eingestellt, was bedeutet, dass bei einer Einstellung auf 1 Minute ein Scan alle 4 Durchläufe benötigt, um festzustellen, ob das Gerät wirklich offline ist.  
-Erinnern Sie sich, nicht alle Geräte werden unbedingt bei jedem Scan erfasst.
+Standardmäßig 4 Minuten: Wenn Sie alles auf den Standardwerten gelassen haben, sind das 1 Scan pro Minute und 4 Durchläufe, um festzustellen, ob das Gerät wirklich offline ist.
+Denken Sie daran, dass nicht jedes Gerät bei jedem Scan erscheint.
 
-> Wenn Sie die Aktualisierungsrate auf 3 Minuten eingestellt haben, müssen Sie diesen Parameter auf mindestens 15 Minuten einstellen.
+> Wenn Sie das Aktualisierungsintervall auf 3 Minuten eingestellt haben, setzen Sie diesen Parameter auf mindestens 15 Minuten.
 
-> Dieser Parameter kann für LAN-Geräte, die sehr reaktionsschnell sind, angepasst werden. Es wäre angebracht, ihn auf 2 Minuten zu senken, zum Beispiel bei einer Aktualisierungsrate von 1 Minute. Dies würde 2 Durchläufe benötigen, um den Status zu bestimmen.
+> Bei sehr reaktionsschnellen kabelgebundenen Geräten kann dieser Parameter gesenkt werden, zum Beispiel auf 2 Minuten bei einem Intervall von 1 Minute. Das entspricht 2 Durchläufen, um den Zustand festzustellen.
+
+### Im Debug-Modus
+
+![scan_ip_debug](../images/Equipement.Debug.png)
+
+#### MAC Id
+
+Im Debug-Modus zeigt das Feld „MAC Id“ die interne Kennung des Geräts an: die letzten drei Bytes seiner MAC-Adresse. Es ist schreibgeschützt und hilft bei der Diagnose einer MAC-Zuordnung, die nicht funktioniert.
 
 ### Zugeordnete Befehle
 
 ![scan_ip18](../images/Commande.Wol.png)
 
-- IpV4 (IPv4-Adresse des Geräts)
-- Wol (der Aktionsbefehl, um das Gerät aus der Ferne einzuschalten)
-- Last Date (Datum im Format TT/MM/JJJJ HH:MM:SS des letzten Erscheinens im Netzwerk)
-- Last IpV4 (Letzte vom Gerät verwendete IP-Adresse)
-- Last Time (Datum im Zeitstempel-Format des letzten Erscheinens im Netzwerk)
-- Online (Status des Geräts)
+- IpV4 (IP des Geräts im v4-Format)
+- Wol (der Aktionsbefehl, um das Gerät aus der Ferne einzuschalten; nur vorhanden, wenn Wake-on-LAN für das Gerät aktiviert ist)
+- Last Date (Datum im Format TT/MM/JJJJ HH:MM:SS, an dem das Gerät zuletzt wieder online kam oder seine IP änderte)
+- Last IpV4 (letzte vom Gerät verwendete IP)
+- Last Time (dasselbe Datum wie "Last Date", als Zeitstempel)
+- mac (MAC-Adresse des Geräts)
+- Online (Zustand des Geräts)
 
 ### Zugeordnete Widgets
 
 ![scan_ip9](../images/Widget.Normal.png)
 
+Das Widget zeigt die MAC-Adresse des Geräts, seine IP, seinen Zustand, seine letzte bekannte IP (in Orange, wenn sie von der aktuellen IP abweicht) und das Datum, an dem es zuletzt wieder online kam oder seine IP änderte. Die Schaltfläche WoL erscheint, wenn Wake-on-LAN für das Gerät aktiviert ist.
+
 # Von Scan.Ip verwaltete Widgets
 
 ![scan_ip19](../images/AllEquipements.png)
 
-Standardmäßig umfasst dieser Abschnitt 2 Widgets (sie können umbenannt werden):
-- Scan.Ip Widget Alerts
+Standardmäßig enthält dieser Bereich 2 Widgets (sie können umbenannt werden):
+- Scan.Ip Widget Alertes
 - Scan.Ip Widget Network
 
-Diese Geräte werden direkt vom Plugin verwaltet und entsprechen den von Ihnen im Plugin konfigurierten Einstellungen.
+Diese Geräte werden direkt vom Plugin verwaltet und entsprechen Ihrer Konfiguration des Plugins.
 
 ![scan_ip1](../images/Config.Normal.png)
 
-> Zur Erinnerung: Um deren Anzeige zu verwalten, erfolgt dies im Konfigurationsbereich.
+> Zur Erinnerung: Ihre Anzeige wird in der Konfiguration des Plugins verwaltet.
 
-## Das Netzwerk-Widget
+## Das Widget Netzwerk
 
 ![scan_ip20](../images/config.widget.network.png)
 
-## Das Benachrichtigungs-Widget
+## Das Widget Warnungen
 
 ![scan_ip21](../images/config.widget.alerte.png)
 
 #### Zugeordnete Befehle
 
-Es werden 10 Befehlsgruppen erstellt, die den letzten 10 nicht registrierten Geräten entsprechen, die sich verbunden haben. Die chronologische Reihenfolge beginnt bei null (das neueste) und endet bei neun (das älteste).
+Es werden 10 Befehlsgruppen erstellt. Sie entsprechen den 10 letzten nicht registrierten Geräten, die sich verbunden haben. Die chronologische Reihenfolge beginnt bei null (das neueste) und endet bei neun (das älteste).
 
 Jedes Element hat 6 Unterbefehle:
 
-- Verbindung 0 Erstellung (Zeitstempel des ersten Verweises)
-- Verbindung 0 Datum (Datum im Format TT/MM/JJJJ HH:MM:SS des letzten Erscheinens)
-- Verbindung 0 Zeit (Zeitstempel des letzten Erscheinens)
-- Verbindung 0 Gerät (Herstellername, falls angegeben)
-- Verbindung 0 IpV4 (IPv4-Adresse des Geräts)
-- Verbindung 0 MAC (MAC-Adresse des Geräts)
+- Connexion 0 Création (Zeitstempel der ersten Erfassung)
+- Connexion 0 Date (Datum im Format TT/MM/JJJJ HH:MM:SS, an dem es zuletzt gesehen wurde)
+- Connexion 0 Time (Zeitstempel, an dem es zuletzt gesehen wurde)
+- Connexion 0 Equipement (Name des Herstellers, falls bekannt)
+- Connexion 0 IpV4 (zugewiesene IP im v4-Format)
+- Connexion 0 MAC (MAC-Adresse des Geräts)
 
 ## Subnetze und Scan.Ip
 
-#### Wenn Sie mehrere Netzwerke verwalten möchten (z. B. Sie besitzen einen Hub, der mit Ihrem Router verbunden ist)
+#### Wenn Sie mehrere Netzwerke verwalten möchten (zum Beispiel einen Hub, der an Ihren Router angeschlossen ist)
 
-Scan.Ip ist in der Lage, mehrere Netzwerke gleichzeitig zu verwalten.  
-Dazu müssen Sie Ihr Jeedom mit den verschiedenen Netzwerken verbinden.  
-Sie haben beispielsweise die Möglichkeit, das WLAN Ihres Jeedom-PCs mit einem Netzwerk und das LAN mit einem anderen zu verbinden. Oder einfach "usb/LAN"- oder "usb/WLAN"-Adapter an Ihr Jeedom anzuschließen.  
-Scan.Ip zeigt Ihnen die Subnetze an, die Sie dann im Konfigurationsbereich des Plugins (im erweiterten Modus) aktivieren können.
+Scan.Ip kann mehrere Netzwerke gleichzeitig verwalten.
+Dazu muss Ihr Jeedom mit den verschiedenen Netzwerken verbunden sein.
+Sie können zum Beispiel das WLAN Ihres Jeedom-Rechners mit einem Netzwerk und das Netzwerkkabel mit dem anderen verbinden oder einfach "USB/Ethernet"- oder "USB/WLAN"-Adapter an Ihr Jeedom anschließen.
+Scan.Ip zeigt Ihnen die Subnetze an, die Sie anschließend in der Konfiguration des Plugins (im erweiterten Modus) aktivieren können.
 
 ![scan_ip22](../images/config.widget.reseaux.png)
+
+# Beispielszenarien
+
+Die Befehle des Plugins können als Auslöser in Jeedom-Szenarien verwendet werden. Ersetzen Sie in den folgenden Beispielen `[Aucun]` durch das übergeordnete Objekt Ihrer Geräte und den Sendebefehl durch den Ihres Benachrichtigungs-Plugins (SMS, Telegram, Jeedom Connect…).
+
+## Eine SMS erhalten, wenn sich ein neues Gerät verbindet
+
+Das Widget Warnungen hält das neueste unbekannte Gerät auf Position 0. Dieses Szenario wird ausgelöst, wenn sich diese Position ändert, und prüft, ob das Gerät gerade zum ersten Mal erkannt wurde.
+
+- **Modus**: Ausgelöst
+- **Auslöser**: `#[Aucun][Scan.Ip Widget Alertes][Connexion 0 Création]#`
+- **WENN**: `#[Aucun][Scan.Ip Widget Alertes][Connexion 0 Création]# > #timestamp# - 180`
+- **DANN**: SMS-Sendebefehl mit der Nachricht
+  `Neues Gerät im Netzwerk: #[Aucun][Scan.Ip Widget Alertes][Connexion 0 MAC]# (#[Aucun][Scan.Ip Widget Alertes][Connexion 0 IpV4]#, #[Aucun][Scan.Ip Widget Alertes][Connexion 0 Equipement]#)`
+
+> Die Bedingung lässt nur Geräte durch, die vor weniger als 3 Minuten zum ersten Mal erkannt wurden: Eine bloße Änderung der Reihenfolge der Liste löst keine Warnung aus.
+
+> Das Widget Warnungen muss in der Konfiguration des Plugins aktiviert sein. Kommen mehrere neue Geräte im selben Scan hinzu, wird nur eine Warnung gesendet.
+
+## Benachrichtigt werden, wenn ein registriertes Gerät das Netzwerk verlässt
+
+Bei einem registrierten MAC-Gerät (zum Beispiel "Aspirateur robot") wechselt der Befehl **Online** auf 0, wenn das Gerät als offline gilt.
+
+- **Modus**: Ausgelöst
+- **Auslöser**: `#[Aucun][Aspirateur robot][Online]#`
+- **WENN**: `#[Aucun][Aspirateur robot][Online]# == 0`
+- **DANN**: Benachrichtigungsbefehl mit der Nachricht
+  `Der Saugroboter ist nicht mehr mit dem Netzwerk verbunden`
+
+> Die Zeit, bis das Gerät als offline gilt, wird im Gerät eingestellt („Als offline betrachtet nach“, im erweiterten Modus).
+
+> Variante: Mit dem Auslöser `#[Aucun][Aspirateur robot][IpV4]#` und der Bedingung `#[Aucun][Aspirateur robot][IpV4]# != ""` werden Sie bei jeder IP-Änderung des Geräts benachrichtigt.
