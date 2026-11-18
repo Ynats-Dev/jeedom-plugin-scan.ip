@@ -19,9 +19,9 @@ class scan_ip_widgets extends eqLogic {
     public static function getWidgetStyle() {
         return '<style>
             .scanip-w-table { width: 100%; border-collapse: collapse; margin: 0 0 6px 0; font-size: 0.95em; }
-            .scanip-w-table thead th { position: sticky; top: 0; z-index: 1; padding: 5px 8px; text-align: left; white-space: nowrap;
+            .scanip-w-table thead th { padding: 5px 8px; text-align: left; white-space: nowrap;
                 font-size: 0.82em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
-                background: var(--bg-color, #f4f5f7); border-bottom: 1px solid rgba(127,127,127,0.25); }
+                background: rgba(127,127,127,0.10); border-bottom: 1px solid rgba(127,127,127,0.25); }
             .scanip-w-table thead th[data-sort] { cursor: pointer; }
             .scanip-w-table thead th.sorting-asc:after { content: " \2191"; }
             .scanip-w-table thead th.sorting-desc:after { content: " \2193"; }
