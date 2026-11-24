@@ -77,9 +77,9 @@ class scan_ip_maj extends eqLogic {
     
     public static function printVersionPlugin(){
         if(self::pluginAJour() == FALSE){
-            return '<a class="btn btn-danger btn-sm" id="reloadMajPlugin" style="position:relative;top:-5px;"><i class="fas fa-exclamation-triangle"></i> '. sprintf(__('Données non compatibles avec la version %s (Cliquez-ici pour corriger le problème)', __FILE__), self::$_versionPlugin) .'</a>';
+            return '<a class="btn btn-danger btn-sm" id="reloadMajPlugin" style="position:relative;top:-5px;"><i class="fas fa-exclamation-triangle"></i> '. __('Données non compatibles (Cliquez-ici pour corriger le problème)', __FILE__) .'</a>';
         } else {
-            return "<span style='color:green;'>". sprintf(__('Compatibles v%s', __FILE__), self::getVersionPlugin()) ."</span>";
+            return "<span style='color:green;'>". __('Compatibles', __FILE__) ."</span>";
         }
     }
  

@@ -76,6 +76,17 @@ function scan_ip_vendor_label() {
 }
 $('#scan_ip_vendor_auto').off('change').on('change', scan_ip_vendor_label);
 
+// Sélecteur de mode : pilote la liste enregistrée par Jeedom (bouton Sauvegarder de la configuration)
+var scanIpModeDescriptions = {
+    normal: "{{L'essentiel : widgets, rafraîchissement, fichiers constructeurs et bridges.}}",
+    advanced: "{{En plus : votre réseau (routeur, Jeedom), nombre d'essais, plages à scanner et fréquence des fichiers constructeurs.}}",
+    debug: "{{En plus du mode avancé : vérification des données, dépendances et mise à jour manuelle des fichiers constructeurs.}}"
+};
+
+$('#scan_ip_mode_switch').off('click', 'a').on('click', 'a', function () {
+    $('#scan_ip_mode').val($(this).data('mode')).trigger('change');
+});
+
 function scan_ip_mode_plugin() { 
     var mode = $( "#scan_ip_mode" ).val();
     // Aucune valeur enregistrée : on affiche le mode normal par défaut
@@ -83,6 +94,10 @@ function scan_ip_mode_plugin() {
         mode = "normal";
         $( "#scan_ip_mode" ).val(mode);
     }
+    $('#scan_ip_mode_switch a').each(function () {
+        $(this).toggleClass('is-active', $(this).data('mode') == mode);
+    });
+    $('#scan_ip_mode_description').text(scanIpModeDescriptions[mode] || '');
     // Fichiers constructeurs : mise à jour mensuelle par défaut, fréquence modifiable en mode avancé,
     // mise à jour manuelle en mode debug
     if (!$('#scan_ip_vendor_auto').val()) {
@@ -115,23 +130,40 @@ function scan_ip_mode_plugin() {
     }
 }
 
-// Bridges : n'afficher que les plugins installés, sauf si la case est cochée
-function scan_ip_filter_bridges() {
-    var showAll = $('#scan_ip_show_all_bridges').is(':checked');
-    var total = $('#scan_ip_bridges .scanip-bridge').length;
-    var installed = $('#scan_ip_bridges .scanip-bridge.is-installed').length;
+// Bridges : gestion dans une modale
+// La configuration est souvent affichée dans une fenêtre : on la ferme avant d'ouvrir celle des bridges,
+// sinon cette dernière s'ouvre derrière
+$('#bt_scanIpConfigBridges').off('click').on('click', function () {
+    var $button = $(this);
+    var closed = false;
 
-    $('#scan_ip_bridges').toggleClass('scanip-only-installed', !showAll);
-    $('#scan_ip_bridges_none').toggle(!showAll && installed == 0);
-    $('#scan_ip_bridges_count').text(installed + ' / ' + total + ' {{installés}}');
-}
+    // Fenêtre jQuery UI (Jeedom 4.0 à 4.3)
+    var $uiDialog = $button.closest('.ui-dialog-content');
+    if ($uiDialog.length) {
+        try { $uiDialog.dialog('close'); closed = true; } catch (e) {}
+    }
+    // Fenêtre jeeDialog (Jeedom 4.4 et plus)
+    var jeeDialog = $button.closest('.jeeDialog')[0];
+    if (!closed && jeeDialog) {
+        try {
+            if (jeeDialog._jeeDialog && typeof jeeDialog._jeeDialog.close === 'function') {
+                jeeDialog._jeeDialog.close();
+            } else {
+                $(jeeDialog).find('.btClose').first().trigger('click');
+            }
+            closed = true;
+        } catch (e) {}
+    }
 
-$('#scan_ip_show_all_bridges').off('change').on('change', scan_ip_filter_bridges);
+    setTimeout(function () {
+        $('#md_modal').dialog({title: "{{Bridges}}"});
+        $('#md_modal').load('index.php?v=d&plugin=scan_ip&modal=bridges').dialog('open');
+    }, closed ? 200 : 0);
+});
 
 setTimeout(function(){
     showVersion();
     scan_ip_mode_plugin();
-    scan_ip_filter_bridges();
 }, 150);
 
 $("#reloadMajPlugin").click(function() {

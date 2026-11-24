@@ -1,3 +1,22 @@
+# 22/11/2026 | v1.8.0
+* Dynamic bridges: bridges are no longer hard-coded, they are rules (plugin, location, field, conditions) managed from a new "Bridges" window
+* Search for the IPs present in the configuration of the devices, commands and installed plugins, and creation of a bridge in one click from the result (pre-filled form in the advanced view)
+* Normal view and advanced view in the "Bridges" window: the normal view only shows the bridges that find elements in your plugins and the essential settings; conditions, plugins not installed and creation of a bridge from scratch in the advanced view
+* The plugin of an existing bridge can no longer be changed from the form
+* Consultation of the catalogue of bridges provided (original configuration, plugins installed or not)
+* Bridge creation wizard: only offers the compatible fields not yet handled, checks the configuration (elements, update type, dry-run write test, match with the Scan.Ip devices), detects whether the plugin daemon must be restarted and automatically associates the elements with the Scan.Ip devices
+* Suggestion of a personal or modified bridge for the catalogue, through a pre-filled GitHub issue or as a reply to the plugin topic on the Jeedom forum (suggestion copied to the clipboard; only the rule is sent)
+* Update type detected automatically for new bridges (whole field or only the IP it contains); manual choice in the advanced view
+* Conditions on a bridge (equal, different, list of values, contains, empty, regular expression…) to handle special cases
+* Simulation of a bridge without modifying anything: current value, associated MAC address and new value for each element, with a test IP of your choice
+* Each bridge can be enabled and disabled; a disabled bridge keeps its associations
+* The bridges provided can be modified then restored to their original version
+* Replacement of only the IP contained in a value (URL, host:port, command…): another IP in the same value is no longer modified
+* Existing associations are converted automatically to the new format during the update
+* Fixed the VMware bridge, which could interrupt the current scan after an IP update
+* Modernised configuration page: mode selector (normal, advanced, debug) with the description of each mode, switches for yes / no options, badges marking the sections reserved for advanced and debug modes
+* Associations that no bridge recognises remain offered on the Scan.Ip device page, so that they are not erased when it is saved
+
 # 18/11/2026 | v1.7.1
 * oui.txt and iab.txt vendor files updated automatically every month from the IEEE website, with the date of the last update; frequency can be changed or disabled in advanced mode, immediate update in debug mode; the existing files are kept if it fails
 * Associated plugin elements shown as tags (plugin + device) in the registered devices modal, without duplicates

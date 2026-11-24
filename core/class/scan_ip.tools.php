@@ -53,7 +53,7 @@ class scan_ip_tools extends eqLogic {
             }
         }
         fopen(scan_ip::$_file_lock, "w");
-        chmod(scan_ip::$_file_lock, 0777);
+        chmod(scan_ip::$_file_lock, 0664);
         return TRUE;
     }
     
@@ -148,16 +148,22 @@ class scan_ip_tools extends eqLogic {
         else { return TRUE; }
     }
     
-    public static function vueSubTitle($_titre, $_from = "devices", $_icon = NULL){
+    // $_badge : mode dans lequel la section apparaît (advanced, debug), affiché à droite du titre
+    public static function vueSubTitle($_titre, $_from = "devices", $_icon = NULL, $_badge = NULL){
         
         if ($_from == "config") { $cols = "col-lg-offset-1 col-lg-9"; $extra = " scanip-section--config"; }
         else { $cols = "col-sm-offset-1 col-sm-8"; $extra = ""; }
         
         $icon = ($_icon != NULL) ? '<i class="fas '.$_icon.'"></i> ' : '';
+        $badges = array(
+            'advanced' => '<span class="scanip-mode-badge is-advanced"><i class="fas fa-sliders-h"></i> ' . __('Avancé', __FILE__) . '</span>',
+            'debug' => '<span class="scanip-mode-badge is-debug"><i class="fas fa-bug"></i> ' . __('Debug', __FILE__) . '</span>',
+        );
+        $badge = ($_badge != NULL && isset($badges[$_badge])) ? $badges[$_badge] : '';
         
         echo '  <div class="form-group">
                     <div class="'.$cols.'">
-                        <div class="scanip-section'.$extra.'">'. $icon . '<span>'. $_titre .'</span></div>
+                        <div class="scanip-section'.$extra.'">'. $icon . '<span>'. $_titre .'</span>' . $badge . '</div>
                     </div>
                 </div>';
     }

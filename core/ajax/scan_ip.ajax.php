@@ -88,6 +88,96 @@ try {
         
     }
     
+    /* ---------- Bridges ---------- */
+
+    elseif (init('action') == 'bridgesList') {
+
+        ajax::success(array(
+            'rules' => scan_ip_bridges::listRules(),
+            'plugins' => scan_ip_bridges::installedPlugins(),
+            'daemons' => scan_ip_bridges::pluginsWithDaemon(),
+        ));
+
+    }
+
+    elseif (init('action') == 'bridgesAnalyze') {
+
+        @session_write_close();
+        ajax::success(scan_ip_bridges::analyze(init('plugin'), init('source'), init('key')));
+
+    }
+
+    elseif (init('action') == 'bridgesWizardCreate') {
+
+        $rule = json_decode(init('rule'), true);
+        if (!is_array($rule)) {
+            throw new Exception(__('Bridge invalide', __FILE__));
+        }
+        $associations = json_decode(init('associations'), true);
+        ajax::success(scan_ip_bridges::wizardCreate($rule, is_array($associations) ? $associations : array()));
+
+    }
+
+    elseif (init('action') == 'bridgesProposal') {
+
+        ajax::success(scan_ip_bridges::proposal(init('id')));
+
+    }
+
+    elseif (init('action') == 'bridgesCatalog') {
+
+        ajax::success(scan_ip_bridges::listCatalog());
+
+    }
+
+    elseif (init('action') == 'bridgesDiscover') {
+
+        @session_write_close();
+        @set_time_limit(120);
+        ajax::success(scan_ip_bridges::discover());
+
+    }
+
+    elseif (init('action') == 'bridgesFields') {
+
+        ajax::success(scan_ip_bridges::fieldSuggestions(init('plugin'), init('source')));
+
+    }
+
+    elseif (init('action') == 'bridgesSimulate') {
+
+        $rule = json_decode(init('rule'), true);
+        if (!is_array($rule)) {
+            throw new Exception(__('Bridge invalide', __FILE__));
+        }
+        ajax::success(scan_ip_bridges::simulate($rule, init('testIp'), init('testValue')));
+
+    }
+
+    elseif (init('action') == 'bridgesSave') {
+
+        $rule = json_decode(init('rule'), true);
+        if (!is_array($rule)) {
+            throw new Exception(__('Bridge invalide', __FILE__));
+        }
+        ajax::success(array('id' => scan_ip_bridges::saveRule($rule)));
+
+    }
+
+    elseif (init('action') == 'bridgesToggle') {
+
+        scan_ip_bridges::setRuleEnabled(init('id'), init('enabled') == 1);
+        ajax::success();
+
+    }
+
+    elseif (init('action') == 'bridgesDelete') {
+
+        scan_ip_bridges::deleteRule(init('id'));
+        ajax::success();
+
+    }
+
     throw new Exception(__('Aucune méthode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
 } catch (Exception $e) {

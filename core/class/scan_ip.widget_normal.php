@@ -188,6 +188,9 @@ class scan_ip_widget_normal extends eqLogic {
 
         $replace = $_replace;
 
+        $replace["#label_last_ip#"] = __('Dernier ip v4', __FILE__);
+        $replace["#label_last_sync#"] = __('Dernière synchro', __FILE__);
+
         $replace["#ip_v4#"] = scan_ip_cmd::getCommande('ip_v4', $scan_ip);
         if($replace["#ip_v4#"] == "" OR $replace["#ip_v4#"] == 0){ $replace["#ip_v4#"] = "..."; $replace["#etat_cycle#"] = "red"; }
         else { $replace["#etat_cycle#"] = "#50aa50"; }

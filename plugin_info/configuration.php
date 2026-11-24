@@ -29,13 +29,25 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
 ?>
 <form class="form-horizontal">
     
+    <!-- Mode d'affichage : la liste (enregistrée par Jeedom) est pilotée par le sélecteur -->
     <div class="form-group">
-        <div class="col-lg-2" style="right:15px; position: absolute;">
-            <select onchange="scan_ip_mode_plugin()" class="configKey form-control" data-l1key="mode_plugin" id="scan_ip_mode">
-                <option value="normal">{{Mode normal}}</option>
-                <option value="advanced">{{Mode avancé}}</option>
-                <option value="debug">{{Mode debug}}</option>
-            </select>
+        <div class="col-lg-offset-1 col-lg-9">
+            <div class="scanip-config-mode">
+                <div class="scanip-config-mode-text">
+                    <div class="scanip-config-mode-title"><i class="fas fa-eye"></i> {{Mode d'affichage}}</div>
+                    <div class="scanip-meta" id="scan_ip_mode_description"></div>
+                </div>
+                <div class="scanip-segmented" id="scan_ip_mode_switch">
+                    <a data-mode="normal"><i class="fas fa-leaf"></i> {{Normal}}</a>
+                    <a data-mode="advanced"><i class="fas fa-sliders-h"></i> {{Avancé}}</a>
+                    <a data-mode="debug"><i class="fas fa-bug"></i> {{Debug}}</a>
+                </div>
+                <select onchange="scan_ip_mode_plugin()" class="configKey form-control" data-l1key="mode_plugin" id="scan_ip_mode" style="display:none;">
+                    <option value="normal">{{Mode normal}}</option>
+                    <option value="advanced">{{Mode avancé}}</option>
+                    <option value="debug">{{Mode debug}}</option>
+                </select>
+            </div>
         </div>
     </div>
     
@@ -50,10 +62,10 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
                 <sup><i class="fa fa-question-circle tooltips" title="{{Permet d'afficher un widget avec l'ensemble du réseau}}"></i></sup>
             </label>
             <div class="col-lg-5">
-                <select class="configKey form-control" data-l1key="widget_network">
-                    <option value="1">{{Afficher le widget de votre réseau}}</option>
-                    <option value="0">{{Masquer le widget de votre réseau}}</option>
-                </select> 
+                <label class="scanip-switch-row">
+                    <span class="scanip-switch"><input type="checkbox" class="configKey" data-l1key="widget_network"><span></span></span>
+                    <span>{{Afficher le widget de votre réseau}}</span>
+                </label>
             </div>
         </div>
         <div class="form-group">
@@ -61,47 +73,47 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
                 <sup><i class="fa fa-question-circle tooltips" title="<?php echo sprintf(__('Permet d\'afficher le widget des %s derniers équipements entrant dans votre réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?>"></i></sup>
             </label>
             <div class="col-lg-5">
-                <select class="configKey form-control" data-l1key="widget_new_equipement">
-                    <option value="1"><?php echo sprintf(__('Afficher le widget des %s derniers équipements non enregistrés dans le réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?></option>
-                    <option value="0"><?php echo sprintf(__('Masquer le widget des %s derniers équipements non enregistrés dans le réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?></option>
-                </select> 
+                <label class="scanip-switch-row">
+                    <span class="scanip-switch"><input type="checkbox" class="configKey" data-l1key="widget_new_equipement"><span></span></span>
+                    <span><?php echo sprintf(__('Afficher le widget des %s derniers équipements non enregistrés dans le réseau', __FILE__), scan_ip::$_defaut_alerte_new_equipement) ?></span>
+                </label>
             </div>
         </div>
         
         <div id="show_avance" style="display:none;">   
 <?php
-        scan_ip_tools::vueSubTitle("{{Votre réseau (Mode avancé)}}", "config", "fa-network-wired");
+        scan_ip_tools::vueSubTitle("{{Votre réseau}}", "config", "fa-network-wired", "advanced");
 ?>     
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Routeur}}</label>
             <div class="col-lg-5">
-                <select class="configKey form-control" data-l1key="add_network_routeur">
-                    <option value="0">{{Retirer le routeur de la liste}}</option>
-                    <option value="1">{{Ajouter le routeur dans la liste}}</option>
-                </select> 
+                <label class="scanip-switch-row">
+                    <span class="scanip-switch"><input type="checkbox" class="configKey" data-l1key="add_network_routeur"><span></span></span>
+                    <span>{{Afficher le routeur dans la liste du réseau}}</span>
+                </label>
             </div>
         </div>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Jeedom}}</label>
             <div class="col-lg-5">
-                <select class="configKey form-control" data-l1key="add_network_jeedom">
-                    <option value="0">{{Retirer Jeedom de la liste}}</option>
-                    <option value="1">{{Ajouter Jeedom dans la liste}}</option>
-                </select> 
+                <label class="scanip-switch-row">
+                    <span class="scanip-switch"><input type="checkbox" class="configKey" data-l1key="add_network_jeedom"><span></span></span>
+                    <span>{{Afficher Jeedom dans la liste du réseau}}</span>
+                </label>
             </div>
         </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Nombre d'essaie lors des scans (Mode avancé)}}", "config", "fa-redo");
+        scan_ip_tools::vueSubTitle("{{Nombre d'essais lors des scans}}", "config", "fa-redo", "advanced");
 ?>             
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Option Retry}}
+            <label class="col-lg-4 control-label">{{Nombre d'essais}}
             <sup><i class="fa fa-question-circle tooltips" title="{{Cela conditionne la durée du scan mais permet d'avoir de meilleurs retours sur l'exploration de votre réseau}}"></i></sup>
             </label>
             <div class="col-lg-5">
                 <select class="configKey form-control" data-l1key="add_retry_scan">
-                    <option value="1">{{1 tentatives}}</option>
+                    <option value="1">{{1 tentative}}</option>
                     <option value="2">{{2 tentatives}}</option>
-                    <option value="3">{{3 tentatives (à defaut)}}</option>
+                    <option value="3">{{3 tentatives (par défaut)}}</option>
                     <option value="4">{{4 tentatives}}</option>
                     <option value="5">{{5 tentatives}}</option>
                     <option value="6">{{6 tentatives}}</option>
@@ -109,49 +121,38 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
             </div>
         </div>
                       
-<?php
-        scan_ip_tools::vueSubTitle("{{Compatibilité avec le navigateur Safari (Mode avancé)}}", "config", "fa-compass");
-?>             
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{Option à n'activer que si vous utilisez Safari}}
-            <sup><i class="fa fa-question-circle tooltips" title="{{Pour désactiver les options du menu de sélection des bridges déjà associés. (Sur les autres navigateurs la donnée est cachée)}}"></i></sup>
-            </label>
-            <div class="col-lg-5">
-                <select class="configKey form-control" data-l1key="add_compatibility_safari">
-                    <option value="0">{{Désactiver le mode compatibilité}}</option>
-                    <option value="1">{{Activer le mode compatibilité}}</option>
-                </select> 
-            </div>
-        </div>
             
     </div> 
            
     <div id="show_debug" style="display:none;">        
 <?php
-        scan_ip_tools::vueSubTitle("{{Check de la version (Mode debug)}}", "config", "fa-clipboard-check");
+    // Test des bridges : réservé au développement (fichier data/dev/modeDev présent)
+    if (scan_ip_dev::modeDeveloppeur()) {
+        scan_ip_tools::vueSubTitle("{{Test des bridges}}", "config", "fa-vial", "debug");
+?>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">{{Ignorer le catalogue}}
+                <sup><i class="fa fa-question-circle tooltips" title="{{Pour tester la recherche des ip et l'assistant de création : les plugins couverts par un bridge fourni redeviennent proposés. N'agit qu'en mode développeur, avec le mode debug.}}"></i></sup>
+            </label>
+            <div class="col-lg-5">
+                <label class="scanip-switch-row">
+                    <span class="scanip-switch"><input type="checkbox" class="configKey" data-l1key="bridges_ignore_catalog"><span></span></span>
+                    <span>{{Faire comme si aucun bridge n'était fourni}}</span>
+                </label>
+                <div class="scanip-meta" style="margin-top:4px;">{{Les bridges du catalogue ne sont plus appliqués pendant le test. Rien n'est supprimé : vos associations et vos modifications sont retrouvées en désactivant l'option ou en quittant le mode debug. Les bridges créés pendant le test restent, supprimez-les depuis la fenêtre Bridges si besoin.}}</div>
+            </div>
+        </div>
+<?php
+    }
+        scan_ip_tools::vueSubTitle("{{Vérification des données}}", "config", "fa-clipboard-check", "debug");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Vérification des données}}</label>
             <div class="col-lg-5"><?php echo scan_ip_maj::printVersionPlugin(); ?>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{Vérification du Json commentaires}}</label>
-            <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkJsonCommentaires_v1_1()); ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{Vérification du Json équipements}}</label>
-            <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkJsonEquipements_v1_1()); ?>
-            </div>
-        </div>      
-        <div class="form-group">
-            <label class="col-lg-4 control-label">{{Vérification des équipements}}</label>
-            <div class="col-lg-5"><?php echo scan_ip_maj::printCheckPlugin(scan_ip_maj::checkAllEquipements_v1_1()); ?>
-            </div>
-        </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Dépendances (Mode debug)}}", "config", "fa-cubes");
+        scan_ip_tools::vueSubTitle("{{Dépendances}}", "config", "fa-cubes", "debug");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">iproute2</label>
@@ -180,7 +181,7 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
         </div>
     </div>
 <?php
-        scan_ip_tools::vueSubTitle("{{Cadence de rafraichissement}}", "config", "fa-clock");
+        scan_ip_tools::vueSubTitle("{{Cadence de rafraîchissement}}", "config", "fa-clock");
 ?>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Cadence de rafraîchissement}}
@@ -203,7 +204,7 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
             </label>
             <div class="col-lg-5">
                 <!-- Mode normal : fréquence affichée en lecture seule -->
-                <div class="scanip-vendor-normal" style="padding-top:7px;"><span id="scan_ip_vendor_auto_label">{{Tous les mois}}</span></div>
+                <div class="scanip-vendor-normal" style="padding-top:5px;"><span class="scanip-stat"><i class="fas fa-sync-alt"></i> <span id="scan_ip_vendor_auto_label">{{Tous les mois}}</span></span></div>
                 <!-- Modes avancé et debug : fréquence modifiable -->
                 <div class="scanip-vendor-advanced" style="display:none;">
                     <select class="configKey form-control" data-l1key="vendor_files_auto_update" id="scan_ip_vendor_auto">
@@ -238,26 +239,24 @@ require_once dirname(__FILE__) . "/../../../plugins/scan_ip/core/class/scan_ip.t
     
     <div id="show_sous_reseau" style="display:none;">     
     <?php
-        scan_ip_tools::vueSubTitle("{{Spécifier des plages à scanner (Mode avancé)}}", "config", "fa-sitemap");
+        scan_ip_tools::vueSubTitle("{{Plages à scanner}}", "config", "fa-sitemap", "advanced");
         echo scan_ip_tools::printInputSubConfig(); 
     ?> 
     </div>
     <?php
-        scan_ip_tools::vueSubTitle("{{Bridges : Plugins compatibles}}", "config", "fa-project-diagram");
-    ?> 
+        scan_ip_tools::vueSubTitle("{{Bridges}}", "config", "fa-project-diagram");
+        $bridgesSummary = scan_ip_bridges::countSummary();
+    ?>
         <div class="form-group">
-            <label class="col-lg-4 control-label">{{Liste des Plugins pris en compte}}</label>
+            <label class="col-lg-4 control-label">{{Bridges}}
+                <sup><i class="fa fa-question-circle tooltips" title="{{Un bridge met à jour l'ip enregistrée dans un autre plugin quand l'adresse MAC associée change d'ip}}"></i></sup>
+            </label>
             <div class="col-lg-6">
-                <div class="scanip-bridges-toolbar">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" id="scan_ip_show_all_bridges" /> {{Afficher aussi les plugins non installés}}
-                    </label>
-                    <span class="scanip-meta" id="scan_ip_bridges_count"></span>
+                <div class="scanip-config-inline">
+                    <span class="scanip-stat"><span class="scanip-dot is-on"></span><b><?php echo $bridgesSummary['enabled']; ?></b> / <?php echo $bridgesSummary['shown']; ?> {{actif(s)}}</span>
+                    <?php if ($bridgesSummary['user'] > 0) { echo '<span class="scanip-stat"><b>' . $bridgesSummary['user'] . '</b> ' . __('personnel(s)', __FILE__) . '</span>'; } ?>
+                    <a class="btn btn-default btn-sm" id="bt_scanIpConfigBridges"><i class="fas fa-project-diagram"></i> {{Gérer les bridges}}</a>
                 </div>
-                <div class="scanip-bridges scanip-only-installed" id="scan_ip_bridges">
-                    <?php scan_ip_bridges::bridges_printPlugs(); ?>
-                </div>
-                <div class="scanip-meta" id="scan_ip_bridges_none" style="display:none;">{{Aucun plugin compatible n'est installé.}}</div>
             </div>
         </div>
     </fieldset>

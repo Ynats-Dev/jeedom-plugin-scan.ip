@@ -1,3 +1,22 @@
+# 22/11/2026 | v1.8.0
+* Bridges dynamiques : les bridges ne sont plus écrits en dur, ce sont des règles (plugin, emplacement, champ, conditions) gérées depuis une nouvelle fenêtre « Bridges »
+* Recherche des IP présentes dans la configuration des équipements, des commandes et des plugins installés, et création d'un bridge en un clic depuis le résultat (formulaire pré-rempli en vue avancée)
+* Vue normale et vue avancée dans la fenêtre « Bridges » : la vue normale n'affiche que les bridges qui trouvent des éléments dans vos plugins et les réglages essentiels ; conditions, plugins non installés et création d'un bridge de zéro en vue avancée
+* Le plugin d'un bridge existant n'est plus modifiable depuis le formulaire
+* Consultation du catalogue des bridges fournis (configuration d'origine, plugins installés ou non)
+* Assistant de création d'un bridge : ne propose que les champs compatibles non encore gérés, vérifie la configuration (éléments, type de mise à jour, test d'écriture à blanc, correspondance avec les équipements Scan.Ip), détecte s'il faut redémarrer le démon du plugin et associe automatiquement les éléments aux équipements Scan.Ip
+* Proposition d'un bridge personnel ou modifié pour le catalogue, par une issue GitHub pré-remplie ou en réponse au sujet du plugin sur le forum Jeedom (proposition copiée dans le presse-papiers ; seule la règle est transmise)
+* Type de mise à jour détecté automatiquement pour les nouveaux bridges (tout le champ ou seulement l'IP qu'il contient) ; choix manuel en vue avancée
+* Conditions sur un bridge (égal, différent, liste de valeurs, contient, vide, expression régulière…) pour gérer les cas particuliers
+* Simulation d'un bridge sans rien modifier : valeur actuelle, adresse MAC associée et nouvelle valeur pour chaque élément, avec une IP de test au choix
+* Activation et désactivation de chaque bridge ; un bridge désactivé conserve ses associations
+* Les bridges fournis peuvent être modifiés puis remis dans leur version d'origine
+* Remplacement de la seule IP contenue dans une valeur (URL, hôte:port, commande…) : une autre IP présente dans la même valeur n'est plus modifiée
+* Les associations existantes sont converties automatiquement au nouveau format lors de la mise à jour
+* Correction du bridge VMware qui pouvait interrompre le scan en cours après une mise à jour d'IP
+* Page de configuration modernisée : sélecteur de mode (normal, avancé, debug) avec la description de chaque mode, interrupteurs pour les options oui / non, badges indiquant les sections réservées aux modes avancé et debug
+* Les associations qu'aucun bridge ne reconnaît restent proposées dans la fiche de l'équipement Scan.Ip, pour ne pas être effacées à son enregistrement
+
 # 18/11/2026 | v1.7.1
 * Fichiers constructeurs oui.txt et iab.txt mis à jour automatiquement tous les mois depuis le site de l'IEEE, avec la date de la dernière mise à jour ; fréquence modifiable ou désactivable en mode avancé, mise à jour immédiate en mode debug ; les fichiers existants sont conservés en cas d'échec
 * Éléments de plugins associés présentés sous forme d'étiquettes (plugin + équipement) dans la modale des équipements enregistrés, sans doublons

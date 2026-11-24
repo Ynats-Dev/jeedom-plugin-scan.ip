@@ -101,7 +101,7 @@ class scan_ip_json extends eqLogic {
         log::add('scan_ip', 'debug', 'prepareJsonFolder :. ' . __('Lancement', __FILE__));
         if (!is_dir(scan_ip::$_folderJson)) {
             log::add('scan_ip', 'debug', 'miseEnCacheJson :. ' . __('Création du dossier', __FILE__) . ' :' . scan_ip::$_folderJson);
-            mkdir(scan_ip::$_folderJson, 0777);
+            mkdir(scan_ip::$_folderJson, 0775);
         }
     }
     
@@ -126,7 +126,7 @@ class scan_ip_json extends eqLogic {
 
         @unlink($_file.'.json');
         rename($_file.'.temp', $_file.'.json');
-        chmod($_file.'.json', 0777);
+        chmod($_file.'.json', 0664);
     }
     
     public static function printSelectOptionAdressMac($_selected = NULL){

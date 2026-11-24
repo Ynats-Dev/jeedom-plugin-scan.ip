@@ -220,6 +220,11 @@ $('#bt_scanIpEquipementNo').off('click').on('click', function () {
 });
 
 // Sur la partie Debug
+$('#bt_scanIpBridges').off('click').on('click', function () {
+    $('#md_modal').dialog({title: "{{Bridges}}"});
+    $('#md_modal').load('index.php?v=d&plugin=scan_ip&modal=bridges').dialog('open');
+});
+
 $('#bt_scanIpDebug').off('click').on('click', function () {
     $('#md_modal').dialog({title: "{{Debug}}"});
     $('#md_modal').load('index.php?v=d&plugin=scan_ip&modal=debug').dialog('open');

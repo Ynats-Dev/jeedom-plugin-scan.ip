@@ -125,8 +125,21 @@ function scan_ip_update() {
         if(@is_file(__DIR__ . "/../../../plugins/scan_ip/core/json/mapping.json")){ 
             shell_exec("sudo mv " . __DIR__ . "/../../../plugins/scan_ip/core/json/*.json " . __DIR__ . "/../../../../plugins/scan_ip/data/json");
         }
-        
+
+        // Retrait du droit d'écriture « autres » (anciennes versions : fichiers créés en 0777)
+        $jsonDir = __DIR__ . "/../data/json";
+        if (is_dir($jsonDir)) {
+            @chmod($jsonDir, 0775);
+            foreach ((array) glob($jsonDir . "/*") as $jsonFile) {
+                @chmod($jsonFile, is_dir($jsonFile) ? 0775 : 0664);
+            }
+        }
+        if (is_file(__DIR__ . "/../resources/lock")) {
+            @chmod(__DIR__ . "/../resources/lock", 0664);
+        }
+
         scan_ip_maj::setConfigBase(); 
+        config::remove('add_compatibility_safari', 'scan_ip');
         scan_ip_maj::cleanAfterUpdate(dirname(__FILE__) . '/../../../');
         
         if((string) scan_ip_maj::getVersionPlugin() === "1"){ // Migration v1 -> v1.1 (comparaison stricte de chaînes : en PHP 7, "1.5.2" == 1 est vrai)
@@ -136,21 +149,28 @@ function scan_ip_update() {
             scan_ip_maj::majAllEquipements_v1_1();
         }
         
+        log::add('scan_ip', 'info', '>  Conversion des associations des bridges');
+        try {
+            scan_ip_bridges::bridges_migrateAssociations(true);
+        } catch (Throwable $exc) {
+            log::add('scan_ip', 'error', '>  Conversion des associations des bridges :. ' . $exc->getMessage());
+        }
+
         log::add('scan_ip', 'info', '>  Initialisation le Widget Network');
         scan_ip_widget_network::getWidgetNetwork();
-        
+
         log::add('scan_ip', 'info', '>  Initialisation le Widget Alerte');
         scan_ip_widget_alerte::getWidgetAlerteNewEquipement();
-        
+
         // Enregistre la version installée si les données sont compatibles, sinon les scans restent suspendus
         if(scan_ip_maj::pluginAJour() == TRUE){
             log::add('scan_ip', 'info', '>  Version des données : v'.scan_ip_maj::$_versionPlugin);
         } else {
             log::add('scan_ip', 'info', '>  Données non compatibles avec la version v'.scan_ip_maj::$_versionPlugin.' : correction possible depuis la configuration du plugin');
         }
-        
+
         scan_ip_maj::activationCron(1);
-        
+
         log::add('scan_ip', 'info', '////////////////////////////////////////////////////////////////////');
         log::add('scan_ip', 'info', '>  Mise à jour :. Fin v'.scan_ip_maj::$_versionPlugin);
 

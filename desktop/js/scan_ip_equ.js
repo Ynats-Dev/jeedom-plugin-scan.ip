@@ -38,45 +38,129 @@ function printEqLogic(_eqLogic) {
             $select.val(value);
         }
     });
+    scanIpRefreshAssociations(_eqLogic);
 }
 
-function hideSelect(NbSelect) {
-    if(NbSelect > 0){
-        $.getJSON("/plugins/scan_ip/core/ajax/scan_ip.ajax.associations.php", function (result) {
-            for (let plug = 0; plug <= NbSelect; plug++) {
-                $.each(result, function (mac, tableau) {
-                    $.each(tableau, function (key, value) {
-                        var current = $('#mac_id').val();
-                        if (mac != current) {
-                            $(".plug_element_plugin_" + plug + " option[value='" + value + "']").hide();
-                        }
-                    });
+/* ------------------------------------------------------------------------------------------
+ * Associations aux bridges
+ * ---------------------------------------------------------------------------------------- */
+
+var scanIpAssocRequest = 0;
+
+// Réapplique les valeurs enregistrées puis grise les éléments déjà associés à une autre adresse MAC.
+// Jeedom ne recharge pas la page entre deux équipements : tout est réinitialisé à chaque appel.
+var scanIpAssocOptions = null;
+
+function scanIpRefreshAssociations(_eqLogic) {
+    var $selects = $('#scanip_associations select.plug_element_plugin');
+    if (!$selects.length) {
+        return;
+    }
+    // Liste complète mémorisée au premier passage : chaque rafraîchissement repart de celle-ci
+    if (scanIpAssocOptions === null) {
+        scanIpAssocOptions = $selects.first().html();
+    }
+    var configuration = (_eqLogic && _eqLogic.configuration) ? _eqLogic.configuration : null;
+
+    $selects.each(function () {
+        var $select = $(this);
+        var value = (configuration !== null)
+            ? (configuration['plug_element_plugin_' + $select.attr('data-index')] || '')
+            : ($select.val() || '');
+        $select.html(scanIpAssocOptions);
+        scanIpSetAssociationValue($select, value);
+    });
+    if (configuration !== null) {
+        $('#scanip_associations .scanip-assoc-row').removeClass('scanip-assoc-open');
+    }
+    scanIpUpdateAssociationRows();
+    verifEquipement();
+
+    var request = ++scanIpAssocRequest;
+    $.getJSON("/plugins/scan_ip/core/ajax/scan_ip.ajax.associations.php", function (result) {
+        if (request !== scanIpAssocRequest || !result) {
+            return;
+        }
+        // Éléments déjà associés à un autre équipement : retirés des listes (sauf s'ils sont sélectionnés ici)
+        var current = $('#mac_id').val();
+        var taken = {};
+        $.each(result, function (mac, values) {
+            if (mac != current) {
+                $.each(values, function (key, value) {
+                    taken[value] = true;
                 });
             }
-
         });
-    }
+        $selects.find('option').filter(function () {
+            return this.value !== '' && taken[this.value] === true && !this.selected;
+        }).remove();
+        $selects.find('optgroup').filter(function () {
+            return $(this).children('option').length === 0;
+        }).remove();
+    });
 }
 
-function hideSelectSafari(NbSelect) {
-    if(NbSelect > 0){
-           $.getJSON("/plugins/scan_ip/core/ajax/scan_ip.ajax.associations.php", function (result) {
-            for (let plug = 0; plug <= NbSelect; plug++) {
-                $.each(result, function (mac, tableau) {
-                    $.each(tableau, function (key, value) {
-                        var current = $('#mac_id').val();
-                        if (mac != current) {
-                            // hidden/display:none non reconnu sous safari dans les select option
-                            $(".plug_element_plugin_" + plug + " option[value='" + value + "']").attr('disabled',true);
-                        }
-                        $(".plug_element_plugin_" + plug + " option[value='" + $('.plug_element_plugin_' + plug).find(":selected").val() + "']").attr('disabled',false);
-                    });
-                });
-            }
-
-        }); 
+// Sélectionne une valeur ; une valeur absente de la liste est ajoutée pour ne pas être perdue à l'enregistrement
+function scanIpSetAssociationValue($select, value) {
+    if (value !== '' && !$select.find('option').filter(function () { return this.value === value; }).length) {
+        var $option = $('<option>').val(value).attr('data-label', value).text(value);
+        $select.append($option);
     }
+    $select.val(value);
 }
+
+// Affiche les associations renseignées + au moins une ligne vide ; renumérote les lignes visibles
+function scanIpUpdateAssociationRows() {
+    var $rows = $('#scanip_associations .scanip-assoc-row');
+    var hasEmptyVisible = false;
+    $rows.each(function () {
+        var $row = $(this);
+        var filled = !!$row.find('select').val();
+        var visible = filled || $row.hasClass('scanip-assoc-open');
+        if (!filled && visible) {
+            hasEmptyVisible = true;
+        }
+        $row.toggle(visible);
+    });
+    if (!hasEmptyVisible && !$rows.filter(':visible').length) {
+        $rows.first().addClass('scanip-assoc-open').show();
+        hasEmptyVisible = true;
+    }
+    var num = 0;
+    $rows.filter(':visible').each(function () {
+        num++;
+        $(this).find('.scanip-assoc-label').text('{{Association}} ' + num);
+        $(this).find('.scanip-assoc-clear').toggleClass('disabled', !$(this).find('select').val());
+    });
+    $('#bt_scanipAssocAdd').toggle(!hasEmptyVisible && $rows.filter(':hidden').length > 0);
+}
+
+$('#scanip_associations').off('change', 'select.plug_element_plugin').on('change', 'select.plug_element_plugin', function () {
+    var $select = $(this);
+    if (!$select.val()) {
+        $select.closest('.scanip-assoc-row').addClass('scanip-assoc-open');
+    }
+    scanIpUpdateAssociationRows();
+    verifEquipement();
+});
+
+$('#scanip_associations').off('click', '.scanip-assoc-clear').on('click', '.scanip-assoc-clear', function () {
+    if ($(this).hasClass('disabled')) {
+        return;
+    }
+    var $row = $(this).closest('.scanip-assoc-row');
+    $row.find('select').val('').trigger('change');
+    // La ligne vidée disparaît s'il reste une autre ligne visible
+    if ($('#scanip_associations .scanip-assoc-row:visible').length > 1) {
+        $row.removeClass('scanip-assoc-open');
+        scanIpUpdateAssociationRows();
+    }
+});
+
+$('#bt_scanipAssocAdd').off('click').on('click', function () {
+    $('#scanip_associations .scanip-assoc-row:hidden').first().addClass('scanip-assoc-open');
+    scanIpUpdateAssociationRows();
+});
 
 $('#offline_time').change(function () {
     verifCadence();
@@ -141,70 +225,38 @@ function timeCron() {
     });
 }
 
-function verifEquipement(nb) {
-    if(nb > 0){
-    
-        var cpt = 0;
-        var nbElement = [];
-        var listCore = [];
-        var valueEquipement = "";
-        
-        for (x = 1; x <= nb; x++) {
-            var val = $('.plug_element_plugin_' + x).find(":selected").val();
-            if(val){
-                var split = val.split("|");
-                if (split[0] != "") {
-                    nbElement.push(split[0]);
-                }
-                if (split[0] == "core") {
-                    listCore.push(x);
-                }
-            } 
-            
-            $('.plug_element_plugin_' + x).attr("style", "");
+// Avertissements : même plugin associé plusieurs fois, association au bridge core
+function verifEquipement() {
+    var plugins = {};
+    var hasCore = false;
+    var message = "";
+
+    $('#scanip_associations select.plug_element_plugin').each(function () {
+        var val = $(this).val();
+        var plugin = val ? val.split("|")[0] : "";
+        $(this).toggleClass('scanip-assoc-core', plugin == "core");
+        if (plugin != "") {
+            plugins[plugin] = (plugins[plugin] || 0) + 1;
+            hasCore = hasCore || plugin == "core";
         }
+    });
 
-        red = nbElement.reduce((p, c) => (p[c]++ || (p[c] = 1), p), {});
-
-        $.each(red, function (index1, value1) {
-            if (value1 > 1) {
-                valueEquipement += "{{Attention, cet équipement est déjà associé plusieurs fois au plugin}} <span style='font-weight: bold;'>" + index1 + "</span>.<br />";
-            } 
-        });
-        
-        if (valueEquipement != "") {
-            $('#div_alert_scan_ip_equipement').showAlert({message: valueEquipement + "{{Il est possible que cela génère des conflits s'il s'agit d'une erreur de votre part.}}", level: 'warning'});
-        } else {
-            $('#div_alert_scan_ip_equipement').hide();
+    $.each(plugins, function (plugin, nb) {
+        if (nb > 1) {
+            message += "{{Attention, cet équipement est déjà associé plusieurs fois au plugin}} <span style='font-weight: bold;'>" + plugin + "</span>.<br />";
         }
-        
-        $.each(listCore, function (index2, value2) {
-            if(value2 != ""){ 
-                $('.plug_element_plugin_' + value2).attr("style", "color : #cc8500 !important;");
-            }  
-        });
-
-    }
-}
-
-function verifEquipementCore(id) {
-
-    var listCore = 0;
-
-    $('#div_alert_scan_ip_equipement_core').hide();
-
-    var val = $('.plug_element_plugin_' + id).find(":selected").val();
-    if (val) {
-	var split = val.split("|");
-	if (split[0] == "core") {
-	    listCore = 1;
-	}
+    });
+    if (message != "") {
+        $('#div_alert_scan_ip_equipement').showAlert({message: message + "{{Il est possible que cela génère des conflits s'il s'agit d'une erreur de votre part.}}", level: 'warning'});
+    } else {
+        $('#div_alert_scan_ip_equipement').hide();
     }
 
-    if (listCore == 1) {
-	$('#div_alert_scan_ip_equipement_core').showAlert({message: "{{Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core</span> de votre Jeedom !<br />Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br />Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.}}", level: 'warning'});
+    if (hasCore) {
+        $('#div_alert_scan_ip_equipement_core').showAlert({message: "{{Attention, cet équipement est associé au bridge <span style='font-weight: bold;'>core</span> de votre Jeedom !<br />Ce qui veut dire que Scan.Ip peut modifier votre configuration Jeedom.<br />Cette association s'adresse à des utilisateurs avancés car cela peut générer des erreurs dans votre config globale ou sur le bon fonctionnement d'autres plugins.}}", level: 'warning'});
+    } else {
+        $('#div_alert_scan_ip_equipement_core').hide();
     }
-
 }
 
 // Synchro

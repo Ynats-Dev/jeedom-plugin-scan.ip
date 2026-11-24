@@ -48,6 +48,11 @@ foreach ($eqLogics as $eqLogic) {
                 <br>
                 <span>{{Equipements non enregistrés}}</span>
             </div>
+            <div class="cursor logoSecondary" id="bt_scanIpBridges">
+                <i class="fas fa-project-diagram"></i>
+                <br>
+                <span>{{Bridges}}</span>
+            </div>
             <div class="cursor logoSecondary" id="bt_scanIpDebug"<?php if(scan_ip::getConfigMode() != "debug"){ echo ' style="display:none;"'; } ?>>
                 <i class="fas fa-medkit"></i>
                 <br>
@@ -237,7 +242,7 @@ foreach ($eqLogics as $eqLogic) {
                         <div class="form-group" id="scan_ip_debug_macid" style="<?php if(scan_ip::getConfigMode() != "debug"){ echo "display:none;"; } ?>">
                             <label class="col-sm-3 control-label" style="color: var(--al-danger-color, red) !important;">{{MAC Id (Mode debug)}}</label>
                             <div class="col-sm-5">
-                                <input type="text" maxlength="17" onchange="<?php scan_ip_eqLogic::hideSelect() ?>(<?php echo scan_ip_bridges::$_defaut_bridges_by_equipement ?>);" id="mac_id" class="form-control eqLogicAttr scanip-readonly" data-l1key="configuration"  data-l2key="mac_id" readonly="" />
+                                <input type="text" maxlength="17" onchange="scanIpRefreshAssociations();" id="mac_id" class="form-control eqLogicAttr scanip-readonly" data-l1key="configuration"  data-l2key="mac_id" readonly="" />
                             </div>
                         </div>
                         <div class="form-group">

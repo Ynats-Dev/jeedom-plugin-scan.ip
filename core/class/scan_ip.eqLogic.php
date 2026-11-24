@@ -111,22 +111,21 @@ class scan_ip_eqLogic extends eqLogic {
                     $seen = array();
                     for ($index = 1; $index <= scan_ip_bridges::$_defaut_bridges_by_equipement; $index++) {
                         if(!empty($scan_ip->getConfiguration("plug_element_plugin_".$index))){
-                            $split = explode("|", $scan_ip->getConfiguration("plug_element_plugin_".$index));
-                            $key = $split[0] . "|" . (isset($split[1]) ? $split[1] : "");
+                            $value = $scan_ip->getConfiguration("plug_element_plugin_".$index);
+                            $split = explode("|", $value);
+                            $known = isset($allEquipementsBridges[$value]) ? $allEquipementsBridges[$value] : NULL;
+                            $key = ($known !== NULL) ? $known["plugin"] . "|" . $known["id"] . "|" . $known["name"] : $value;
                             if (isset($seen[$key])) { continue; } // même élément associé plusieurs fois : affiché une seule fois
                             $seen[$key] = TRUE;
-                            
-                            if(!empty($allEquipementsBridges[$split[1]]["name"])){
-                                $equipement = $allEquipementsBridges[$split[1]]["name"];
+
+                            $equipement = ($known !== NULL && !empty($known["name"])) ? $known["name"] : "";
+                            $id = (isset($split[2]) && $split[2] !== "") ? $split[2] : (isset($split[1]) ? $split[1] : "");
+                            if ($known !== NULL && $known["url"] != "") {
+                                $url = $known["url"];
+                            } elseif ($split[0] == 'core') {
+                                $url = "index.php?v=d&p=administration";
                             } else {
-                                $equipement = "";
-                            }
-                            if($split[0] == 'core') {
-                                $id = isset($split[2]) ? $split[2] : $split[1];
-                                $url = "index.php?v=d&p=administration#" . $split[1];
-                            } else {
-                                $id = $split[1];
-                                $url = "index.php?v=d&m=" . $split[0] . "&p=" . $split[0] . "&id=" . $split[1];
+                                $url = "index.php?v=d&m=" . $split[0] . "&p=" . $split[0] . "&id=" . (isset($split[1]) ? $split[1] : "");
                             }
                             $label = ($equipement != "") ? $equipement : "#" . $id;
                             $return[$a]["plug_element_plugin"] .= "<a class='scanip-assoc' href='" . scan_ip_tools::escape($url) . "' target='_blank' title='" . scan_ip_tools::escape($split[0] . " #" . $id) . "'>"
@@ -155,14 +154,7 @@ class scan_ip_eqLogic extends eqLogic {
         }
         return $return;
     }
-    
-    public static function hideSelect(){
-        if(config::byKey('add_compatibility_safari', 'scan_ip', 0) == 0){
-            echo "hideSelect";
-        } else {
-            echo "hideSelectSafari";
-        }
-    }
+
 
 }
 
